@@ -10,7 +10,7 @@ services:
      MYSQL_USER: wetr
      MYSQL_PASSWORD: bdf1fa05
    ports:
-     - 3306:3306
+     - '3306:3306'
    volumes:
      - mysql_data:/var/lib/mysql
  phpmyadmin:
