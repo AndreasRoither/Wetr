@@ -1,5 +1,4 @@
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS `persons`;
 DROP TABLE IF EXISTS `province`;
 DROP TABLE IF EXISTS `district`;
 DROP TABLE IF EXISTS `community`;
@@ -12,11 +11,6 @@ DROP TABLE IF EXISTS `measurementtype`;
 DROP TABLE IF EXISTS `unit`;
 DROP TABLE IF EXISTS `hasAccess`;
 SET FOREIGN_KEY_CHECKS = 1;
-
-CREATE TABLE `persons` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(60) NOT NULL
-);
 
 CREATE TABLE `province` (
     `provinceId` INTEGER NOT NULL,
@@ -70,6 +64,7 @@ CREATE TABLE `user` (
     `userId` INTEGER NOT NULL,
     `firstName` VARCHAR(60) NOT NULL,
     `lastName` VARCHAR(60) NOT NULL,
+    `password` VARCHAR(60) NOT NULL,
     PRIMARY KEY (`userId`)
 );
 
@@ -110,7 +105,7 @@ ALTER TABLE `address` ADD FOREIGN KEY (`communityId`) REFERENCES `community`(`co
 ALTER TABLE `station` ADD FOREIGN KEY (`stationTypeId`) REFERENCES `stationtype`(`stationTypeId`);
 ALTER TABLE `station` ADD FOREIGN KEY (`addressId`) REFERENCES `address`(`addressId`);
 ALTER TABLE `measurement` ADD FOREIGN KEY (`stationId`) REFERENCES `station`(`stationId`);
-ALTER TABLE `measurement` ADD FOREIGN KEY (`unitId`) REFERENCES `unit`(`unitId`);
 ALTER TABLE `measurement` ADD FOREIGN KEY (`measurementTypeId`) REFERENCES `measurementtype`(`measurementTypeId`);
+ALTER TABLE `measurement` ADD FOREIGN KEY (`unitId`) REFERENCES `unit`(`unitId`);
 ALTER TABLE `hasAccess` ADD FOREIGN KEY (`stationId`) REFERENCES `station`(`stationId`);
 ALTER TABLE `hasAccess` ADD FOREIGN KEY (`userId`) REFERENCES `user`(`userId`);

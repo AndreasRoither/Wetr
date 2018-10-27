@@ -716,7 +716,7 @@
 									"font": "Arial;13;1",
 									"left": 1016,
 									"top": 925,
-									"width": 195.1787109375,
+									"width": 195.89599609375,
 									"height": 13,
 									"text": "user"
 								},
@@ -742,7 +742,7 @@
 											"font": "Arial;13;0",
 											"left": 1021,
 											"top": 948,
-											"width": 185.1787109375,
+											"width": 185.89599609375,
 											"height": 13
 										},
 										{
@@ -757,7 +757,7 @@
 											"font": "Arial;13;0",
 											"left": 1021,
 											"top": 963,
-											"width": 185.1787109375,
+											"width": 185.89599609375,
 											"height": 13
 										},
 										{
@@ -772,22 +772,37 @@
 											"font": "Arial;13;0",
 											"left": 1021,
 											"top": 978,
-											"width": 185.1787109375,
+											"width": 185.89599609375,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFmtk4OMpnwRP8=",
+											"_parent": {
+												"$ref": "AAAAAAFmtTdpH0rMdVk="
+											},
+											"model": {
+												"$ref": "AAAAAAFmtk4OH5nttXg="
+											},
+											"font": "Arial;13;0",
+											"left": 1021,
+											"top": 993,
+											"width": 185.89599609375,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1016,
 									"top": 943,
-									"width": 195.1787109375,
-									"height": 53
+									"width": 195.89599609375,
+									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 1016,
 							"top": 920,
-							"width": 195.1787109375,
-							"height": 76,
+							"width": 195.89599609375,
+							"height": 91,
 							"nameLabel": {
 								"$ref": "AAAAAAFmtTdpH0rLokI="
 							},
@@ -1040,7 +1055,7 @@
 									"font": "Arial;13;1",
 									"left": 232,
 									"top": 565,
-									"width": 141.21728515625,
+									"width": 142.70263671875,
 									"height": 13,
 									"text": "unit"
 								},
@@ -1066,7 +1081,7 @@
 											"font": "Arial;13;0",
 											"left": 237,
 											"top": 588,
-											"width": 131.21728515625,
+											"width": 132.70263671875,
 											"height": 13
 										},
 										{
@@ -1081,21 +1096,21 @@
 											"font": "Arial;13;0",
 											"left": 237,
 											"top": 603,
-											"width": 131.21728515625,
+											"width": 132.70263671875,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 232,
 									"top": 583,
-									"width": 141.21728515625,
+									"width": 142.70263671875,
 									"height": 38
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 232,
 							"top": 560,
-							"width": 141.21728515625,
+							"width": 142.70263671875,
 							"height": 61,
 							"nameLabel": {
 								"$ref": "AAAAAAFmtTgqnks6i1Y="
@@ -1853,7 +1868,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 474,
+									"left": 475,
 									"top": 587,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -1870,7 +1885,7 @@
 										"$ref": "AAAAAAFmtUk9SU6Gh6w="
 									},
 									"font": "Arial;13;0",
-									"left": 397,
+									"left": 399,
 									"top": 587,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -1905,7 +1920,7 @@
 								"$ref": "AAAAAAFmtTgqnks5Zn4="
 							},
 							"lineStyle": 2,
-							"points": "372:608;576:608",
+							"points": "374:608;576:608",
 							"nameLabel": {
 								"$ref": "AAAAAAFmtUk9SU6HcIQ="
 							},
@@ -2649,6 +2664,16 @@
 							"name": "lastName",
 							"type": "VARCHAR",
 							"length": "60"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFmtk4OH5nttXg=",
+							"_parent": {
+								"$ref": "AAAAAAFmtTdpH0rIoco="
+							},
+							"name": "password",
+							"type": "VARCHAR",
+							"length": "60"
 						}
 					]
 				},
@@ -2899,5 +2924,5 @@
 		}
 	],
 	"author": "Daniel Englisch, Andreas Roither",
-	"version": "1.2"
+	"version": "1.3"
 }
