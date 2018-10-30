@@ -224,6 +224,39 @@ CREATE TABLE IF NOT EXISTS `wetr`.`measurement` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `wetr`.`permission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`permission` (
+  `permissionId` INT NOT NULL,
+  `name` VARCHAR(64) NOT NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`permissionId`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `wetr`.`hasPermission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`hasPermission` (
+  `permissionId` INT NOT NULL,
+  `userId` INT NOT NULL,
+  PRIMARY KEY (`permissionId`, `userId`),
+  INDEX `fk_permission_has_user_user1_idx` (`userId` ASC),
+  INDEX `fk_permission_has_user_permission1_idx` (`permissionId` ASC),
+  CONSTRAINT `fk_permission_has_user_permission1`
+    FOREIGN KEY (`permissionId`)
+    REFERENCES `wetr`.`permission` (`permissionId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permission_has_user_user1`
+    FOREIGN KEY (`userId`)
+    REFERENCES `wetr`.`user` (`userId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
