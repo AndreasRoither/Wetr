@@ -1,0 +1,1 @@
+INSERT INTO country (countryId, name) VALUES (1, "Österreich");
