@@ -1,110 +1,161 @@
--- MySQL Workbench Synchronization
--- Generated: 2018-10-29 15:22
--- Model: New Model
--- Version: 1.0
--- Project: Name of the project
--- Author: Xer0
+-- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-ALTER SCHEMA `wetr`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
+-- -----------------------------------------------------
+-- Schema wetr
+-- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema wetr
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `wetr` DEFAULT CHARACTER SET utf8 ;
+USE `wetr` ;
+
+-- -----------------------------------------------------
+-- Table `wetr`.`country`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`country` (
+  `countryId` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`countryId`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `wetr`.`province`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`province` (
-  `provinceId` INT(11) NOT NULL,
+  `provinceId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
-  PRIMARY KEY (`provinceId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `wetr`.`community` (
-  `communityId` INT(11) NOT NULL,
-  `name` VARCHAR(64) NOT NULL,
-  `districtId` INT(11) NOT NULL,
-  `provinceId` INT(11) NOT NULL,
-  PRIMARY KEY (`communityId`, `districtId`, `provinceId`),
-  INDEX `fk_community_district1_idx` (`districtId` ASC, `provinceId` ASC),
-  CONSTRAINT `fk_community_district1`
-    FOREIGN KEY (`districtId` , `provinceId`)
-    REFERENCES `wetr`.`district` (`districtId` , `provinceId`)
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`provinceId`, `countryId`),
+  INDEX `fk_province_country1_idx` (`countryId` ASC),
+  CONSTRAINT `fk_province_country1`
+    FOREIGN KEY (`countryId`)
+    REFERENCES `wetr`.`country` (`countryId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`district`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`district` (
-  `districtId` INT(11) NOT NULL,
-  `name` VARCHAR(64) NULL DEFAULT NULL,
-  `provinceId` INT(11) NOT NULL,
-  PRIMARY KEY (`districtId`, `provinceId`),
-  INDEX `fk_district_province_idx` (`provinceId` ASC),
-  CONSTRAINT `fk_district_province`
-    FOREIGN KEY (`provinceId`)
-    REFERENCES `wetr`.`province` (`provinceId`)
+  `districtId` INT NOT NULL,
+  `name` VARCHAR(64) NOT NULL,
+  `provinceId` INT NOT NULL,
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`districtId`, `provinceId`, `countryId`),
+  INDEX `fk_district_province1_idx` (`provinceId` ASC, `countryId` ASC),
+  CONSTRAINT `fk_district_province1`
+    FOREIGN KEY (`provinceId` , `countryId`)
+    REFERENCES `wetr`.`province` (`provinceId` , `countryId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`community`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`community` (
+  `communityId` INT NOT NULL,
+  `name` VARCHAR(64) NOT NULL,
+  `districtId` INT NOT NULL,
+  `provinceId` INT NOT NULL,
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`communityId`, `districtId`, `provinceId`, `countryId`),
+  INDEX `fk_community_district1_idx` (`districtId` ASC, `provinceId` ASC, `countryId` ASC),
+  CONSTRAINT `fk_community_district1`
+    FOREIGN KEY (`districtId` , `provinceId` , `countryId`)
+    REFERENCES `wetr`.`district` (`districtId` , `provinceId` , `countryId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `wetr`.`address`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`address` (
-  `addressId` INT(11) NOT NULL AUTO_INCREMENT,
+  `addressId` INT NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(64) NOT NULL,
-  `house` VARCHAR(64) NOT NULL,
-  `zip` VARCHAR(64) NOT NULL,
-  `communityId` INT(11) NOT NULL,
-  PRIMARY KEY (`addressId`, `communityId`),
-  INDEX `fk_address_community1_idx` (`communityId` ASC),
+  `house` VARCHAR(16) NOT NULL,
+  `zip` VARCHAR(16) NOT NULL,
+  `communityId` INT NOT NULL,
+  `districtId` INT NOT NULL,
+  `provinceId` INT NOT NULL,
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`addressId`, `communityId`, `districtId`, `provinceId`, `countryId`),
+  INDEX `fk_address_community1_idx` (`communityId` ASC, `districtId` ASC, `provinceId` ASC, `countryId` ASC),
   CONSTRAINT `fk_address_community1`
-    FOREIGN KEY (`communityId`)
-    REFERENCES `wetr`.`community` (`communityId`)
+    FOREIGN KEY (`communityId` , `districtId` , `provinceId` , `countryId`)
+    REFERENCES `wetr`.`community` (`communityId` , `districtId` , `provinceId` , `countryId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`user`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`user` (
-  `userId` INT(11) NOT NULL AUTO_INCREMENT,
+  `userId` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(64) NOT NULL,
   `lastName` VARCHAR(64) NOT NULL,
   `password` VARCHAR(64) NOT NULL,
-  PRIMARY KEY (`userId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  `email` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `wetr`.`station` (
-  `stationId` INT(11) NOT NULL AUTO_INCREMENT,
+
+-- -----------------------------------------------------
+-- Table `wetr`.`stationType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`stationType` (
+  `stationTypeId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
-  `longitude` FLOAT(11) NOT NULL,
-  `latitude` FLOAT(11) NOT NULL,
-  `stationTypeId` INT(11) NOT NULL,
-  `address_addressId` INT(11) NOT NULL,
+  PRIMARY KEY (`stationTypeId`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `wetr`.`station`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wetr`.`station` (
+  `stationId` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) NOT NULL,
+  `longitude` DECIMAL(11,8) NOT NULL,
+  `latitude` DECIMAL(10,8) NOT NULL,
+  `stationTypeId` INT NOT NULL,
+  `addressId` INT NOT NULL,
   PRIMARY KEY (`stationId`),
   INDEX `fk_station_stationType1_idx` (`stationTypeId` ASC),
-  INDEX `fk_station_address1_idx` (`address_addressId` ASC),
+  INDEX `fk_station_address1_idx` (`addressId` ASC),
   CONSTRAINT `fk_station_stationType1`
     FOREIGN KEY (`stationTypeId`)
     REFERENCES `wetr`.`stationType` (`stationTypeId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_station_address1`
-    FOREIGN KEY (`address_addressId`)
+    FOREIGN KEY (`addressId`)
     REFERENCES `wetr`.`address` (`addressId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `wetr`.`stationType` (
-  `stationTypeId` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(64) NOT NULL,
-  PRIMARY KEY (`stationTypeId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `wetr`.`hasAccess`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`hasAccess` (
-  `userId` INT(11) NOT NULL,
-  `stationId` INT(11) NOT NULL,
+  `userId` INT NOT NULL,
+  `stationId` INT NOT NULL,
   PRIMARY KEY (`userId`, `stationId`),
   INDEX `fk_user_has_station_station1_idx` (`stationId` ASC),
   INDEX `fk_user_has_station_user1_idx` (`userId` ASC),
@@ -118,30 +169,39 @@ CREATE TABLE IF NOT EXISTS `wetr`.`hasAccess` (
     REFERENCES `wetr`.`station` (`stationId`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`unit`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`unit` (
-  `unitId` INT(11) NOT NULL AUTO_INCREMENT,
+  `unitId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`unitId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`measurementType`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`measurementType` (
-  `measurementTypeId` INT(11) NOT NULL AUTO_INCREMENT,
+  `measurementTypeId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`measurementTypeId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `wetr`.`measurement`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`measurement` (
-  `measurementId` INT(11) NOT NULL AUTO_INCREMENT,
-  `value` FLOAT(11) NOT NULL,
+  `measurementId` INT NOT NULL AUTO_INCREMENT,
+  `value` DOUBLE NOT NULL,
   `timestamp` TIMESTAMP NOT NULL,
-  `stationId` INT(11) NOT NULL,
-  `unitId` INT(11) NOT NULL,
-  `measurementTypeId` INT(11) NOT NULL,
+  `stationId` INT NOT NULL,
+  `unitId` INT NOT NULL,
+  `measurementTypeId` INT NOT NULL,
   PRIMARY KEY (`measurementId`, `stationId`),
   INDEX `fk_measurement_station1_idx` (`stationId` ASC),
   INDEX `fk_measurement_unit1_idx` (`unitId` ASC),
@@ -161,8 +221,7 @@ CREATE TABLE IF NOT EXISTS `wetr`.`measurement` (
     REFERENCES `wetr`.`measurementType` (`measurementTypeId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
