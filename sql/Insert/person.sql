@@ -1,5 +1,5 @@
 INSERT INTO user (userId, firstName, lastName, email, password) 
-VALUES (1, "admin", "admin", "test@test.com", "$2y$10$OjufvK0BtdFin7ey4AQXUO7yiMNktPjYGyx/gTas4OL5lNZkQNVpG"),
+VALUES (1, "admin", "admin", "test@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
 	(2, "Carmelia", "Birchfield", "test2@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
 	(3, "Kristi", "Luman", "test3@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
 	(4, "Georgie", "Albarran","test4@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
@@ -9,4 +9,18 @@ VALUES (1, "admin", "admin", "test@test.com", "$2y$10$OjufvK0BtdFin7ey4AQXUO7yiM
 	(8, "Malik", "Puckett", "test8@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
 	(9, "Sylvester", "Womac", "test9@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
 	(10, "Iona", "Urrutia", "test10@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
-	(11, "Tressa", "Ristau", "test11@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0");
+	(11, "Tressa", "Ristau", "test11@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(12, "Ossie", "Marquardt", "test12@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(13, "Callie", "Rench", "test13@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(14, "Gwenn", "Slovak", "test14@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(15, "Detra", "Theriot", "test15@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(16, "Dianne", "Tingey", "test16@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(17, "Merna", "Ouk", "test17@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(18, "Priscila", "Lynam", "test18@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(19, "Jamee", "Neyman", "test19@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(20, "Francisca", "Wimberley", "test20@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(21, "Giuseppe", "Schirmer", "test21@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(22, "Chasidy", "Paredez", "test22@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(23, "Karima", "Marney", "test23@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(24, "Roxie", "Dandy", "test24@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
+	(25, "Gracia", "Ogburn", "test25@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0");
