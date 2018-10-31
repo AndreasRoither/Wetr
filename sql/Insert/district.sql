@@ -16,9 +16,10 @@ VALUES (1, 2, 1, "Klagenfurt am Wörthersee"),
 	(1, 2, 4, "Hermagor"),
 	(1, 2, 5, "Sankt Veit an der Glan"),
 	(1, 2, 6, "Spittal an der Drau"),
-	(1, 2, 7, "Villach-Land"),
-	(1, 2, 8, "Völkermarkt"),
-	(1, 2, 9, "Wolfsberg");
+	(1, 2, 7, "Villach"),
+	(1, 2, 8, "Villach-Land"),
+	(1, 2, 9, "Völkermarkt"),
+	(1, 2, 10, "Wolfsberg");
 
 INSERT INTO district (countryId, provinceId, districtId, name) 
 VALUES (1, 3, 1, "Amstetten"),
@@ -40,7 +41,7 @@ VALUES (1, 3, 1, "Amstetten"),
 	(1, 3, 17, "Scheibbs"),
 	(1, 3, 18, "Tulln"),
 	(1, 3, 19, "Waidhofen an der Thaya"),
-	(1, 3, 20, "Waidhofen an der Ybbs (Stadt)"),
+	(1, 3, 20, "Waidhofen an der Ybbs"),
 	(1, 3, 21, "Wiener Neustadt"),
 	(1, 3, 22, "Zwettl");
 
@@ -77,11 +78,12 @@ VALUES (1, 6, 1, "Bruck-Mürzzuschlag"),
 	(1, 6, 5, "Hartberg-Fürstenfeld"),
 	(1, 6, 6, "Leibnitz"),
 	(1, 6, 7, "Leoben"),
-	(1, 6, 8, "Murau"),
-	(1, 6, 9, "Murtal"),
-	(1, 6, 10, "Südoststeiermark"),
-	(1, 6, 11, "Voitsberg"),
-	(1, 6, 12, "Weiz");
+	(1, 6, 8, "Liezen"),
+	(1, 6, 9, "Murau"),
+	(1, 6, 10, "Murtal"),
+	(1, 6, 11, "Südoststeiermark"),
+	(1, 6, 12, "Voitsberg"),
+	(1, 6, 13, "Weiz");
 
 INSERT INTO district (countryId, provinceId, districtId, name) 
 VALUES (1, 7, 1, "Imst"),
