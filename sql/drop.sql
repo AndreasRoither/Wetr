@@ -9,7 +9,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 DROP TABLE IF EXISTS `wetr`.`hasPermission` ;
 DROP TABLE IF EXISTS `wetr`.`permission` ;
-DROP TABLE IF EXISTS `wetr`.`hasAccess` ;
 DROP TABLE IF EXISTS `wetr`.`measurement` ;
 DROP TABLE IF EXISTS `wetr`.`unit` ;
 DROP TABLE IF EXISTS `wetr`.`measurementType` ;

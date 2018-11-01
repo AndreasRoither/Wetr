@@ -148,12 +148,13 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
     file2 = open("address.txt", "w")
     file3 = open("community.txt", "w")
 
-    file.write("INSERT INTO station (stationId, name, longitude, latitude, stationTypeId, addressId) VALUES\n")
+    file.write("INSERT INTO station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES\n")
     file2.write("INSERT INTO address (addressId, communityId, house, street, zip) VALUES\n")
     file3.write("INSERT INTO community (communityId, districtId, name) VALUES\n")
 
     idCounter = 1
     idCommunity = 1
+    idUser = 1
 
     for row in reader:
         stationType = ""
@@ -217,7 +218,7 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
             if not doubleCommunity:
                 valuesCommunity = "\t(" + str(idCommunity) + ", " + str(districtId) +  ", \"" + community + "\"),\n"
             valuesAddress = "\t(" + str(idCounter) + ", " + str(idCommunity) + ", \""  + "\", \"" + rest + "\", " + str(plz) + "),\n"
-            valuesStation = "\t(" + str(idCounter) + ", \"" + name + "\", " + longitude + ", " + latitude + ", " + stationType + ", " + str(idCounter) + "),\n"
+            valuesStation = "\t(" + str(idCounter) + ", \"" + name + "\", " + longitude + ", " + latitude + ", " + stationType + ", " + str(idCounter) + ", " + str(idUser) + "),\n"
 
             # Write to files
             file2.write(valuesAddress)
@@ -226,6 +227,9 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
                 idCommunity = (idCommunity+1)%26
                 if idCommunity == 0:
                     idCommunity = 1
+                idUser = (idUser+1)%26
+                if idUser == 0:
+                    idUser = 1
             file.write(valuesStation)
 
             print(str(idCounter) + " done")

@@ -80,7 +80,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`address` (
   `addressId` INT NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(128) NOT NULL,
+  `street` VARCHAR(512) NOT NULL,
   `house` VARCHAR(16) NOT NULL,
   `zip` VARCHAR(16) NOT NULL,
   `communityId` INT NOT NULL,
@@ -128,9 +128,11 @@ CREATE TABLE IF NOT EXISTS `wetr`.`station` (
   `latitude` DECIMAL(10,8) NOT NULL,
   `stationTypeId` INT NOT NULL,
   `addressId` INT NOT NULL,
+  `userId` INT NOT NULL,
   PRIMARY KEY (`stationId`),
   INDEX `fk_station_stationType1_idx` (`stationTypeId` ASC),
   INDEX `fk_station_address1_idx` (`addressId` ASC),
+  INDEX `fk_station_user1_idx` (`userId` ASC),
   CONSTRAINT `fk_station_stationType1`
     FOREIGN KEY (`stationTypeId`)
     REFERENCES `wetr`.`stationType` (`stationTypeId`)
@@ -140,29 +142,12 @@ CREATE TABLE IF NOT EXISTS `wetr`.`station` (
     FOREIGN KEY (`addressId`)
     REFERENCES `wetr`.`address` (`addressId`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `wetr`.`hasAccess`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `wetr`.`hasAccess` (
-  `userId` INT NOT NULL,
-  `stationId` INT NOT NULL,
-  PRIMARY KEY (`userId`, `stationId`),
-  INDEX `fk_user_has_station_station1_idx` (`stationId` ASC),
-  INDEX `fk_user_has_station_user1_idx` (`userId` ASC),
-  CONSTRAINT `fk_user_has_station_user1`
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_station_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `wetr`.`user` (`userId`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_station_station1`
-    FOREIGN KEY (`stationId`)
-    REFERENCES `wetr`.`station` (`stationId`)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
