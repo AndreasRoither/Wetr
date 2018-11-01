@@ -1,4 +1,4 @@
-INSERT INTO address (addressId, communityId, house, street, zip) VALUES
+INSERT INTO address (addressId, communityId, location, zip) VALUES
 	(1, 2, "Andau Bezirk Neusiedl", 7163),
 	(2, 3, "Josef Hölzel Allee Bad Tatzmannsdorf Bezirk Oberwart", 7431),
 	(3, 4, "SV Bernstein Josef-Haydn-Gasse Grundbaldauf Gemeinde Bernstein Bezirk Oberwart", 7434),
