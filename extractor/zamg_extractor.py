@@ -144,7 +144,7 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
     reader = csv.reader(csvfile, delimiter=';')
     geolocator = Nominatim(user_agent="ZAMG")
 
-    file = open("extract.txt","w") 
+    file = open("station.txt","w") 
     file2 = open("address.txt", "w")
     file3 = open("community.txt", "w")
 
