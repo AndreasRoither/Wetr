@@ -17,7 +17,7 @@ namespace Common.Dal.Ado
             this.connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
         }
 
-        public IEnumerable<T> Query<T>(string sql, RowMapper<T> rowMapper, params Parameter[] parameters)
+        public async Task<IEnumerable<T>> QueryAsync<T>(string sql, RowMapper<T> rowMapper, params Parameter[] parameters)
         {
             var items = new List<T>();
 
@@ -31,7 +31,7 @@ namespace Common.Dal.Ado
                     AddParameters(command, parameters);
 
                     // Read reveived data
-                    using (IDataReader reader = command.ExecuteReader())
+                    using (IDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
