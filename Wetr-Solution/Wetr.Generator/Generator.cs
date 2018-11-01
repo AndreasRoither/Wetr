@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Dal.Ado;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,8 +13,6 @@ namespace Wetr.Generator
     class Generator
     {
 
-        private string[] names;
-
         public enum Season
         {
             SUMMER, WINTER, FALL, SPRING, UKN
@@ -21,26 +20,54 @@ namespace Wetr.Generator
 
         public enum State
         {
-            SUNNY, CLOUDY, RAINY, FOGGY, 
+            SUNNY, CLOUDY, RAINY, FOGGY,
         }
 
         /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
-        private Tuple<float,float> GetTempRange(Season season)
+        private Tuple<float, float> GetTempRange(Season season)
         {
             switch (season)
             {
-                case Season.SPRING: return Tuple.Create(8.23f,15f);
+                case Season.SPRING: return Tuple.Create(8.23f, 15f);
                 case Season.SUMMER: return Tuple.Create(13.2f, 23.76f);
                 case Season.FALL: return Tuple.Create(5.23f, 14.1f);
                 case Season.WINTER: return Tuple.Create(-3.1f, 4.6f);
                 default: return Tuple.Create(0f, 0f);
             }
-                
+
+        }
+
+        /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
+        private int GetAvgDownfall(Season season)
+        {
+            switch (season)
+            {
+                case Season.SPRING: return 308;
+                case Season.SUMMER: return 476;
+                case Season.FALL: return 260;
+                case Season.WINTER: return 170;
+                default: return 0;
+            }
+
+        }
+
+        /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
+        private float GetAvgHumidity(Season season)
+        {
+            switch (season)
+            {
+                case Season.SPRING: return 84.3f;
+                case Season.SUMMER: return 83.3f;
+                case Season.FALL: return 85.3f;
+                case Season.WINTER: return 91.3f;
+                default: return 0f;
+            }
+
         }
 
         private Season GetSeason(DateTime date)
         {
-            switch (date.Month)              
+            switch (date.Month)
             {
                 case 1: return Season.WINTER;
                 case 2: return Season.WINTER;
@@ -77,13 +104,16 @@ namespace Wetr.Generator
         public float GetTemperature(Season s, int hour)
         {
             Tuple<float, float> range = GetTempRange(s);
-            if(hour < 12)
+            if (hour < 12)
                 return Map(hour, 0, 11, range.Item1, range.Item2);
             return Map(hour, 12, 23, range.Item2, range.Item1);
         }
 
         private void Generate()
         {
+
+            int data = 0;
+
             /* https://stackoverflow.com/questions/3135569/how-to-change-symbol-for-decimal-point-in-double-tostring */
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
 
@@ -91,65 +121,98 @@ namespace Wetr.Generator
             using (StreamWriter file = new StreamWriter("measurementsTemperature.sql"))
             {
                 DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12,31, 23, 59, 59);
-
-                file.WriteLine("INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES");
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
 
                 /* For every station*/
-                for(int stationId = 1; stationId < 70; stationId++)
+                for (int stationId = 1; stationId <= 30; stationId++)
                 {
                     /* For every hour in one year */
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
-                        file.WriteLine($"(NULL, '{GetTemperature(GetSeason(t),t.Hour) + GetRandomNumber(-1.25f,1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1'),");
+                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetTemperature(GetSeason(t), t.Hour) + GetRandomNumber(-1.25f, 1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1');");
+                        data++;
                     }
                 }
 
-
-                Console.WriteLine("Done!");
             }
 
-
-            return;
-
-            /* Loading datapools */
-            this.LoadUsernames();
-
-            using (StreamWriter file = new StreamWriter("insert.sql"))
+            /* Generate Downfall Data */
+            using (StreamWriter file = new StreamWriter("measurementsDownfall.sql"))
             {
-                GenerateUsers(file);
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+
+                /* For every station*/
+                for (int stationId = 20; stationId <= 50; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
+                    {
+                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetRandomNumber(0, GetAvgDownfall(GetSeason(t)) * 2)}', '{getTimesamp(t)}', '{stationId}', '3', '3');");
+                        data++;
+                    }
+                }
+
             }
+
+            /* Generate Humidity Data */
+            using (StreamWriter file = new StreamWriter("measurementsHumidity.sql"))
+            {
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+                /* For every station*/
+                for (int stationId = 40; stationId <= 70; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
+                    {
+                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetAvgHumidity(GetSeason(t)) + GetRandomNumber(-10f, 10f)}', '{getTimesamp(t)}', '{stationId}', '6', '4');");
+                        data++;
+                    }
+                }
+
+            }
+            Console.WriteLine("Done! Generated " + data + " data elements!");
+
+
+
         }
 
-        static void Main(string[] args)
+        private void ImportWeatherData()
+        {
+            ImportSql("measurementsTemperature.sql");
+            ImportSql("measurementsDownfall.sql");
+            ImportSql("measurementsHumidity.sql");
+        }
+
+
+        private void ImportSql(string fileName)
+        {
+            AdoTemplate template = new AdoTemplate(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+
+            Console.WriteLine("Inserting data from file " + fileName);
+
+            /* https://stackoverflow.com/questions/8037070/whats-the-fastest-way-to-read-a-text-file-line-by-line */
+            const Int32 BufferSize = 128;
+            using (var fileStream = File.OpenRead(fileName))
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
+            {
+                String line;
+                while ((line = streamReader.ReadLine()) != null)
+                    template.ExecuteAsync(line);
+
+            }
+
+        }
+
+        static async Task Main(string[] args)
         {
             var generator = new Generator();
             generator.Generate();
+            //generator.ImportWeatherData();
         }
 
-        private void LoadUsernames()
-        {
-            this.names = File.ReadLines("users.txt").ToArray(); ;
-            this.names.ToList().ForEach(line => this.names[Array.IndexOf(this.names, line)] = line.Trim());
-        }
-
-        private void GenerateUsers(StreamWriter file)
-        {
-
-            string password = "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0";
-
-
-            file.WriteLine("INSERT INTO user (userId, firstName, lastName, password) VALUES");
-
-            file.Write($"(0, \"{names[0].Split(' ')[0]}\", \"{names[0].Split(' ')[1]}\", \"{password}\")");
-
-            for (int id = 1; id < names.Count(); id++)
-            {
-                file.Write($",\n({id}, \"{names[id].Split(' ')[0]}\", \"{names[id].Split(' ')[1]}\", \"{password}\")");
-            }
-
-            file.Write(";");
-
-        }
     }
 }
