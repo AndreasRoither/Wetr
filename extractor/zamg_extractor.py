@@ -217,30 +217,21 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
 
             if not doubleCommunity:
                 valuesCommunity = "\t(" + str(idCommunity) + ", " + str(districtId) +  ", \"" + community + "\"),\n"
+                idCommunity += 1
             valuesAddress = "\t(" + str(idCounter) + ", " + str(idCommunity) + ", \""  + "\", \"" + rest + "\", " + str(plz) + "),\n"
             valuesStation = "\t(" + str(idCounter) + ", \"" + name + "\", " + longitude + ", " + latitude + ", " + stationType + ", " + str(idCounter) + ", " + str(idUser) + "),\n"
 
             # Write to files
             file2.write(valuesAddress)
+            file.write(valuesStation)
+
             if not doubleCommunity:
                 file3.write(valuesCommunity)
-                idCommunity = (idCommunity+1)%26
-                if idCommunity == 0:
-                    idCommunity = 1
                 idUser = (idUser+1)%26
                 if idUser == 0:
                     idUser = 1
-            file.write(valuesStation)
-
+            
             print(str(idCounter) + " done")
             idCounter += 1
         else:
             print("Skipped: " + community + ", " + district + ", " + province + ", " + str(plz))
-
-
-
-
-        
-        
-
-        
