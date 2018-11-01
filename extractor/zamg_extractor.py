@@ -149,7 +149,7 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
     file3 = open("community.txt", "w")
 
     file.write("INSERT INTO station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES\n")
-    file2.write("INSERT INTO address (addressId, communityId, house, street, zip) VALUES\n")
+    file2.write("INSERT INTO address (addressId, communityId, location, zip) VALUES\n")
     file3.write("INSERT INTO community (communityId, districtId, name) VALUES\n")
 
     idCounter = 1
