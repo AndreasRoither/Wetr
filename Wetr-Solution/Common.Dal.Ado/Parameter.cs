@@ -1,5 +1,4 @@
-﻿
-namespace Common.Dal.Ado
+﻿namespace Common.Dal.Ado
 {
     public struct Parameter
     {

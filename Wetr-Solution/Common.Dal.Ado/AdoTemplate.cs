@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.Dal.Ado
@@ -22,7 +19,6 @@ namespace Common.Dal.Ado
 
         public IEnumerable<T> Query<T>(string sql, RowMapper<T> rowMapper, params Parameter[] parameters)
         {
-
             var items = new List<T>();
 
             // Create Connection to DB
@@ -50,7 +46,7 @@ namespace Common.Dal.Ado
 
         private void AddParameters(DbCommand command, Parameter[] parameters)
         {
-           foreach(var parameter in parameters)
+            foreach (var parameter in parameters)
             {
                 DbParameter dbParameter = command.CreateParameter();
                 dbParameter.ParameterName = parameter.Name;
@@ -68,7 +64,6 @@ namespace Common.Dal.Ado
                 this.AddParameters(command, parameters);
 
                 return await command.ExecuteNonQueryAsync();
-
             }
         }
     }

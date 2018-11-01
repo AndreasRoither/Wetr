@@ -6,6 +6,7 @@ namespace Common.Dal.Ado
     {
         string ConnectionString { get; }
         string ProviderName { get; }
+
         DbConnection CreateConnection();
     }
 }

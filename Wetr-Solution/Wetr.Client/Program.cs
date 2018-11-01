@@ -1,16 +1,12 @@
 ﻿using Common.Dal.Ado;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Wetr.Client
 {
-    class Program
+    internal class Program
     {
-
-        class Person
+        private class Person
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -20,11 +16,11 @@ namespace Wetr.Client
                 this.Id = id;
                 this.Name = name;
             }
-    }
+        }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-           AdoTemplate template = new AdoTemplate(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+            AdoTemplate template = new AdoTemplate(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
             Console.WriteLine("Printing persons:");
             template.Query("select * from persons", record => new Person((int)record["id"], (string)record["name"])).ToList().ForEach(person =>
             {

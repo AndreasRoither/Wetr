@@ -1,18 +1,15 @@
 ﻿using Common.Dal.Ado;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Wetr.Generator
 {
-    class Generator
+    internal class Generator
     {
-
         public enum Season
         {
             SUMMER, WINTER, FALL, SPRING, UKN
@@ -24,6 +21,7 @@ namespace Wetr.Generator
         }
 
         /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
+
         private Tuple<float, float> GetTempRange(Season season)
         {
             switch (season)
@@ -34,10 +32,10 @@ namespace Wetr.Generator
                 case Season.WINTER: return Tuple.Create(-3.1f, 4.6f);
                 default: return Tuple.Create(0f, 0f);
             }
-
         }
 
         /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
+
         private int GetAvgDownfall(Season season)
         {
             switch (season)
@@ -48,10 +46,10 @@ namespace Wetr.Generator
                 case Season.WINTER: return 170;
                 default: return 0;
             }
-
         }
 
         /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
+
         private float GetAvgHumidity(Season season)
         {
             switch (season)
@@ -62,7 +60,6 @@ namespace Wetr.Generator
                 case Season.WINTER: return 91.3f;
                 default: return 0f;
             }
-
         }
 
         private Season GetSeason(DateTime date)
@@ -86,16 +83,19 @@ namespace Wetr.Generator
         }
 
         /* https://stackoverflow.com/questions/7833030/c-sharp-store-datetime-to-timestamp-column-in-mysql */
+
         public string getTimesamp(DateTime dateTime) => dateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
         /* https://stackoverflow.com/questions/14353485/how-do-i-map-numbers-in-c-sharp-like-with-map-in-arduino */
+
         public float Map(int value, float fromSource, float toSource, float fromTarget, float toTarget)
         {
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
         }
 
         /* https://stackoverflow.com/questions/1064901/random-number-between-2-double-numbers */
-        static Random random = new Random();
+        private static Random random = new Random();
+
         public double GetRandomNumber(double minimum, double maximum)
         {
             return random.NextDouble() * (maximum - minimum) + minimum;
@@ -111,7 +111,6 @@ namespace Wetr.Generator
 
         private void Generate()
         {
-
             int data = 0;
 
             /* https://stackoverflow.com/questions/3135569/how-to-change-symbol-for-decimal-point-in-double-tostring */
@@ -133,7 +132,6 @@ namespace Wetr.Generator
                         data++;
                     }
                 }
-
             }
 
             /* Generate Downfall Data */
@@ -141,7 +139,6 @@ namespace Wetr.Generator
             {
                 DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
                 DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
-
 
                 /* For every station*/
                 for (int stationId = 20; stationId <= 50; stationId++)
@@ -153,7 +150,6 @@ namespace Wetr.Generator
                         data++;
                     }
                 }
-
             }
 
             /* Generate Humidity Data */
@@ -172,12 +168,8 @@ namespace Wetr.Generator
                         data++;
                     }
                 }
-
             }
             Console.WriteLine("Done! Generated " + data + " data elements!");
-
-
-
         }
 
         private void ImportWeatherData()
@@ -186,7 +178,6 @@ namespace Wetr.Generator
             ImportSql("measurementsDownfall.sql");
             ImportSql("measurementsHumidity.sql");
         }
-
 
         private void ImportSql(string fileName)
         {
@@ -202,17 +193,14 @@ namespace Wetr.Generator
                 String line;
                 while ((line = streamReader.ReadLine()) != null)
                     template.ExecuteAsync(line);
-
             }
-
         }
 
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var generator = new Generator();
             generator.Generate();
             //generator.ImportWeatherData();
         }
-
     }
 }
