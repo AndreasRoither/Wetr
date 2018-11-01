@@ -15,11 +15,6 @@ namespace Wetr.Generator
             SUMMER, WINTER, FALL, SPRING, UKN
         }
 
-        public enum State
-        {
-            SUNNY, CLOUDY, RAINY, FOGGY,
-        }
-
         /* Min and May Temp from https://www.klimatabelle.info/europa/oesterreich */
 
         private Tuple<float, float> GetTempRange(Season season)
@@ -111,31 +106,19 @@ namespace Wetr.Generator
 
         private void Generate()
         {
-            int data = 0;
-
             /* https://stackoverflow.com/questions/3135569/how-to-change-symbol-for-decimal-point-in-double-tostring */
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
 
-            /* Generate Temperature Data */
-            using (StreamWriter file = new StreamWriter("measurementsTemperature.sql"))
-            {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+            this.GenerateTemperaturData();
+            this.GenerateHumidityData();
+            this.GenerateDownfallData();
 
-                /* For every station*/
-                for (int stationId = 1; stationId <= 30; stationId++)
-                {
-                    /* For every hour in one year */
-                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
-                    {
-                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetTemperature(GetSeason(t), t.Hour) + GetRandomNumber(-1.25f, 1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1');");
-                        data++;
-                    }
-                }
-            }
+        }
 
+        private void GenerateDownfallData()
+        {
             /* Generate Downfall Data */
-            using (StreamWriter file = new StreamWriter("measurementsDownfall.sql"))
+            using (StreamWriter file = new StreamWriter("measurementsDownfall.bulk"))
             {
                 DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
                 DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
@@ -146,14 +129,16 @@ namespace Wetr.Generator
                     /* For every hour in one year */
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
-                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetRandomNumber(0, GetAvgDownfall(GetSeason(t)) * 2)}', '{getTimesamp(t)}', '{stationId}', '3', '3');");
-                        data++;
+                        file.WriteLine($"'NULL', '{GetRandomNumber(0, GetAvgDownfall(GetSeason(t)) * 2)}', '{getTimesamp(t)}', '{stationId}', '3', '3'");
                     }
                 }
             }
+        }
 
+        private void GenerateHumidityData()
+        {
             /* Generate Humidity Data */
-            using (StreamWriter file = new StreamWriter("measurementsHumidity.sql"))
+            using (StreamWriter file = new StreamWriter("measurementsHumidity.bulk"))
             {
                 DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
                 DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
@@ -164,43 +149,37 @@ namespace Wetr.Generator
                     /* For every hour in one year */
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
-                        file.WriteLine($"INSERT INTO `measurement` (`measurementId`, `value`, `timestamp`, `stationId`, `unitId`, `measurementTypeId`) VALUES (NULL, '{GetAvgHumidity(GetSeason(t)) + GetRandomNumber(-10f, 10f)}', '{getTimesamp(t)}', '{stationId}', '6', '4');");
-                        data++;
+                        file.WriteLine($"'NULL', '{GetAvgHumidity(GetSeason(t)) + GetRandomNumber(-10f, 10f)}', '{getTimesamp(t)}', '{stationId}', '6', '4'");
                     }
                 }
             }
-            Console.WriteLine("Done! Generated " + data + " data elements!");
         }
 
-        private void ImportWeatherData()
+        private void GenerateTemperaturData()
         {
-            ImportSql("measurementsTemperature.sql");
-            ImportSql("measurementsDownfall.sql");
-            ImportSql("measurementsHumidity.sql");
-        }
-
-        private void ImportSql(string fileName)
-        {
-            AdoTemplate template = new AdoTemplate(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
-
-            Console.WriteLine("Inserting data from file " + fileName);
-
-            /* https://stackoverflow.com/questions/8037070/whats-the-fastest-way-to-read-a-text-file-line-by-line */
-            const Int32 BufferSize = 128;
-            using (var fileStream = File.OpenRead(fileName))
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
+            /* Generate Temperature Data */
+            using (StreamWriter file = new StreamWriter("measurementsTemperature.bulk"))
             {
-                String line;
-                while ((line = streamReader.ReadLine()) != null)
-                    template.ExecuteAsync(line);
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+                /* For every station*/
+                for (int stationId = 1; stationId <= 30; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
+                    {
+                        file.WriteLine($"'NULL', '{GetTemperature(GetSeason(t), t.Hour) + GetRandomNumber(-1.25f, 1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1'");
+                    }
+                }
+
             }
         }
 
-        private static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             var generator = new Generator();
             generator.Generate();
-            //generator.ImportWeatherData();
         }
     }
 }

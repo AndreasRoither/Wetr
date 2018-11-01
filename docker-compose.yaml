@@ -23,5 +23,7 @@ services:
       - '8080:80'
     environment:
       MYSQL_ROOT_PASSWORD: 0c1cd84e
+    volumes:
+      - ./sql:/tmp/sql/
 volumes:
   mysql_data:
