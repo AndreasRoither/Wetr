@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema wetr
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `wetr` ;
 
 -- -----------------------------------------------------
 -- Schema wetr
@@ -17,6 +18,8 @@ USE `wetr` ;
 -- -----------------------------------------------------
 -- Table `wetr`.`country`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`country` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`country` (
   `countryId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
@@ -27,6 +30,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`province`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`province` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`province` (
   `provinceId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
@@ -44,6 +49,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`district`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`district` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`district` (
   `districtId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
@@ -61,6 +68,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`community`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`community` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`community` (
   `communityId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
@@ -78,10 +87,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`address`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`address` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`address` (
   `addressId` INT NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(512) NOT NULL,
-  `house` VARCHAR(16) NOT NULL,
+  `location` VARCHAR(512) NOT NULL,
   `zip` VARCHAR(16) NOT NULL,
   `communityId` INT NOT NULL,
   PRIMARY KEY (`addressId`),
@@ -97,6 +107,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`user`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`user` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`user` (
   `userId` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(64) NOT NULL,
@@ -111,6 +123,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`stationType`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`stationType` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`stationType` (
   `stationTypeId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
@@ -121,6 +135,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`station`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`station` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`station` (
   `stationId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
@@ -154,6 +170,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`unit`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`unit` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`unit` (
   `unitId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
@@ -164,6 +182,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`measurementType`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`measurementType` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`measurementType` (
   `measurementTypeId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
@@ -174,6 +194,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`measurement`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`measurement` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`measurement` (
   `measurementId` INT NOT NULL AUTO_INCREMENT,
   `value` DOUBLE NOT NULL,
@@ -206,6 +228,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`permission`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`permission` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`permission` (
   `permissionId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
@@ -217,6 +241,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wetr`.`hasPermission`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wetr`.`hasPermission` ;
+
 CREATE TABLE IF NOT EXISTS `wetr`.`hasPermission` (
   `permissionId` INT NOT NULL,
   `userId` INT NOT NULL,
