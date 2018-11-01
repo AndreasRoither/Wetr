@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `wetr`.`province` (
   `provinceId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
   `countryId` INT NOT NULL,
-  PRIMARY KEY (`provinceId`, `countryId`),
+  PRIMARY KEY (`provinceId`),
   INDEX `fk_province_country1_idx` (`countryId` ASC),
   CONSTRAINT `fk_province_country1`
     FOREIGN KEY (`countryId`)
@@ -48,12 +48,11 @@ CREATE TABLE IF NOT EXISTS `wetr`.`district` (
   `districtId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
   `provinceId` INT NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`districtId`, `provinceId`, `countryId`),
-  INDEX `fk_district_province1_idx` (`provinceId` ASC, `countryId` ASC),
+  PRIMARY KEY (`districtId`),
+  INDEX `fk_district_province1_idx` (`provinceId` ASC),
   CONSTRAINT `fk_district_province1`
-    FOREIGN KEY (`provinceId` , `countryId`)
-    REFERENCES `wetr`.`province` (`provinceId` , `countryId`)
+    FOREIGN KEY (`provinceId`)
+    REFERENCES `wetr`.`province` (`provinceId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -66,13 +65,11 @@ CREATE TABLE IF NOT EXISTS `wetr`.`community` (
   `communityId` INT NOT NULL,
   `name` VARCHAR(64) NOT NULL,
   `districtId` INT NOT NULL,
-  `provinceId` INT NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`communityId`, `districtId`, `provinceId`, `countryId`),
-  INDEX `fk_community_district1_idx` (`districtId` ASC, `provinceId` ASC, `countryId` ASC),
+  PRIMARY KEY (`communityId`),
+  INDEX `fk_community_district1_idx` (`districtId` ASC),
   CONSTRAINT `fk_community_district1`
-    FOREIGN KEY (`districtId` , `provinceId` , `countryId`)
-    REFERENCES `wetr`.`district` (`districtId` , `provinceId` , `countryId`)
+    FOREIGN KEY (`districtId`)
+    REFERENCES `wetr`.`district` (`districtId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -83,18 +80,15 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wetr`.`address` (
   `addressId` INT NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(64) NOT NULL,
+  `street` VARCHAR(128) NOT NULL,
   `house` VARCHAR(16) NOT NULL,
   `zip` VARCHAR(16) NOT NULL,
   `communityId` INT NOT NULL,
-  `districtId` INT NOT NULL,
-  `provinceId` INT NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`addressId`, `communityId`, `districtId`, `provinceId`, `countryId`),
-  INDEX `fk_address_community1_idx` (`communityId` ASC, `districtId` ASC, `provinceId` ASC, `countryId` ASC),
+  PRIMARY KEY (`addressId`),
+  INDEX `fk_address_community1_idx` (`communityId` ASC),
   CONSTRAINT `fk_address_community1`
-    FOREIGN KEY (`communityId` , `districtId` , `provinceId` , `countryId`)
-    REFERENCES `wetr`.`community` (`communityId` , `districtId` , `provinceId` , `countryId`)
+    FOREIGN KEY (`communityId`)
+    REFERENCES `wetr`.`community` (`communityId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

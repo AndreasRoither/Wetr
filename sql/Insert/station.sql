@@ -1,5 +1,4 @@
 INSERT INTO station (stationId, name, longitude, latitude, stationTypeId, addressId) VALUES
-	(1, "ANDAU", 17.03333282, 47.77249908, 2, 1),
 	(2, "BAD TATZMANNSDORF ", 16.22499847, 47.33805466, 1, 2),
 	(3, "BERNSTEIN", 16.26138878, 47.40833282, 1, 3),
 	(4, "BRUCKNEUDORF", 16.84499931, 48.01277924, 1, 4),
