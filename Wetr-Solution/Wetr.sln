@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Generator", "Wetr.Gene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Domain", "Wetr.Domain\Wetr.Domain.csproj", "{4EBE8EC8-9C9B-4709-A595-115298EA87F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Dal.Interface", "Wetr.Dal.Interface\Wetr.Dal.Interface.csproj", "{13F2E812-FA97-4306-91B9-9455CDF464C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Dal.Ado", "Wetr.Dal.Ado\Wetr.Dal.Ado.csproj", "{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4EBE8EC8-9C9B-4709-A595-115298EA87F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EBE8EC8-9C9B-4709-A595-115298EA87F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EBE8EC8-9C9B-4709-A595-115298EA87F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F2E812-FA97-4306-91B9-9455CDF464C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F2E812-FA97-4306-91B9-9455CDF464C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F2E812-FA97-4306-91B9-9455CDF464C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F2E812-FA97-4306-91B9-9455CDF464C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

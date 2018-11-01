@@ -1,6 +1,6 @@
 ﻿namespace Wetr.Domain
 {
-    internal class Permission
+    public class Permission
     {
         public int PermissionId { get; set; }
         public string Name { get; set; }
