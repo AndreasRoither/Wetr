@@ -218,7 +218,7 @@ with open('Stationsliste.csv', 'r', encoding='cp1252') as csvfile:
             if not doubleCommunity:
                 valuesCommunity = "\t(" + str(idCommunity) + ", " + str(districtId) +  ", \"" + community + "\"),\n"
                 idCommunity += 1
-            valuesAddress = "\t(" + str(idCounter) + ", " + str(idCommunity) + ", \""  + "\", \"" + rest + "\", " + str(plz) + "),\n"
+            valuesAddress = "\t(" + str(idCounter) + ", " + str(idCommunity) + ", \"" + rest + "\", " + str(plz) + "),\n"
             valuesStation = "\t(" + str(idCounter) + ", \"" + name + "\", " + longitude + ", " + latitude + ", " + stationType + ", " + str(idCounter) + ", " + str(idUser) + "),\n"
 
             # Write to files
