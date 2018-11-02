@@ -28,6 +28,11 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        public Task<bool> DeleteAsync(int unitId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Unit>> FindAllAsync()
         {
             throw new NotImplementedException();

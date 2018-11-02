@@ -52,7 +52,7 @@
     <Compile Include="AdoPermissionDaoTest.cs" />
     <Compile Include="AdoMeasurementTypeDaoTest.cs" />
     <Compile Include="AdoProvinceDaoTest.cs" />
-    <Compile Include="AdpStationDaoTest.cs" />
+    <Compile Include="AdoStationDaoTest.cs" />
     <Compile Include="AdoStationTypeDaoTest.cs" />
     <Compile Include="AdoUnitDaoTest.cs" />
     <Compile Include="AdoMeasurementDaoTest.cs" />

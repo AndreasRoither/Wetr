@@ -20,5 +20,15 @@ namespace Wetr.Test.Dal
         public void TestUpdateAsync()
         {
         }
+
+        [TestMethod]
+        public void TestDeleteAsync()
+        {
+        }
+
+        [TestMethod]
+        public void TestFindByEmailAsync()
+        {
+        }
     }
 }

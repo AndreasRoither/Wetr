@@ -12,5 +12,6 @@ namespace Wetr.Dal.Interface
         Task<Unit> FindByIdAsync(int unitId);
         Task<IEnumerable<Unit>> FindAllAsync();
         Task<bool> UpdateAsync(Unit unitType);
+        Task<bool> DeleteAsync(int unitId);
     }
 }

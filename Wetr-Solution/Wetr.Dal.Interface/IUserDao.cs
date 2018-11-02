@@ -12,5 +12,8 @@ namespace Wetr.Dal.Interface
         Task<User> FindByIdAsync(int userId);
         Task<IEnumerable<User>> FindAllAsync();
         Task<bool> UpdateAsync(User user);
+        Task<bool> DeleteAsync(int userId);
+
+        Task<User> FindByEmailAsync(string email);
     }
 }

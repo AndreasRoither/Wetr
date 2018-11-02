@@ -29,6 +29,11 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        public Task<bool> DeleteAsync(int provinceId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Province>> FindAllAsync()
         {
             throw new NotImplementedException();

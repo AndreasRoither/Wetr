@@ -21,5 +21,10 @@ namespace Wetr.Test.Dal
         {
         }
 
+        [TestMethod]
+        public void TestDeleteAsync()
+        {
+        }
+
     }
 }

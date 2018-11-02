@@ -12,6 +12,7 @@ namespace Wetr.Dal.Interface
         Task<Permission>FindByIdAsync(int permissionId);
         Task<IEnumerable<Permission>> FindAllAsync();
         Task<bool> UpdateAsync(Permission permission);
+        Task<bool> DeleteAsync(int permissionId);
 
         Task<IEnumerable<Permission>> FindForUserId(int userId);
         Task<bool> RemoveForUserId(int permissionId, int userId);

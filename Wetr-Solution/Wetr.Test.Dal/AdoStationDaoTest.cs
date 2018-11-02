@@ -22,6 +22,11 @@ namespace Wetr.Test.Dal
         }
 
         [TestMethod]
+        public void TestDeleteAsync()
+        {
+        }
+
+        [TestMethod]
         public void TestFindByUserIdAsync()
         {
         }

@@ -31,7 +31,17 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        public Task<bool> DeleteAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<User>> FindAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> FindByEmailAsync(string email)
         {
             throw new NotImplementedException();
         }

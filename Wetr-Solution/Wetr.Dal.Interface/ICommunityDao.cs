@@ -12,6 +12,7 @@ namespace Wetr.Dal.Interface
         Task<Community> FindByIdAsync(int communityId);
         Task<IEnumerable<Community>> FindAllAsync();
         Task<bool> UpdateAsync(Community community);
+        Task<bool> DeleteAsync(int communityId);
 
         Task<IEnumerable<Community>> FindByDistrictIdAsync(int districtId);
 

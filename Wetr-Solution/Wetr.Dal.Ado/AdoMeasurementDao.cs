@@ -32,6 +32,11 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        public Task<bool> DeleteAsync(int measurementId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Measurement>> FindAllAsync()
         {
             throw new NotImplementedException();

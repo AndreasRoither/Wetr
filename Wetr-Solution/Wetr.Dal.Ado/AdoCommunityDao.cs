@@ -29,6 +29,11 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        public Task<bool> DeleteAsync(int communityId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Community>> FindAllAsync()
         {
             throw new NotImplementedException();

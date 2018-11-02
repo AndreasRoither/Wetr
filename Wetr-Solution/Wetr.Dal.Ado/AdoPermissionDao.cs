@@ -34,6 +34,11 @@ namespace Wetr.Dal.Ado
             throw new NotImplementedException();
         }
 
+        public Task<bool> DeleteAsync(int permissionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Permission>> FindAllAsync()
         {
             throw new NotImplementedException();

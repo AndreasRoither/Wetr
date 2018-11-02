@@ -9,9 +9,10 @@ namespace Wetr.Dal.Interface
 {
     public interface IAddressDao
     {
-        Task<Address> FindByIdAsync(int communityId);
+        Task<Address> FindByIdAsync(int addressId);
         Task<IEnumerable<Address>> FindAllAsync();
         Task<bool> UpdateAsync(Address address);
+        Task<bool> DeleteAsync(int addressId);
 
         Task<IEnumerable<Address>> FindByCommunityIdAsync(int addresscommunityId);
 

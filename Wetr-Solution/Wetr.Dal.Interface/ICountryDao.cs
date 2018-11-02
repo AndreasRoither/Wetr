@@ -12,5 +12,6 @@ namespace Wetr.Dal.Interface
         Task<Country> FindByIdAsync(int countryId);
         Task<IEnumerable<Country>> FindAllAsync();
         Task<bool> UpdateAsync(Country country);
+        Task<bool> DeleteAsync(int countryId);
     }
 }

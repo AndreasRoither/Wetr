@@ -12,5 +12,6 @@ namespace Wetr.Dal.Interface
         Task<MeasurementType> FindByIdAsync(int measurementTypeId);
         Task<IEnumerable<MeasurementType>> FindAllAsync();
         Task<bool> UpdateAsync(MeasurementType measurementType);
+        Task<bool> DeleteAsync(int measurementTypeId);
     }
 }
