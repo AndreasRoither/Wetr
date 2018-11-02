@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -59,6 +57,11 @@ namespace Wetr.Dal.Ado
         }
 
         public Task<IEnumerable<Station>> FindByUserIdAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertAsync(Station obj)
         {
             throw new NotImplementedException();
         }

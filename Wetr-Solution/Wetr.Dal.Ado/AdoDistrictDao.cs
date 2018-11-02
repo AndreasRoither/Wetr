@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -45,6 +43,11 @@ namespace Wetr.Dal.Ado
         }
 
         public Task<IEnumerable<District>> FindByProvinceIdAsync(int provinceId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertAsync(District obj)
         {
             throw new NotImplementedException();
         }

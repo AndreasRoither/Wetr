@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Wetr.Domain
+﻿namespace Wetr.Domain
 {
     public class User
     {

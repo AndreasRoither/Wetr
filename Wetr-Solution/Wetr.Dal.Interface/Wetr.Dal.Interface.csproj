@@ -51,6 +51,7 @@
     <Compile Include="IStationDao.cs" />
     <Compile Include="IUserDao.cs" />
     <Compile Include="IMeasurementTypeDao.cs" />
+    <Compile Include="IDaoBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IStationTypeDao.cs" />
     <Compile Include="IUnitDao.cs" />

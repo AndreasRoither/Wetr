@@ -1,10 +1,7 @@
-﻿using Common.Dal.Ado;
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Wetr.Generator
 {
@@ -112,7 +109,6 @@ namespace Wetr.Generator
             this.GenerateTemperaturData();
             this.GenerateHumidityData();
             this.GenerateDownfallData();
-
         }
 
         private void GenerateDownfallData()
@@ -172,11 +168,10 @@ namespace Wetr.Generator
                         file.WriteLine($"'NULL', '{GetTemperature(GetSeason(t), t.Hour) + GetRandomNumber(-1.25f, 1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1'");
                     }
                 }
-
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var generator = new Generator();
             generator.Generate();

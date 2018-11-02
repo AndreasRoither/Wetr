@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wetr.Domain;
+﻿using Wetr.Domain;
 
 namespace Wetr.Dal.Interface
 {
-    public interface IUnitDao
+    public interface IUnitDao : IDaoBase<Unit>
     {
-        Task<Unit> FindByIdAsync(int unitId);
-        Task<IEnumerable<Unit>> FindAllAsync();
-        Task<bool> UpdateAsync(Unit unitType);
-        Task<bool> DeleteAsync(int unitId);
     }
 }

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wetr.Domain;
 
 namespace Wetr.Dal.Interface
 {
-    public interface IDistrictDao
+    public interface IDistrictDao : IDaoBase<District>
     {
-        Task<District> FindByIdAsync(int districtId);
-        Task<IEnumerable<District>> FindAllAsync();
-        Task<bool> UpdateAsync(District district);
-        Task<bool> DeleteAsync(int districtId);
-
         Task<IEnumerable<District>> FindByProvinceIdAsync(int provinceId);
-
     }
 }

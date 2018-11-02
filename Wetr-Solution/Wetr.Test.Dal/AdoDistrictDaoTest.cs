@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Wetr.Test.Dal
+﻿namespace Wetr.Test.Dal
 {
     [TestClass]
     public class AdoDistrictDaoTest
@@ -30,6 +27,5 @@ namespace Wetr.Test.Dal
         public void TestFindByProvinceIdAsync()
         {
         }
-
     }
 }
