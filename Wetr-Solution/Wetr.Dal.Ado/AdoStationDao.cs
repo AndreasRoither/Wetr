@@ -1,7 +1,7 @@
 ﻿using Common.Dal.Ado;
-using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -31,44 +31,91 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int stationId)
+        public async Task<bool> DeleteAsync(int stationId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from station" +
+                    "where stationId = @stationId",
+                new Parameter("@stationId", stationId)) == 1;
         }
 
-        public Task<IEnumerable<Station>> FindAllAsync()
+        public async Task<IEnumerable<Station>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from person", MapRow);
         }
 
-        public Task<IEnumerable<Station>> FindByAddressIdAsync(int addressId)
+        public async Task<IEnumerable<Station>> FindByAddressIdAsync(int addressId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from station where addressId = @addressId",
+                MapRow,
+                new Parameter("@addressId", addressId));
+
+            return result;
         }
 
-        public Task<Station> FindByIdAsync(int stationId)
+        public async Task<Station> FindByIdAsync(int stationId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from station where stationId = @stationId",
+                MapRow,
+                new Parameter("@stationId", stationId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<IEnumerable<Station>> FindByStationTypeIdAsync(int stationTypeId)
+        public async Task<IEnumerable<Station>> FindByStationTypeIdAsync(int stationTypeId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from station where stationTypeId = @stationTypeId",
+                MapRow,
+                new Parameter("@stationTypeId", stationTypeId));
+
+            return result;
         }
 
-        public Task<IEnumerable<Station>> FindByUserIdAsync(int userId)
+        public async Task<IEnumerable<Station>> FindByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from station where stationTypeId = @userId",
+                MapRow,
+                new Parameter("@userId", userId));
+
+            return result;
         }
 
-        public Task<bool> InsertAsync(Station obj)
+        public async Task<bool> InsertAsync(Station station)
         {
-            throw new NotImplementedException();
+            // no stationId since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into station (name, longitude, latitude, stationTypeId, addressId, userId) VALUES" +
+                    "(@name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
+                new Parameter("@name", station.Name),
+                new Parameter("@longitude", station.Longitude),
+                new Parameter("@latitude", station.Latitude),
+                new Parameter("@stationTypeId", station.StationTypeId),
+                new Parameter("@addressId", station.AddressId),
+                new Parameter("@userId", station.UserId)) == 1;
         }
 
-        public Task<bool> UpdateAsync(Station station)
+        public async Task<bool> UpdateAsync(Station station)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update station set" +
+                    "name = @name, " +
+                    "longitude = @longitude, " +
+                    "latitude = @latitude, " +
+                    "stationTypeId = @stationTypeId, " +
+                    "addressId = @addressId, " +
+                    "userId = @userId" +
+                "where id = @stationId",
+                new Parameter("@stationId", station.StationId),
+                new Parameter("@name", station.Name),
+                new Parameter("@longitude", station.Longitude),
+                new Parameter("@latitude", station.Latitude),
+                new Parameter("@stationTypeId", station.StationTypeId),
+                new Parameter("@addressId", station.AddressId),
+                new Parameter("@userId", station.UserId)) == 1;
         }
     }
 }

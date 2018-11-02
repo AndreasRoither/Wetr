@@ -6,6 +6,6 @@ namespace Wetr.Dal.Interface
 {
     public interface IProvinceDao : IDaoBase<Province>
     {
-        Task<IEnumerable<Province>> FindByCountryIdAsync(int provinceId);
+        Task<IEnumerable<Province>> FindByCountryIdAsync(int countryId);
     }
 }

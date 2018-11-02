@@ -1,7 +1,7 @@
 ﻿using Common.Dal.Ado;
-using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -26,29 +26,46 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int countryId)
+        public async Task<bool> DeleteAsync(int countryId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from country" +
+                    "where countryId = @countryId",
+                new Parameter("@countryId", countryId)) == 1;
         }
 
-        public Task<IEnumerable<Country>> FindAllAsync()
+        public async Task<IEnumerable<Country>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from country", MapRow);
         }
 
-        public Task<Country> FindByIdAsync(int countryId)
+        public async Task<Country> FindByIdAsync(int countryId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from country where countryId = @countryId",
+                MapRow,
+                new Parameter("@countryId", countryId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<bool> InsertAsync(Country obj)
+        public async Task<bool> InsertAsync(Country country)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into country (name) VALUES" +
+                    "(@name)",
+                new Parameter("@name", country.Name)) == 1;
         }
 
-        public Task<bool> UpdateAsync(Country country)
+        public async Task<bool> UpdateAsync(Country country)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update country (name) set" +
+                    "name = @name" +
+                "where countryId = @countryId",
+                new Parameter("@countryId", country.CountryId),
+                new Parameter("@name", country.Name)) == 1;
         }
     }
 }

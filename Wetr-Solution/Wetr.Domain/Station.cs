@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System;
+
+namespace Wetr.Domain
 {
     public class Station
     {

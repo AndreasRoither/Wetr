@@ -1,7 +1,7 @@
 ﻿using Common.Dal.Ado;
-using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -27,34 +27,59 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int provinceId)
+        public async Task<bool> DeleteAsync(int provinceId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from province" +
+                    "where provinceId = @provinceId",
+                new Parameter("@provinceId", provinceId)) == 1;
         }
 
-        public Task<IEnumerable<Province>> FindAllAsync()
+        public async Task<IEnumerable<Province>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from province", MapRow);
         }
 
-        public Task<IEnumerable<Province>> FindByCountryIdAsync(int provinceId)
+        public async Task<Province> FindByIdAsync(int provinceId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from province where provinceId = @provinceId",
+                MapRow,
+                new Parameter("@provinceId", provinceId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<Province> FindByIdAsync(int provinceId)
+        public async Task<IEnumerable<Province>> FindByCountryIdAsync(int countryId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from province where countryId = @countryId",
+                MapRow,
+                new Parameter("@countryId", countryId));
+
+            return result;
         }
 
-        public Task<bool> InsertAsync(Province obj)
+        public async Task<bool> InsertAsync(Province province)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into province (name, countryId) VALUES" +
+                    "(@name, @countryId)",
+                new Parameter("@name", province.Name),
+                new Parameter("@countryId", province.CountryId)) == 1;
         }
 
-        public Task<bool> UpdateAsync(Province province)
+        public async Task<bool> UpdateAsync(Province province)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update province set" +
+                    "name = @name," +
+                    "countryId = @countryId" +
+                "where provinceId = @provinceId",
+                new Parameter("@provinceId", province.ProvinceId),
+                new Parameter("@name", province.Name),
+                new Parameter("@countryId", province.CountryId)) == 1;
         }
     }
 }

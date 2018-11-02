@@ -1,7 +1,7 @@
 ﻿using Common.Dal.Ado;
-using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -28,34 +28,62 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int addressId)
+        public async Task<bool> DeleteAsync(int addressId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from address" +
+                    "where addressId = @addressId",
+                new Parameter("@addressId", addressId)) == 1;
         }
 
-        public Task<IEnumerable<Address>> FindAllAsync()
+        public async Task<IEnumerable<Address>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from address", MapRow);
         }
 
-        public Task<IEnumerable<Address>> FindByCommunityIdAsync(int addresscommunityId)
+        public async Task<Address> FindByIdAsync(int addressId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from address where addressId = @addressId",
+                MapRow,
+                new Parameter("@addressId", addressId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<Address> FindByIdAsync(int communityId)
+        public async Task<IEnumerable<Address>> FindByCommunityIdAsync(int communityId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from address where communityId = @communityId",
+               MapRow,
+               new Parameter("@communityId", communityId));
+
+            return result;
         }
 
-        public Task<bool> InsertAsync(Address obj)
+        public async Task<bool> InsertAsync(Address address)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into address (location, zip, communityId) VALUES" +
+                    "(@location, @zip, @communityId)",
+                new Parameter("@location", address.Location),
+                new Parameter("@zip", address.Zip),
+                new Parameter("@communityId", address.CommunityId)) == 1;
         }
 
-        public Task<bool> UpdateAsync(Address address)
+        public async Task<bool> UpdateAsync(Address address)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update address set" +
+                    "location = @location," +
+                    "zip = @zip," +
+                    "communityId = @communityId" +
+                "where addressId = @addressId",
+                new Parameter("@addressId", address.AddressId),
+                new Parameter("@location", address.Location),
+                new Parameter("@zip", address.Zip),
+                new Parameter("@communityId", address.CommunityId)) == 1;
         }
     }
 }

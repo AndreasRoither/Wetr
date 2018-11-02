@@ -1,4 +1,7 @@
-﻿namespace Wetr.Test.Dal
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wetr.Dal.Ado;
+
+namespace Wetr.Test.Dal
 {
     [TestClass]
     public class AdoUserDaoTest
