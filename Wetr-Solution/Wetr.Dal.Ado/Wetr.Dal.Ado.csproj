@@ -56,6 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.Dal.Ado\Common.Dal.Ado.csproj">
+      <Project>{7832F4BA-D688-4D52-A3F3-9CECE5E0F2DA}</Project>
+      <Name>Common.Dal.Ado</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wetr.Dal.Interface\Wetr.Dal.Interface.csproj">
       <Project>{13F2E812-FA97-4306-91B9-9455CDF464C7}</Project>
       <Name>Wetr.Dal.Interface</Name>

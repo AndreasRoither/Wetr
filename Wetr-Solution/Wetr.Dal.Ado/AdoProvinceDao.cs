@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Dal.Ado;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,13 @@ namespace Wetr.Dal.Ado
 {
     public class AdoProvinceDao : IProvinceDao
     {
+        private readonly AdoTemplate template;
+
+        public AdoProvinceDao(IConnectionFactory connetionFactory)
+        {
+            this.template = new AdoTemplate(connetionFactory);
+        }
+
         public Task<IEnumerable<Province>> FindAllAsync()
         {
             throw new NotImplementedException();
