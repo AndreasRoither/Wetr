@@ -1,0 +1,147 @@
+%%% File encoding: UTF-8
+%%% äöüÄÖÜß  <-- keine deutschen Umlaute hier? UTF-faehigen Editor verwenden!
+
+%%% Magic Comments zum Setzen der korrekten Parameter in kompatiblen IDEs
+% !TeX encoding = utf8
+% !TeX program = pdflatex 
+% !TeX spellcheck = de_DE
+
+\documentclass[12pt, letterpaper]{article}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage[a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[german]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{minted} %code
+\usepackage{amsmath}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathpazo} % Palatino font
+
+%----------------------------------------------------------------------------------------
+% SETUP
+%----------------------------------------------------------------------------------------
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Englisch - Roither}
+\lhead{SWK5-WETR}
+\rfoot{Seite \thepage}
+ 
+\setminted[]{
+	frame=single,
+	breaklines,
+	samepage=false
+} 
+
+\usemintedstyle{csharp}
+
+\graphicspath{ {../pictures/} }
+
+%----------------------------------------------------------------------------------------
+% COMMANDS
+%----------------------------------------------------------------------------------------
+
+\newcommand{\img}[3] {
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=#3\linewidth]{#1}
+	\caption{#2}
+\end{figure}
+}
+
+ 
+%----------------------------------------------------------------------------------------
+% BEGIN
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE FH Hagenberg}\\[1.5cm] % Name of your university/college
+\textsc{\Large Projektarbeit}\\[0.5cm] % Major heading such as course name
+%\textsc{\large Minor Heading}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Weather Tracer - Dokumentation}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Daniel \textsc{Englisch}\\ % Your name
+Andreas \textsc{Roither} % next name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Übungsleiter:} \\
+Daniel \textsc{Sklenitzka} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[1cm] % Date, change the \today to a set date if you want to be precise
+{Version 1.0}\\[2cm]
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics[scale=0.25]{logo.png}
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+
+\tableofcontents
+
+\include{chapters/installation}
+
+
+\end{document}
