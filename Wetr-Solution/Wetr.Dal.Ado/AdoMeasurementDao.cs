@@ -1,6 +1,7 @@
 ﻿using Common.Dal.Ado;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,19 @@ namespace Wetr.Dal.Ado
         public AdoMeasurementDao(IConnectionFactory connetionFactory)
         {
             this.template = new AdoTemplate(connetionFactory);
+        }
+
+        private static Measurement MapRow(IDataRecord row)
+        {
+            return new Measurement()
+            {
+                MeasurementId = (int)row["measurementId"],
+                StationId = (int)row["stationId"],
+                MeasurementTypeId = (int)row["measurementTypeId"],
+                UnitId = (int)row["unitId"],
+                Value = (double)row["value"],
+                TimesStamp = (DateTime)row["timestamp"]
+            };
         }
 
         public Task<IEnumerable<Measurement>> FindAllAsync()

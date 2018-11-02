@@ -1,6 +1,7 @@
 ﻿using Common.Dal.Ado;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,16 @@ namespace Wetr.Dal.Ado
         public AdoProvinceDao(IConnectionFactory connetionFactory)
         {
             this.template = new AdoTemplate(connetionFactory);
+        }
+
+        private static Province MapRow(IDataRecord row)
+        {
+            return new Province()
+            {
+                ProvinceId = (int)row["ProvinceId"],
+                Name = (string)row["name"],
+                CountryId = (int)row["countryId"],
+            };
         }
 
         public Task<IEnumerable<Province>> FindAllAsync()

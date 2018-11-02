@@ -1,6 +1,7 @@
 ﻿using Common.Dal.Ado;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,20 @@ namespace Wetr.Dal.Ado
         public AdoStationDao(IConnectionFactory connetionFactory)
         {
             this.template = new AdoTemplate(connetionFactory);
+        }
+
+        private static Station MapRow(IDataRecord row)
+        {
+            return new Station()
+            {
+                StationId = (int)row["stationId"],
+                StationTypeId = (int)row["stationTypeId"],
+                AddressId = (int)row["addressId"],
+                UserId = (int)row["userId"],
+                Name = (string)row["name"],
+                Longitude = (double)row["longitude"],
+                Latitude = (double)row["latitude"],
+            };
         }
 
         public Task<IEnumerable<Station>> FindAllAsync()

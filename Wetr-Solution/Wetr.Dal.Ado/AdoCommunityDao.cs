@@ -1,6 +1,7 @@
 ﻿using Common.Dal.Ado;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,16 @@ namespace Wetr.Dal.Ado
         public AdoCommunityDao(IConnectionFactory connetionFactory)
         {
             this.template = new AdoTemplate(connetionFactory);
+        }
+
+        private static Community MapRow(IDataRecord row)
+        {
+            return new Community()
+            {
+                CommunityId = (int)row["communityId"],
+                DistrictId = (int)row["districtId"],
+                Name = (string)row["name"],
+            };
         }
 
         public Task<IEnumerable<Community>> FindAllAsync()

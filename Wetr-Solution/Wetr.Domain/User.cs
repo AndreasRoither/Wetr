@@ -11,9 +11,7 @@ namespace Wetr.Domain
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public List<int> Permissions { get; private set; }
-
         public override string ToString() =>
-            $"[{UserId}] {FirstName} {LastName} {Password} {Email} {String.Join(", ", Permissions.ToArray())}";
+            $"[{UserId}] {FirstName} {LastName} {Password} {Email}";
     }
 }

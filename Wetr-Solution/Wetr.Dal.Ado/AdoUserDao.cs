@@ -1,6 +1,7 @@
 ﻿using Common.Dal.Ado;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,18 @@ namespace Wetr.Dal.Ado
         public AdoUserDao(IConnectionFactory connetionFactory)
         {
             this.template = new AdoTemplate(connetionFactory);
+        }
+
+        private static User MapRow(IDataRecord row)
+        {
+            return new User()
+            {
+                UserId = (int)row["userId"],
+                FirstName = (string)row["firstName"],
+                LastName = (string)row["lastName"],
+                Password = (string)row["password"],
+                Email = (string)row["email"],
+            };
         }
 
         public Task<IEnumerable<User>> FindAllAsync()
