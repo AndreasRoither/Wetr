@@ -25,5 +25,10 @@ namespace Wetr.Test.Dal
         public void TestDeleteAsync()
         {
         }
+
+        [TestMethod]
+        public void TestInsertAsync()
+        {
+        }
     }
 }

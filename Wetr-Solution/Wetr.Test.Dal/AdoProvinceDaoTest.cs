@@ -27,6 +27,11 @@ namespace Wetr.Test.Dal
         }
 
         [TestMethod]
+        public void TestInsertAsync()
+        {
+        }
+
+        [TestMethod]
         public void TestFindByCountryIdAsync()
         {
         }
