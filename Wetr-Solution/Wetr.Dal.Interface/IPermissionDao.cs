@@ -8,7 +8,7 @@ namespace Wetr.Dal.Interface
     {
         Task<IEnumerable<Permission>> FindForUserId(int userId);
 
-        Task<bool> RemoveForUserId(int permissionId, int userId);
+        Task<bool> DeleteForUserId(int permissionId, int userId);
 
         Task<bool> AddForUserId(int permissionId, int userId);
     }

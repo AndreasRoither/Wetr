@@ -51,16 +51,7 @@ namespace Wetr.Dal.Ado
             return result.SingleOrDefault();
         }
 
-        public async Task<IEnumerable<Address>> FindByCommunityIdAsync(int communityId)
-        {
-            var result = await this.template.QueryAsync(
-               "select * from address where communityId = @communityId",
-               MapRow,
-               new Parameter("@communityId", communityId));
-
-            return result;
-        }
-
+        
         public async Task<bool> InsertAsync(Address address)
         {
             // no id since it's set to auto increment
@@ -85,5 +76,16 @@ namespace Wetr.Dal.Ado
                 new Parameter("@zip", address.Zip),
                 new Parameter("@communityId", address.CommunityId)) == 1;
         }
+
+        public async Task<IEnumerable<Address>> FindByCommunityIdAsync(int communityId)
+        {
+            var result = await this.template.QueryAsync(
+               "select * from address where communityId = @communityId",
+               MapRow,
+               new Parameter("@communityId", communityId));
+
+            return result;
+        }
+
     }
 }

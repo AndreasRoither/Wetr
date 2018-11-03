@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -26,29 +27,48 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int measurementTypeId)
+        public async Task<bool> DeleteAsync(int measurementTypeId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from measurementType" +
+                    "where measurementTypeId = @measurementTypeId",
+                new Parameter("@measurementTypeId", measurementTypeId)) == 1;
         }
 
-        public Task<IEnumerable<MeasurementType>> FindAllAsync()
+        public async Task<IEnumerable<MeasurementType>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from measurementType", MapRow);
         }
 
-        public Task<MeasurementType> FindByIdAsync(int measurementTypeId)
+        public async Task<MeasurementType> FindByIdAsync(int measurementTypeId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from measurementType where measurementTypeId = @measurementTypeId",
+                MapRow,
+                new Parameter("@measurementTypeId", measurementTypeId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<bool> InsertAsync(MeasurementType obj)
+
+        public async Task<bool> InsertAsync(MeasurementType measurementType)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into measurementType (name) VALUES" +
+                    "(@name)",
+                new Parameter("@name", measurementType.Name)) == 1;
         }
 
-        public Task<bool> UpdateAsync(MeasurementType measurementType)
+        public async Task<bool> UpdateAsync(MeasurementType measurementType)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update measurementType set" +
+                    "name = @name," +
+                "where measurementTypeId = @measurementTypeId",
+                new Parameter("@measurementTypeId", measurementType.MeasurementTypeId),
+                new Parameter("@name", measurementType.Name)) == 1;
         }
+
     }
 }

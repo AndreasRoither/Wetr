@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -30,44 +31,92 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int measurementId)
+        public async Task<bool> DeleteAsync(int measurementId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from measurement" +
+                    "where measurementId = @measurementId",
+                new Parameter("@measurementId", measurementId)) == 1;
         }
 
-        public Task<IEnumerable<Measurement>> FindAllAsync()
+        public async Task<IEnumerable<Measurement>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from measurement", MapRow);
         }
 
-        public Task<Measurement> FindByIdAsync(int measurementId)
+        public async Task<Measurement> FindByIdAsync(int measurementId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from measurement where measurementId = @measurementId",
+                MapRow,
+                new Parameter("@measurementId", measurementId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<IEnumerable<Measurement>> FindByMeasurementTypeIdAsync(int measurementTypeId)
+
+        public async Task<bool> InsertAsync(Measurement measurement)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into measurement (stationId, measurementTypeId, unitId, value, timestamp) VALUES" +
+                    "(@stationId, @measurementTypeId, @unitId, @value, @timestamp)",
+                new Parameter("@stationId", measurement.StationId),
+                new Parameter("@measurementTypeId", measurement.MeasurementTypeId),
+                new Parameter("@unitId", measurement.UnitId),
+                new Parameter("@value", measurement.Value),
+                new Parameter("@timestamp", measurement.TimesStamp)) == 1;
         }
 
-        public Task<IEnumerable<Measurement>> FindByStationIdAsync(int stationId)
+        public async Task<bool> UpdateAsync(Measurement measurement)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update measurement set" +
+                    "stationId = @stationId," +
+                    "measurementTypeId = @measurementTypeId," +
+                    "unitId = @unitId," +
+                    "value = @value," +
+                    "timestamp = @timestamp" +
+                "where measurementId = @measurementId",
+                new Parameter("@statmeasurementId", measurement.MeasurementId),
+                new Parameter("@stationId", measurement.StationId),
+                new Parameter("@measurementTypeId", measurement.MeasurementTypeId),
+                new Parameter("@unitId", measurement.UnitId),
+                new Parameter("@value", measurement.Value),
+                new Parameter("@timestamp", measurement.TimesStamp)) == 1;
         }
 
-        public Task<IEnumerable<Measurement>> FindByUnitIdAsync(int unitId)
+
+
+        public async Task<IEnumerable<Measurement>> FindByMeasurementTypeIdAsync(int measurementTypeId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from measurement where measurementTypeId = @measurementTypeId",
+               MapRow,
+               new Parameter("@measurementTypeId", measurementTypeId));
+
+            return result;
         }
 
-        public Task<bool> InsertAsync(Measurement obj)
+        public async Task<IEnumerable<Measurement>> FindByStationIdAsync(int stationId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from measurement where stationId = @stationId",
+               MapRow,
+               new Parameter("@stationId", stationId));
+
+            return result;
         }
 
-        public Task<bool> UpdateAsync(Measurement measurement)
+        public async Task<IEnumerable<Measurement>> FindByUnitIdAsync(int unitId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from measurement where unitId = @unitId",
+                MapRow,
+                new Parameter("@unitId", unitId));
+
+            return result;
         }
+
     }
 }

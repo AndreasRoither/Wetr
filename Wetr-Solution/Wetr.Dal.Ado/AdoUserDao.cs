@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -29,34 +30,65 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int userId)
+        public async Task<bool> DeleteAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+               @"delete from user" +
+                   "where userId = @userId",
+               new Parameter("@userId", userId)) == 1;
         }
 
-        public Task<IEnumerable<User>> FindAllAsync()
+        public async Task<IEnumerable<User>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from user", MapRow);
         }
 
-        public Task<User> FindByEmailAsync(string email)
+        public async Task<User> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+                "select * from user where email = @email",
+                MapRow,
+                new Parameter("@email", email));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<User> FindByIdAsync(int userId)
+        public async Task<User> FindByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from user where userId = @userId",
+               MapRow,
+               new Parameter("@userId", userId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<bool> InsertAsync(User obj)
+        public async Task<bool> InsertAsync(User user)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into user (firstName, lastName, password, email) VALUES" +
+                    "(@firstName, @lastName, @password, @email)",
+                new Parameter("@firstName", user.FirstName),
+                new Parameter("@lastName", user.LastName),
+                new Parameter("@password", user.Password),
+                new Parameter("@email", user.Email)) == 1;
         }
 
-        public Task<bool> UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(User user)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update user set" +
+                    "firstName = @firstName" +
+                    "lastName = @lastName" +
+                    "password = @password" +
+                    "email = @email" +
+                "where userId = @userId",
+                new Parameter("@firstName", user.FirstName),
+                new Parameter("@lastName", user.LastName),
+                new Parameter("@password", user.Password),
+                new Parameter("@email", user.Email),
+                new Parameter("@userId", user.UserId)) == 1;
         }
     }
 }

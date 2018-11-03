@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -27,44 +28,79 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> AddForUserId(int permissionId, int userId)
+        public async Task<bool> AddForUserId(int permissionId, int userId)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into hasPermission (permissionId, userId) VALUES" +
+                    "(@permissionId, @userId)",
+                new Parameter("@userId", userId),
+                new Parameter("@permissionId", permissionId)) == 1;
         }
 
-        public Task<bool> DeleteAsync(int permissionId)
+        public async Task<bool> DeleteAsync(int permissionId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from permission" +
+                    "where permissionId = @permissionId",
+                new Parameter("@permissionId", permissionId)) == 1;
         }
 
-        public Task<IEnumerable<Permission>> FindAllAsync()
+        public async Task<IEnumerable<Permission>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from permission", MapRow);
         }
 
-        public Task<Permission> FindByIdAsync(int permissionId)
+        public async Task<Permission> FindByIdAsync(int permissionId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from permission where permissionId = @permissionId",
+               MapRow,
+               new Parameter("@permissionId", permissionId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<IEnumerable<Permission>> FindForUserId(int userId)
+        public async Task<IEnumerable<Permission>> FindForUserId(int userId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from hasPermission where userId = @userId",
+               MapRow,
+               new Parameter("@userId", userId));
+
+            return result;
         }
 
-        public Task<bool> InsertAsync(Permission obj)
+        public async Task<bool> InsertAsync(Permission permission)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into permission (name, description) VALUES" +
+                    "(@name, @description)",
+                new Parameter("@name", permission.Name),
+                new Parameter("@name", permission.Description)) == 1;
         }
 
-        public Task<bool> RemoveForUserId(int permissionId, int userId)
+        public async Task<bool> DeleteForUserId(int permissionId, int userId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from hasPermission" +
+                    "where permissionId = @permissionId AND" +
+                    "userId = @userId",
+                new Parameter("@permissionId", permissionId),
+                new Parameter("@userId", userId)) == 1;
         }
 
-        public Task<bool> UpdateAsync(Permission permission)
+        public async Task<bool> UpdateAsync(Permission permission)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+               @"update permission set" +
+                   "name = @name," +
+                   "description = @description," +
+                   "where permissionId = @permissionId",
+               new Parameter("@measurementTypeId", permission.PermissionId),
+               new Parameter("@name", permission.Name),
+               new Parameter("@description", permission.Description)) == 1;
         }
     }
 }

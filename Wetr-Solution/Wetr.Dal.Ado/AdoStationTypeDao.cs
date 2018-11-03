@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -26,29 +27,46 @@ namespace Wetr.Dal.Ado
             };
         }
 
-        public Task<bool> DeleteAsync(int stationTypeId)
+        public async Task<bool> DeleteAsync(int stationTypeId)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"delete from stationType" +
+                    "where stationTypeId = @stationTypeId",
+                new Parameter("@stationTypeId", stationTypeId)) == 1;
         }
 
-        public Task<IEnumerable<StationType>> FindAllAsync()
+        public async Task<IEnumerable<StationType>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.template.QueryAsync("select * from stationType", MapRow);
         }
 
-        public Task<StationType> FindByIdAsync(int stationTypeId)
+        public async Task<StationType> FindByIdAsync(int stationTypeId)
         {
-            throw new NotImplementedException();
+            var result = await this.template.QueryAsync(
+               "select * from stationType where stationTypeId = @stationTypeId",
+               MapRow,
+               new Parameter("@stationTypeId", stationTypeId));
+
+            return result.SingleOrDefault();
         }
 
-        public Task<bool> InsertAsync(StationType obj)
+        public async Task<bool> InsertAsync(StationType stationType)
         {
-            throw new NotImplementedException();
+            // no id since it's set to auto increment
+            return await this.template.ExecuteAsync(
+                @"insert into stationType (name) VALUES" +
+                    "(@name)",
+                new Parameter("@name", stationType.Name)) == 1;
         }
 
-        public Task<bool> UpdateAsync(StationType stationType)
+        public async Task<bool> UpdateAsync(StationType stationType)
         {
-            throw new NotImplementedException();
+            return await this.template.ExecuteAsync(
+                @"update stationType set" +
+                    "name = @name," +
+                "where stationTypeId = @stationTypeId",
+                new Parameter("@stationTypeId", stationType.StationTypeId),
+                new Parameter("@name", stationType.Name)) == 1;
         }
     }
 }
