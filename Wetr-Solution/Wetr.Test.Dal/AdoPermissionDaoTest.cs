@@ -37,7 +37,7 @@ namespace Wetr.Test.Dal
         }
 
         [TestMethod]
-        public void TestRemoveForUserId()
+        public void TestDeleteForUserId()
         {
         }
 
