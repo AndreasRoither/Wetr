@@ -1,39 +1,56 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Common.Dal.Ado;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
+using System.Transactions;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Interface;
 
 namespace Wetr.Test.Dal
 {
     [TestClass]
-    public class AdoUserDaoTest
+    public class AdoUserDaoTest : DaoBaseTest
     {
-        [TestMethod]
-        public void TestFindByIdAsync()
+        private readonly IUserDao asoUserDao = new AdoUserDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+
+        public override Task TestDeleteAsync()
         {
+            throw new System.NotImplementedException();
         }
 
         [TestMethod]
-        public void TestFindAllAsync()
+        public async override Task TestFindAllAsync()
         {
-        }
-
-        [TestMethod]
-        public void TestUpdateAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestDeleteAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestInsertAsync()
-        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                var users = await asoUserDao.FindAllAsync();
+                foreach (var u in users)
+                {
+                    System.Console.WriteLine(u);
+                }
+            }
         }
 
         [TestMethod]
         public void TestFindByEmailAsync()
         {
+        }
+
+        [TestMethod]
+        public override Task TestFindByIdAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public override Task TestInsertAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public override Task TestUpdateAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
