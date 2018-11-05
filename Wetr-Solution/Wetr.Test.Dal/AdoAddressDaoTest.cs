@@ -14,40 +14,37 @@ namespace Wetr.Test.Dal
         private readonly IAddressDao adoAddressDao = new AdoAddressDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
 
         [TestMethod]
-        public void FindByCommunityIdAsync()
-        {
-        }
-        [TestMethod]
-        public override Task TestDeleteAsync()
+        public async Task FindByCommunityIdAsync()
         {
             throw new System.NotImplementedException();
         }
 
         [TestMethod]
-        public override async Task TestFindAllAsync()
-        {
-            using (TransactionScope scope = new TransactionScope())
-            {
-                var addresses = await adoAddressDao.FindAllAsync();
-                foreach (var a in addresses)
-                {
-                    System.Console.WriteLine(a);
-                }
-            }
-           
-        }
-        [TestMethod]
-        public override Task TestFindByIdAsync()
+        public async override Task TestDeleteAsync()
         {
             throw new System.NotImplementedException();
         }
+
         [TestMethod]
-        public override Task TestInsertAsync()
+        public async override Task TestFindAllAsync()
         {
             throw new System.NotImplementedException();
         }
+
         [TestMethod]
-        public override Task TestUpdateAsync()
+        public async override Task TestFindByIdAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestInsertAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestUpdateAsync()
         {
             throw new System.NotImplementedException();
         }

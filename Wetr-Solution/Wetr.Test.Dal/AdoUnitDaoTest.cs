@@ -1,34 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
 
 namespace Wetr.Test.Dal
 {
     [TestClass]
-    public class AdoUnitDaoTest
+    public class AdoUnitDaoTest : DaoBaseTest
     {
         [TestMethod]
-        public void TestFindByIdAsync()
+        public override Task TestDeleteAsync()
         {
+            throw new System.NotImplementedException();
         }
 
-        [TestMethod]
-        public void TestFindAllAsync()
+        public override Task TestFindAllAsync()
         {
+            throw new System.NotImplementedException();
         }
 
-        [TestMethod]
-        public void TestUpdateAsync()
+        public override Task TestFindByIdAsync()
         {
+            throw new System.NotImplementedException();
         }
 
-        [TestMethod]
-        public void TestDeleteAsync()
+        public override Task TestInsertAsync()
         {
+            throw new System.NotImplementedException();
         }
 
-        [TestMethod]
-        public void TestInsertAsync()
+        public override Task TestUpdateAsync()
         {
+            throw new System.NotImplementedException();
         }
     }
 }

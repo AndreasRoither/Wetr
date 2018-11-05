@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using Wetr.Dal.Ado;
 
 namespace Wetr.Test.Dal
@@ -6,44 +7,27 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoStationDaoTest
     {
+
+
         [TestMethod]
-        public void TestFindByIdAsync()
+        public async Task TestFindByUserIdAsync()
         {
+            throw new System.NotImplementedException();
+
         }
 
         [TestMethod]
-        public void TestFindAllAsync()
+        public async Task TestFindByStationTypeIdAsync()
         {
+            throw new System.NotImplementedException();
+
         }
 
         [TestMethod]
-        public void TestUpdateAsync()
+        public async Task TestFindByAddressIdAsync()
         {
-        }
+            throw new System.NotImplementedException();
 
-        [TestMethod]
-        public void TestDeleteAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestInsertAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestFindByUserIdAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestFindByStationTypeIdAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestFindByAddressIdAsync()
-        {
         }
     }
 }

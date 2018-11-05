@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using Wetr.Dal.Ado;
 
 namespace Wetr.Test.Dal
@@ -6,44 +7,27 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoPermissionDaoTest
     {
+       
+
         [TestMethod]
-        public void TestFindByIdAsync()
+        public async Task TestFindForUserId()
         {
+            throw new System.NotImplementedException();
+
         }
 
         [TestMethod]
-        public void TestFindAllAsync()
+        public async Task TestDeleteForUserId()
         {
+            throw new System.NotImplementedException();
+
         }
 
         [TestMethod]
-        public void TestUpdateAsync()
+        public async Task TestAddForUserId()
         {
-        }
+            throw new System.NotImplementedException();
 
-        [TestMethod]
-        public void TestDeleteAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestInsertAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestFindForUserId()
-        {
-        }
-
-        [TestMethod]
-        public void TestDeleteForUserId()
-        {
-        }
-
-        [TestMethod]
-        public void TestAddForUserId()
-        {
         }
     }
 }

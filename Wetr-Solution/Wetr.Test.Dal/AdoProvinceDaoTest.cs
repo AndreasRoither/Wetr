@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using Wetr.Dal.Ado;
 
 namespace Wetr.Test.Dal
@@ -6,34 +7,12 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoProvinceDaoTest
     {
+       
         [TestMethod]
-        public void TestFindByIdAsync()
+        public async Task TestFindByCountryIdAsync()
         {
-        }
+            throw new System.NotImplementedException();
 
-        [TestMethod]
-        public void TestFindAllAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestUpdateAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestDeleteAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestInsertAsync()
-        {
-        }
-
-        [TestMethod]
-        public void TestFindByCountryIdAsync()
-        {
         }
     }
 }
