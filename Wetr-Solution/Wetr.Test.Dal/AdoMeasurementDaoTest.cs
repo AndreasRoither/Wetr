@@ -1,33 +1,67 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Common.Dal.Ado;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Interface;
 
 namespace Wetr.Test.Dal
 {
     [TestClass]
-    public class AdoMeasurementDaoTest
+    public class AdoMeasurementDaoTest : DaoBaseTest
     {
-     
+
+        private readonly IMeasurementDao measurementDao = new AdoMeasurementDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+
 
         [TestMethod]
-        public Task TestFindByStationIdAsync()
+        public async Task TestFindByStationIdAsync()
         {
             throw new System.NotImplementedException();
 
         }
 
         [TestMethod]
-        public Task TestFindByMeasurementTypeIdAsync()
+        public async Task TestFindByMeasurementTypeIdAsync()
         {
             throw new System.NotImplementedException();
 
         }
 
         [TestMethod]
-        public Task TestFindByUnitIdAsync()
+        public async Task TestFindByUnitIdAsync()
         {
             throw new System.NotImplementedException();
 
+        }
+
+        [TestMethod]
+        public async override Task TestFindByIdAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestFindAllAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestUpdateAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestDeleteAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [TestMethod]
+        public async override Task TestInsertAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
