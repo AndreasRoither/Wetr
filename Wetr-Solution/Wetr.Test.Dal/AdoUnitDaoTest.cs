@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Common.Dal.Ado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
@@ -15,19 +17,73 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestDeleteAsync()
         {
-            throw new System.NotImplementedException();
+            Unit unit = new Unit
+            {
+                UnitId = 1,
+                Name = "Celsius"
+            };
+
+            await unitDao.InsertAsync(unit);
+
+            Unit insertedUnit = await unitDao.FindByIdAsync(1);
+
+            Assert.AreEqual(unit, insertedUnit);
+
+            await unitDao.DeleteAsync(unit.UnitId);
+
+            insertedUnit = await unitDao.FindByIdAsync(1);
+
+            Assert.IsNull(insertedUnit);
+
         }
 
         [TestMethod]
         public async override Task TestFindAllAsync()
         {
-            throw new System.NotImplementedException();
+            Unit unit1 = new Unit
+            {
+                UnitId = 1,
+                Name = "Celsius"
+            };
+
+            Unit unit2 = new Unit
+            {
+                UnitId = 2,
+                Name = "Fahrenheit"
+            };
+
+            Unit unit3 = new Unit
+            {
+                UnitId = 3,
+                Name = "Kelvin"
+            };
+
+            await unitDao.InsertAsync(unit1);
+            await unitDao.InsertAsync(unit2);
+            await unitDao.InsertAsync(unit3);
+
+
+            IEnumerable<Unit> units = await unitDao.FindAllAsync();
+
+            CollectionAssert.Contains(units.ToList(), unit1);
+            CollectionAssert.Contains(units.ToList(), unit2);
+            CollectionAssert.Contains(units.ToList(), unit3);
         }
 
         [TestMethod]
         public async override Task TestFindByIdAsync()
         {
-            throw new System.NotImplementedException();
+            Unit unit = new Unit
+            {
+                UnitId = 1,
+                Name = "Celsius"
+            };
+
+            await unitDao.InsertAsync(unit);
+
+            Unit insertedUnit = await unitDao.FindByIdAsync(1);
+
+            Assert.AreEqual(unit, insertedUnit);
         }
 
         [TestMethod]
@@ -35,13 +91,13 @@ namespace Wetr.Test.Dal
         {
             Unit unit = new Unit
             {
-                UnitId = 0,
+                UnitId = 1,
                 Name = "Celsius"
             };
 
             await unitDao.InsertAsync(unit);
 
-            Unit insertedUnit = await unitDao.FindByIdAsync(0);
+            Unit insertedUnit = await unitDao.FindByIdAsync(1);
 
             Assert.AreEqual(unit, insertedUnit);
         }
@@ -49,7 +105,21 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestUpdateAsync()
         {
-            throw new System.NotImplementedException();
+            Unit unit = new Unit
+            {
+                UnitId = 1,
+                Name = "Celsius"
+            };
+
+            await unitDao.InsertAsync(unit);
+
+            unit.Name = "Fahrenheit";
+
+            await unitDao.UpdateAsync(unit);
+
+            Unit updatedUnit = await unitDao.FindByIdAsync(1);
+
+            Assert.AreEqual("Fahrenheit", updatedUnit.Name);
         }
     }
 }
