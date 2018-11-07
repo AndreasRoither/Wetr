@@ -34,8 +34,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int stationId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from station" +
-                    "where stationId = @stationId",
+                @"delete from station where stationId = @stationId",
                 new Parameter("@stationId", stationId)) == 1;
         }
 
@@ -86,10 +85,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Station station)
         {
-            // no stationId since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES" +
-                    "(@stationId, @name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
+                @"insert into station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES (@stationId, @name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
                 new Parameter("@stationId", station.StationId),
                 new Parameter("@name", station.Name),
                 new Parameter("@longitude", station.Longitude),
@@ -102,14 +99,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Station station)
         {
             return await this.template.ExecuteAsync(
-                @"update station set" +
-                    "name = @name, " +
-                    "longitude = @longitude, " +
-                    "latitude = @latitude, " +
-                    "stationTypeId = @stationTypeId, " +
-                    "addressId = @addressId, " +
-                    "userId = @userId" +
-                "where id = @stationId",
+                @"update station set name = @name, longitude = @longitude, latitude = @latitude, stationTypeId = @stationTypeId, addressId = @addressId, userId = @userId where id = @stationId",
                 new Parameter("@stationId", station.StationId),
                 new Parameter("@name", station.Name),
                 new Parameter("@longitude", station.Longitude),

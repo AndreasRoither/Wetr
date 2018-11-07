@@ -30,8 +30,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int communityId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from community" +
-                    "where communityId = @communityId",
+                @"delete from community where communityId = @communityId",
                 new Parameter("@communityId", communityId)) == 1;
         }
 
@@ -62,10 +61,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Community community)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into community (communityId, name, districtId) VALUES" +
-                    "(@communityId, @name, @districtId)",
+                @"insert into community (communityId, name, districtId) VALUES (@communityId, @name, @districtId)",
                 new Parameter("@communityId", community.CommunityId),
                 new Parameter("@name", community.Name),
                 new Parameter("@districtId", community.DistrictId)) == 1;
@@ -74,10 +71,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Community community)
         {
             return await this.template.ExecuteAsync(
-                @"update community set" +
-                     "name = @name, " +
-                     "districtId = @districtId" +
-                 "where communityId = @communityId",
+                @"update community set name = @name, districtId = @districtId where communityId = @communityId",
                  new Parameter("@communityId", community.CommunityId),
                  new Parameter("@name", community.Name),
                  new Parameter("@districtId", community.DistrictId)) == 1;

@@ -31,8 +31,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int addressId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from address" +
-                    "where addressId = @addressId",
+                @"delete from address where addressId = @addressId",
                 new Parameter("@addressId", addressId)) == 1;
         }
 
@@ -54,10 +53,8 @@ namespace Wetr.Dal.Ado
         
         public async Task<bool> InsertAsync(Address address)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into address (addressId, location, zip, communityId) VALUES" +
-                    "(@addressId, @location, @zip, @communityId)",
+                @"insert into address (addressId, location, zip, communityId) VALUES (@addressId, @location, @zip, @communityId)",
                 new Parameter("@addressId", address.AddressId),
                 new Parameter("@location", address.Location),
                 new Parameter("@zip", address.Zip),
@@ -67,11 +64,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Address address)
         {
             return await this.template.ExecuteAsync(
-                @"update address set" +
-                    "location = @location," +
-                    "zip = @zip," +
-                    "communityId = @communityId" +
-                "where addressId = @addressId",
+                @"update address set location = @location, zip = @zip, communityId = @communityId where addressId = @addressId",
                 new Parameter("@addressId", address.AddressId),
                 new Parameter("@location", address.Location),
                 new Parameter("@zip", address.Zip),

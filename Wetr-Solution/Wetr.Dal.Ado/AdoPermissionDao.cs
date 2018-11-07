@@ -32,8 +32,7 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into hasPermission (permissionId, userId) VALUES" +
-                    "(@permissionId, @userId)",
+                @"insert into hasPermission (permissionId, userId) VALUES (@permissionId, @userId)",
                 new Parameter("@userId", userId),
                 new Parameter("@permissionId", permissionId)) == 1;
         }
@@ -41,8 +40,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int permissionId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from permission" +
-                    "where permissionId = @permissionId",
+                @"delete from permission where permissionId = @permissionId",
                 new Parameter("@permissionId", permissionId)) == 1;
         }
 
@@ -73,10 +71,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Permission permission)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into permission (permissionId, name, description) VALUES" +
-                    "(@permissionId, @name, @description)",
+                @"insert into permission (permissionId, name, description) VALUES (@permissionId, @name, @description)",
                 new Parameter("@permissionId", permission.PermissionId),
                 new Parameter("@name", permission.Name),
                 new Parameter("@name", permission.Description)) == 1;
@@ -85,9 +81,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteForUserId(int permissionId, int userId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from hasPermission" +
-                    "where permissionId = @permissionId AND" +
-                    "userId = @userId",
+                @"delete from hasPermission where permissionId = @permissionId AND userId = @userId",
                 new Parameter("@permissionId", permissionId),
                 new Parameter("@userId", userId)) == 1;
         }
@@ -95,10 +89,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Permission permission)
         {
             return await this.template.ExecuteAsync(
-               @"update permission set" +
-                   "name = @name," +
-                   "description = @description," +
-                   "where permissionId = @permissionId",
+               @"update permission set name = @name, description = @description, where permissionId = @permissionId",
                new Parameter("@permissionId", permission.PermissionId),
                new Parameter("@name", permission.Name),
                new Parameter("@description", permission.Description)) == 1;

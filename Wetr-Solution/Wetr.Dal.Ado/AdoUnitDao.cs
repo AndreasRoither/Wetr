@@ -30,8 +30,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int unitId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from unit" +
-                    "where unitId = @unitId",
+                @"delete from unit where unitId = @unitId",
                 new Parameter("@unitId", unitId)) == 1;
         }
 
@@ -52,10 +51,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Unit unit)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into unit (unitId, name) VALUES" +
-                    "(@unitId, @name)",
+                @"insert into unit (unitId, name) VALUES (@unitId, @name)",
                 new Parameter("@unitId", unit.UnitId),
                 new Parameter("@name", unit.Name)) == 1;
         }
@@ -63,9 +60,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Unit unit)
         {
             return await this.template.ExecuteAsync(
-                @"update unit set" +
-                    "name = @name," +
-                "where unitId = @unitId",
+                @"update unit set name = @name where unitId = @unitId",
                 new Parameter("@unitId", unit.UnitId),
                 new Parameter("@name", unit.Name)) == 1;
         }

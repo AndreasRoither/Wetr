@@ -34,8 +34,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int measurementId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from measurement" +
-                    "where measurementId = @measurementId",
+                @"delete from measurement where measurementId = @measurementId",
                 new Parameter("@measurementId", measurementId)) == 1;
         }
 
@@ -57,10 +56,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Measurement measurement)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into measurement (measurementId, stationId, measurementTypeId, unitId, value, timestamp) VALUES" +
-                    "(@measurementId, @stationId, @measurementTypeId, @unitId, @value, @timestamp)",
+                @"insert into measurement (measurementId, stationId, measurementTypeId, unitId, value, timestamp) VALUES(@measurementId, @stationId, @measurementTypeId, @unitId, @value, @timestamp)",
                 new Parameter("@measurementId", measurement.MeasurementId),
                 new Parameter("@stationId", measurement.StationId),
                 new Parameter("@measurementTypeId", measurement.MeasurementTypeId),
@@ -72,13 +69,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Measurement measurement)
         {
             return await this.template.ExecuteAsync(
-                @"update measurement set" +
-                    "stationId = @stationId," +
-                    "measurementTypeId = @measurementTypeId," +
-                    "unitId = @unitId," +
-                    "value = @value," +
-                    "timestamp = @timestamp" +
-                "where measurementId = @measurementId",
+                @"update measurement set stationId = @stationId, measurementTypeId = @measurementTypeId, unitId = @unitId, value = @value, timestamp = @timestamp where measurementId = @measurementId",
                 new Parameter("@measurementId", measurement.MeasurementId),
                 new Parameter("@stationId", measurement.StationId),
                 new Parameter("@measurementTypeId", measurement.MeasurementTypeId),

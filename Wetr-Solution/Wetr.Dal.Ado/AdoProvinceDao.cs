@@ -30,8 +30,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int provinceId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from province" +
-                    "where provinceId = @provinceId",
+                @"delete from province where provinceId = @provinceId",
                 new Parameter("@provinceId", provinceId)) == 1;
         }
 
@@ -62,10 +61,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Province province)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into province (provinceId, name, countryId) VALUES" +
-                    "(@provinceId, @name, @countryId)",
+                @"insert into province (provinceId, name, countryId) VALUES (@provinceId, @name, @countryId)",
                 new Parameter("@provinceId", province.ProvinceId),
                 new Parameter("@name", province.Name),
                 new Parameter("@countryId", province.CountryId)) == 1;
@@ -74,10 +71,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Province province)
         {
             return await this.template.ExecuteAsync(
-                @"update province set" +
-                    "name = @name," +
-                    "countryId = @countryId" +
-                "where provinceId = @provinceId",
+                @"update province set name = @name, countryId = @countryId where provinceId = @provinceId",
                 new Parameter("@provinceId", province.ProvinceId),
                 new Parameter("@name", province.Name),
                 new Parameter("@countryId", province.CountryId)) == 1;

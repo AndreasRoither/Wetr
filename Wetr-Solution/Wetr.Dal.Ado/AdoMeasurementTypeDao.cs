@@ -30,8 +30,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int measurementTypeId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from measurementType" +
-                    "where measurementTypeId = @measurementTypeId",
+                @"delete from measurementType where measurementTypeId = @measurementTypeId",
                 new Parameter("@measurementTypeId", measurementTypeId)) == 1;
         }
 
@@ -53,10 +52,8 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(MeasurementType measurementType)
         {
-            // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into measurementType (measurementTypeId, name) VALUES" +
-                    "(@measurementTypeId, @name)",
+                @"insert into measurementType (measurementTypeId, name) VALUES (@measurementTypeId, @name)",
                 new Parameter("@measurementTypeId", measurementType.MeasurementTypeId),
                 new Parameter("@name", measurementType.Name)) == 1;
         }
@@ -64,9 +61,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(MeasurementType measurementType)
         {
             return await this.template.ExecuteAsync(
-                @"update measurementType set" +
-                    "name = @name," +
-                "where measurementTypeId = @measurementTypeId",
+                @"update measurementType set name = @name, where measurementTypeId = @measurementTypeId",
                 new Parameter("@measurementTypeId", measurementType.MeasurementTypeId),
                 new Parameter("@name", measurementType.Name)) == 1;
         }

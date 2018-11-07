@@ -65,8 +65,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> InsertAsync(User user)
         {
             return await this.template.ExecuteAsync(
-                @"insert into user (userId, firstName, lastName, password, email) VALUES" +
-                    "(@userId, @firstName, @lastName, @password, @email)",
+                @"insert into user (userId, firstName, lastName, password, email) VALUES (@userId, @firstName, @lastName, @password, @email)",
                 new Parameter("@userId", user.UserId),
                 new Parameter("@firstName", user.FirstName),
                 new Parameter("@lastName", user.LastName),
@@ -77,12 +76,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(User user)
         {
             return await this.template.ExecuteAsync(
-                @"update user set " +
-                    "firstName = @firstName," +
-                    "lastName = @lastName," +
-                    "password = @password," +
-                    "email = @email " +
-                "where userId = @userId",
+                @"update user set firstName = @firstName, lastName = @lastName, password = @password, email = @email where userId = @userId",
                 new Parameter("@firstName", user.FirstName),
                 new Parameter("@lastName", user.LastName),
                 new Parameter("@password", user.Password),
