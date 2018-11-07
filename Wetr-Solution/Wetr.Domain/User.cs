@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System;
+
+namespace Wetr.Domain
 {
     public class User
     {
@@ -8,18 +10,19 @@
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object o)
         {
-            if (!(obj is User))
+
+            if (o == null || !(o is User))
                 return false;
 
-            User u = obj as User;
+            User u = o as User;
 
             return u.UserId == UserId &&
-                u.FirstName.Equals(FirstName) && 
-                u.LastName.Equals(LastName) && 
-                u.Password.Equals(Password) &&
-                u.Email.Equals(Email);
+               u.FirstName.Equals(FirstName) &&
+               u.LastName.Equals(LastName) &&
+               u.Password.Equals(Password) &&
+               u.Email.Equals(Email);
         }
 
         public override string ToString() =>
