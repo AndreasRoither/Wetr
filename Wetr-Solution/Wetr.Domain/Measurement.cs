@@ -13,5 +13,20 @@ namespace Wetr.Domain
 
         public override string ToString() =>
             $"[{MeasurementId}] {StationId} {MeasurementTypeId} {UnitId} {Value} {TimesStamp}";
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Measurement temp = (Measurement)obj;
+                return ((this.MeasurementId == temp.MeasurementId) && (this.StationId == temp.StationId) 
+                    && (this.MeasurementTypeId == temp.MeasurementTypeId) && (this.UnitId == temp.UnitId)
+                    && (this.Value == temp.Value) && (this.TimesStamp == temp.TimesStamp));
+            }
+        }
     }
 }

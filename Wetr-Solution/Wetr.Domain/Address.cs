@@ -9,5 +9,16 @@
 
         public override string ToString() =>
             $"[{AddressId}] {CommunityId} {Zip} {Location}";
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || ! this.GetType().Equals(obj.GetType())) {
+                return false;
+            }
+            else {
+                Address temp = (Address)obj;
+                return ((this.AddressId == temp.AddressId) && (this.CommunityId == temp.CommunityId) && (this.Location == temp.Location) && (this.Zip == temp.Zip));
+            }
+        }
     }
 }

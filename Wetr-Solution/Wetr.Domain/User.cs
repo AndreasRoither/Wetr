@@ -10,22 +10,22 @@ namespace Wetr.Domain
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public override bool Equals(object o)
-        {
-
-            if (o == null || !(o is User))
-                return false;
-
-            User u = o as User;
-
-            return u.UserId == UserId &&
-               u.FirstName.Equals(FirstName) &&
-               u.LastName.Equals(LastName) &&
-               u.Password.Equals(Password) &&
-               u.Email.Equals(Email);
-        }
-
         public override string ToString() =>
             $"[{UserId}] {FirstName} {LastName} {Password} {Email}";
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                User temp = (User)obj;
+                return ((this.UserId == temp.UserId) && (this.FirstName == temp.FirstName)
+                    && (this.LastName == temp.LastName) && (this.Password == temp.Password)
+                    && (this.Email == temp.Email));
+            }
+        }
     }
 }

@@ -8,5 +8,18 @@
 
         public override string ToString() =>
             $"[{PermissionId}] {Name} {Description}";
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Permission temp = (Permission)obj;
+                return ((this.PermissionId == temp.PermissionId) && (this.Name == temp.Name) && (this.Description == temp.Description));
+            }
+        }
     }
 }
