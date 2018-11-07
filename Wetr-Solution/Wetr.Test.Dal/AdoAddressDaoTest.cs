@@ -13,6 +13,16 @@ namespace Wetr.Test.Dal
     {
         private readonly IAddressDao adoAddressDao = new AdoAddressDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
 
+        [ClassInitialize]
+        public static async Task ClassInitializeAsync(TestContext context)
+        {
+        }
+
+        [ClassCleanup]
+        public static async Task ClassCleanupAsync()
+        {
+        }
+
         [TestMethod]
         public async Task FindByCommunityIdAsync()
         {

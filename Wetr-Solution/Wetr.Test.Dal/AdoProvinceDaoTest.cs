@@ -11,6 +11,16 @@ namespace Wetr.Test.Dal
     {
         private readonly IProvinceDao provinceDao = new AdoProvinceDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
 
+        [ClassInitialize]
+        public static async Task ClassInitializeAsync(TestContext context)
+        {
+        }
+
+        [ClassCleanup]
+        public static async Task ClassCleanupAsync()
+        {
+        }
+
         [TestMethod]
         public async override Task TestDeleteAsync()
         {

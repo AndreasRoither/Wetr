@@ -1,3 +1,4 @@
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -7,8 +8,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema wetr
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `wetr` DEFAULT CHARACTER SET utf8;
-USE `wetr` ;
+CREATE SCHEMA IF NOT EXISTS `wetr-unit-testing` DEFAULT CHARACTER SET utf8 ;
+USE `wetr-unit-testing` ;
 
 -- -----------------------------------------------------
 -- Table `country`

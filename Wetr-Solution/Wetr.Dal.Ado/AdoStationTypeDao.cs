@@ -30,7 +30,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> DeleteAsync(int stationTypeId)
         {
             return await this.template.ExecuteAsync(
-                @"delete from stationType where stationTypeId = @stationTypeId",
+                "delete from stationType where stationTypeId = @stationTypeId",
                 new Parameter("@stationTypeId", stationTypeId)) == 1;
         }
 
@@ -52,7 +52,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> InsertAsync(StationType stationType)
         {
             return await this.template.ExecuteAsync(
-                @"insert into stationType (stationTypeId, name) VALUES (@stationTypeId, @name)",
+                "insert into stationType (stationTypeId, name) VALUES (@stationTypeId, @name)",
                 new Parameter("@stationTypeId", stationType.StationTypeId),
                 new Parameter("@name", stationType.Name)) == 1;
         }
@@ -60,7 +60,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(StationType stationType)
         {
             return await this.template.ExecuteAsync(
-                @"update stationType set name = @name, where stationTypeId = @stationTypeId",
+                "update stationType set name = @name, where stationTypeId = @stationTypeId",
                 new Parameter("@stationTypeId", stationType.StationTypeId),
                 new Parameter("@name", stationType.Name)) == 1;
         }

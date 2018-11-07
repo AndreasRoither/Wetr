@@ -26,8 +26,8 @@ namespace Wetr.Dal.Ado
                 AddressId = (int)row["addressId"],
                 UserId = (int)row["userId"],
                 Name = (string)row["name"],
-                Longitude = (double)row["longitude"],
-                Latitude = (double)row["latitude"],
+                Longitude = (decimal)row["longitude"],
+                Latitude = (decimal)row["latitude"],
             };
         }
 
@@ -40,7 +40,7 @@ namespace Wetr.Dal.Ado
 
         public async Task<IEnumerable<Station>> FindAllAsync()
         {
-            return await this.template.QueryAsync("select * from person", MapRow);
+            return await this.template.QueryAsync("select * from station", MapRow);
         }
 
         public async Task<IEnumerable<Station>> FindByAddressIdAsync(int addressId)
@@ -86,7 +86,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> InsertAsync(Station station)
         {
             return await this.template.ExecuteAsync(
-                @"insert into station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES (@stationId, @name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
+                "insert into station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES (@stationId, @name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
                 new Parameter("@stationId", station.StationId),
                 new Parameter("@name", station.Name),
                 new Parameter("@longitude", station.Longitude),
@@ -99,7 +99,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Station station)
         {
             return await this.template.ExecuteAsync(
-                @"update station set name = @name, longitude = @longitude, latitude = @latitude, stationTypeId = @stationTypeId, addressId = @addressId, userId = @userId where id = @stationId",
+                "update station set name = @name, longitude = @longitude, latitude = @latitude, stationTypeId = @stationTypeId, addressId = @addressId, userId = @userId where stationId = @stationId",
                 new Parameter("@stationId", station.StationId),
                 new Parameter("@name", station.Name),
                 new Parameter("@longitude", station.Longitude),

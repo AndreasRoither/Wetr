@@ -1,44 +1,122 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Transactions;
 using Common.Dal.Ado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
 using Wetr.Dal.Interface;
+using Wetr.Domain;
 
 namespace Wetr.Test.Dal
 {
     [TestClass]
     public class AdoCountryDaoTest : DaoBaseTest
     {
-        private readonly ICountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+        private static readonly AdoCountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+
+        [ClassInitialize]
+        public static async Task ClassInitializeAsync(TestContext context)
+        {
+            Country country = new Country
+            {
+                CountryId = 1,
+                Name = "TestCountry"
+            };
+            await countryDao.InsertAsync(country);
+        }
+
+        [ClassCleanup]
+        public static async Task ClassCleanupAsync()
+        {
+            await countryDao.DeleteAsync(1);
+        }
 
         [TestMethod]
         public async override Task TestDeleteAsync()
         {
-            throw new System.NotImplementedException();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                int countryId = 2;
+
+                Country country = new Country
+                {
+                    CountryId = countryId,
+                    Name = "TestCountry"
+                };
+                await countryDao.InsertAsync(country);
+                await countryDao.DeleteAsync(countryId);
+
+                Country test = await countryDao.FindByIdAsync(countryId);
+
+                Assert.IsNull(test);
+            }
         }
 
         [TestMethod]
         public async override Task TestFindAllAsync()
         {
-            throw new System.NotImplementedException();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                Country country = new Country
+                {
+                    CountryId = 3,
+                    Name = "TestCountry"
+                };
+                Country country2 = new Country
+                {
+                    CountryId = 4,
+                    Name = "TestCountry"
+                };
+                await countryDao.InsertAsync(country);
+                await countryDao.InsertAsync(country2);
+
+                IEnumerable<Country> countries = await countryDao.FindAllAsync();
+
+                CollectionAssert.Contains(countries.ToList(), country);
+                CollectionAssert.Contains(countries.ToList(), country2);
+            }
         }
 
         [TestMethod]
         public async override Task TestFindByIdAsync()
         {
-            throw new System.NotImplementedException();
+            int CountryId = 1;
+            Country test = await countryDao.FindByIdAsync(CountryId);
+            Assert.IsTrue(test.CountryId == CountryId);
         }
 
         [TestMethod]
         public async override Task TestInsertAsync()
         {
-            throw new System.NotImplementedException();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                int CountryId = 2;
+                Country country = new Country
+                {
+                    CountryId = CountryId,
+                    Name = "TestCountry"
+                };
+                await countryDao.InsertAsync(country);
+
+                Country test = await countryDao.FindByIdAsync(CountryId);
+                Assert.IsTrue(test.CountryId == CountryId);
+            }
         }
 
         [TestMethod]
         public async override Task TestUpdateAsync()
         {
-            throw new System.NotImplementedException();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                Country update = await countryDao.FindByIdAsync(1);
+                update.Name = "TestUpdate";
+
+                await countryDao.UpdateAsync(update);
+                Country test = await countryDao.FindByIdAsync(update.CountryId);
+
+                Assert.IsTrue(test.Name.Equals("TestUpdate"));
+            }
         }
     }
 }
