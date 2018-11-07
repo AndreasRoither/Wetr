@@ -3,6 +3,7 @@ using Common.Dal.Ado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
 using Wetr.Dal.Interface;
+using Wetr.Domain;
 
 namespace Wetr.Test.Dal
 {
@@ -32,7 +33,17 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestInsertAsync()
         {
-            throw new System.NotImplementedException();
+            Unit unit = new Unit
+            {
+                UnitId = 0,
+                Name = "Celsius"
+            };
+
+            await unitDao.InsertAsync(unit);
+
+            Unit insertedUnit = await unitDao.FindByIdAsync(0);
+
+            Assert.AreEqual(unit, insertedUnit);
         }
 
         [TestMethod]
