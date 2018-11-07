@@ -65,7 +65,8 @@ namespace Wetr.Dal.Ado
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
                 @"insert into community (communityId, name, districtId) VALUES" +
-                    "(@name, @districtId)",
+                    "(@communityId, @name, @districtId)",
+                new Parameter("@communityId", community.CommunityId),
                 new Parameter("@name", community.Name),
                 new Parameter("@districtId", community.DistrictId)) == 1;
         }

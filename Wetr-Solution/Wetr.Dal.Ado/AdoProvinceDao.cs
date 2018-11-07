@@ -64,8 +64,9 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into province (name, countryId) VALUES" +
-                    "(@name, @countryId)",
+                @"insert into province (provinceId, name, countryId) VALUES" +
+                    "(@provinceId, @name, @countryId)",
+                new Parameter("@provinceId", province.ProvinceId),
                 new Parameter("@name", province.Name),
                 new Parameter("@countryId", province.CountryId)) == 1;
         }

@@ -55,8 +55,9 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into measurementType (name) VALUES" +
-                    "(@name)",
+                @"insert into measurementType (measurementTypeId, name) VALUES" +
+                    "(@measurementTypeId, @name)",
+                new Parameter("@measurementTypeId", measurementType.MeasurementTypeId),
                 new Parameter("@name", measurementType.Name)) == 1;
         }
 

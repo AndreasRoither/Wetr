@@ -67,8 +67,8 @@ namespace Wetr.Dal.Ado
             return await this.template.ExecuteAsync(
                 @"insert into user (userId, firstName, lastName, password, email) VALUES" +
                     "(@userId, @firstName, @lastName, @password, @email)",
-                new Parameter("@firstName", user.FirstName),
                 new Parameter("@userId", user.UserId),
+                new Parameter("@firstName", user.FirstName),
                 new Parameter("@lastName", user.LastName),
                 new Parameter("@password", user.Password),
                 new Parameter("@email", user.Email)) == 1;

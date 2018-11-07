@@ -88,8 +88,9 @@ namespace Wetr.Dal.Ado
         {
             // no stationId since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into station (name, longitude, latitude, stationTypeId, addressId, userId) VALUES" +
-                    "(@name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
+                @"insert into station (stationId, name, longitude, latitude, stationTypeId, addressId, userId) VALUES" +
+                    "(@stationId, @name, @longitude, @latitude, @stationTypeId, @addressId, @userId)",
+                new Parameter("@stationId", station.StationId),
                 new Parameter("@name", station.Name),
                 new Parameter("@longitude", station.Longitude),
                 new Parameter("@latitude", station.Latitude),

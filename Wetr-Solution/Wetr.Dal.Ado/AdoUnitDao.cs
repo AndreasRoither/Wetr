@@ -54,19 +54,20 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into unit (name) VALUES" +
-                    "(@name)",
+                @"insert into unit (unitId, name) VALUES" +
+                    "(@unitId, @name)",
+                new Parameter("@unitId", unit.UnitId),
                 new Parameter("@name", unit.Name)) == 1;
         }
 
-        public async Task<bool> UpdateAsync(Unit unitType)
+        public async Task<bool> UpdateAsync(Unit unit)
         {
             return await this.template.ExecuteAsync(
                 @"update unit set" +
                     "name = @name," +
                 "where unitId = @unitId",
-                new Parameter("@unitId", unitType.UnitId),
-                new Parameter("@name", unitType.Name)) == 1;
+                new Parameter("@unitId", unit.UnitId),
+                new Parameter("@name", unit.Name)) == 1;
         }
     }
 }

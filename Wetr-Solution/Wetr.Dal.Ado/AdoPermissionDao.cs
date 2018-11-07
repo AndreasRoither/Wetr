@@ -75,8 +75,9 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into permission (name, description) VALUES" +
-                    "(@name, @description)",
+                @"insert into permission (permissionId, name, description) VALUES" +
+                    "(@permissionId, @name, @description)",
+                new Parameter("@permissionId", permission.PermissionId),
                 new Parameter("@name", permission.Name),
                 new Parameter("@name", permission.Description)) == 1;
         }
@@ -98,7 +99,7 @@ namespace Wetr.Dal.Ado
                    "name = @name," +
                    "description = @description," +
                    "where permissionId = @permissionId",
-               new Parameter("@measurementTypeId", permission.PermissionId),
+               new Parameter("@permissionId", permission.PermissionId),
                new Parameter("@name", permission.Name),
                new Parameter("@description", permission.Description)) == 1;
         }

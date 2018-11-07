@@ -54,8 +54,9 @@ namespace Wetr.Dal.Ado
         {
             // no id since it's set to auto increment
             return await this.template.ExecuteAsync(
-                @"insert into stationType (name) VALUES" +
-                    "(@name)",
+                @"insert into stationType (stationTypeId, name) VALUES" +
+                    "(@stationTypeId, @name)",
+                new Parameter("@stationTypeId", stationType.StationTypeId),
                 new Parameter("@name", stationType.Name)) == 1;
         }
 
