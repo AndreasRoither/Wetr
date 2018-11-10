@@ -37,43 +37,43 @@ namespace Wetr.Test.Dal
 
             Country country = new Country
             {
-                CountryId = 1,
+                CountryId = 6,
                 Name = "TestCountry"
             };
             await countryDao.InsertAsync(country);
 
             Province province = new Province
             {
-                CountryId = 1,
-                ProvinceId = 1,
-                Name = "TestCommunity"
+                CountryId = 6,
+                ProvinceId = 6,
+                Name = "TestProvince"
             };
             await provinceDao.InsertAsync(province);
 
             District district = new District
             {
-                DistrictId = 1,
-                ProvinceId = 1,
+                DistrictId = 6,
+                ProvinceId = 6,
                 Name = "TestDistrict"
             };
             await districtDao.InsertAsync(district);
 
             Community community = new Community
             {
-                DistrictId = 1,
-                CommunityId = 1,
+                DistrictId = 6,
+                CommunityId = 6,
                 Name = "TestCommunity"
             };
             await communityDao.InsertAsync(community);
 
-            Address a = new Address
+            Address address = new Address
             {
-                AddressId = 1,
-                CommunityId = 1,
+                AddressId = 6,
+                CommunityId = 6,
                 Location = "TestLocation",
                 Zip = "124"
             };
-            await addressDao.InsertAsync(a);
+            await addressDao.InsertAsync(address);
 
             StationType type = new StationType
             {
@@ -89,7 +89,7 @@ namespace Wetr.Test.Dal
                 Longitude = 12,
                 Latitude = 12,
                 StationTypeId = 1,
-                AddressId = 1,
+                AddressId = 6,
                 UserId = 1
             };
             await stationDao.InsertAsync(station);
@@ -100,11 +100,11 @@ namespace Wetr.Test.Dal
         {
             await stationDao.DeleteAsync(1);
             await stationTypeDao.DeleteAsync(1);
-            await addressDao.DeleteAsync(1);
-            await communityDao.DeleteAsync(1);
-            await districtDao.DeleteAsync(1);
-            await provinceDao.DeleteAsync(1);
-            await countryDao.DeleteAsync(1);
+            await addressDao.DeleteAsync(6);
+            await communityDao.DeleteAsync(6);
+            await districtDao.DeleteAsync(6);
+            await provinceDao.DeleteAsync(6);
+            await countryDao.DeleteAsync(6);
             await userDao.DeleteAsync(1);
         }
 
@@ -131,7 +131,7 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async Task TestFindByAddressIdAsync()
         {
-            int AddressId = 1;
+            int AddressId = 6;
             IEnumerable<Station> stations = await stationDao.FindByAddressIdAsync(AddressId);
 
             foreach (var station in stations)
@@ -151,14 +151,14 @@ namespace Wetr.Test.Dal
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                Station station1 = new Station
+                Station station = new Station
                 {
                     StationId = 3,
                     Name = "Station 1",
                     Longitude = 12,
                     Latitude = 12,
                     StationTypeId = 1,
-                    AddressId = 1,
+                    AddressId = 6,
                     UserId = 1
                 };
 
@@ -169,15 +169,15 @@ namespace Wetr.Test.Dal
                     Longitude = 12,
                     Latitude = 12,
                     StationTypeId = 1,
-                    AddressId = 1,
+                    AddressId = 6,
                     UserId = 1
                 };
-                await stationDao.InsertAsync(station1);
+                await stationDao.InsertAsync(station);
                 await stationDao.InsertAsync(station2);
 
                 IEnumerable<Station> stations = await stationDao.FindAllAsync();
 
-                CollectionAssert.Contains(stations.ToList(), station1);
+                CollectionAssert.Contains(stations.ToList(), station);
                 CollectionAssert.Contains(stations.ToList(), station2);
 
                 // Never called since a rollback of the db is desired
@@ -195,7 +195,7 @@ namespace Wetr.Test.Dal
             station.Latitude = 1;
             station.Longitude = 1;
 
-            await stationDao.UpdateAsync(station);
+            Assert.IsTrue(await stationDao.UpdateAsync(station));
 
             Station station2 = await stationDao.FindByIdAsync(StationId);
 
@@ -205,11 +205,14 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestDeleteAsync()
         {
-            int StationId = 1;
-            await stationDao.DeleteAsync(StationId);
-            Station station = await stationDao.FindByIdAsync(StationId);
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                int StationId = 1;
+                Assert.IsTrue(await stationDao.DeleteAsync(StationId));
+                Station station = await stationDao.FindByIdAsync(StationId);
 
-            Assert.IsNull(station);
+                Assert.IsNull(station);
+            }
         }
 
         [TestMethod]
@@ -217,7 +220,7 @@ namespace Wetr.Test.Dal
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                int StationId = 3;
+                int StationId = 6;
                 Station station = new Station
                 {
                     StationId = StationId,
@@ -225,14 +228,14 @@ namespace Wetr.Test.Dal
                     Longitude = 12,
                     Latitude = 12,
                     StationTypeId = 1,
-                    AddressId = 1,
+                    AddressId = 6,
                     UserId = 1
                 };
                 await stationDao.InsertAsync(station);
 
                 Station test = await stationDao.FindByIdAsync(StationId);
 
-                Assert.IsTrue(station.Equals(test));
+                Assert.IsTrue(test.Equals(station));
 
                 // Never called since a rollback of the db is desired
                 // transaction.Complete();

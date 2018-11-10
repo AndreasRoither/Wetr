@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Common.Dal.Ado;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
-using Common.Dal.Ado;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
-using Wetr.Dal.Interface;
 using Wetr.Domain;
 
 namespace Wetr.Test.Dal
@@ -20,7 +19,7 @@ namespace Wetr.Test.Dal
         {
             Country country = new Country
             {
-                CountryId = 1,
+                CountryId = 3,
                 Name = "TestCountry"
             };
             await countryDao.InsertAsync(country);
@@ -29,7 +28,7 @@ namespace Wetr.Test.Dal
         [ClassCleanup]
         public static async Task ClassCleanupAsync()
         {
-            await countryDao.DeleteAsync(1);
+            await countryDao.DeleteAsync(3);
         }
 
         [TestMethod]
@@ -37,15 +36,8 @@ namespace Wetr.Test.Dal
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                int countryId = 2;
-
-                Country country = new Country
-                {
-                    CountryId = countryId,
-                    Name = "TestCountry"
-                };
-                await countryDao.InsertAsync(country);
-                await countryDao.DeleteAsync(countryId);
+                int countryId = 3;
+                Assert.IsTrue(await countryDao.DeleteAsync(countryId));
 
                 Country test = await countryDao.FindByIdAsync(countryId);
 
@@ -60,12 +52,12 @@ namespace Wetr.Test.Dal
             {
                 Country country = new Country
                 {
-                    CountryId = 3,
+                    CountryId = 4,
                     Name = "TestCountry"
                 };
                 Country country2 = new Country
                 {
-                    CountryId = 4,
+                    CountryId = 5,
                     Name = "TestCountry"
                 };
                 await countryDao.InsertAsync(country);
@@ -81,7 +73,7 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestFindByIdAsync()
         {
-            int CountryId = 1;
+            int CountryId = 3;
             Country test = await countryDao.FindByIdAsync(CountryId);
             Assert.IsTrue(test.CountryId == CountryId);
         }
@@ -91,7 +83,7 @@ namespace Wetr.Test.Dal
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                int CountryId = 2;
+                int CountryId = 8;
                 Country country = new Country
                 {
                     CountryId = CountryId,
@@ -100,7 +92,7 @@ namespace Wetr.Test.Dal
                 await countryDao.InsertAsync(country);
 
                 Country test = await countryDao.FindByIdAsync(CountryId);
-                Assert.IsTrue(test.CountryId == CountryId);
+                Assert.IsTrue(test.Equals(country));
             }
         }
 
@@ -112,10 +104,10 @@ namespace Wetr.Test.Dal
                 Country update = await countryDao.FindByIdAsync(1);
                 update.Name = "TestUpdate";
 
-                await countryDao.UpdateAsync(update);
+                Assert.IsTrue(await countryDao.UpdateAsync(update));
                 Country test = await countryDao.FindByIdAsync(update.CountryId);
 
-                Assert.IsTrue(test.Name.Equals("TestUpdate"));
+                Assert.IsTrue(test.Equals(update));
             }
         }
     }
