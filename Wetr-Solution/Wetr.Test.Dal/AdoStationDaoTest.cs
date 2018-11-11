@@ -37,14 +37,14 @@ namespace Wetr.Test.Dal
 
             Country country = new Country
             {
-                CountryId = 6,
+                CountryId = 9,
                 Name = "TestCountry"
             };
             await countryDao.InsertAsync(country);
 
             Province province = new Province
             {
-                CountryId = 6,
+                CountryId = 9,
                 ProvinceId = 6,
                 Name = "TestProvince"
             };
@@ -104,7 +104,7 @@ namespace Wetr.Test.Dal
             await communityDao.DeleteAsync(6);
             await districtDao.DeleteAsync(6);
             await provinceDao.DeleteAsync(6);
-            await countryDao.DeleteAsync(6);
+            await countryDao.DeleteAsync(9);
             await userDao.DeleteAsync(1);
         }
 

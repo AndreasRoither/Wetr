@@ -81,9 +81,8 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async override Task TestInsertAsync()
         {
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                int CountryId = 8;
+            
+                int CountryId = 6;
                 Country country = new Country
                 {
                     CountryId = CountryId,
@@ -93,7 +92,7 @@ namespace Wetr.Test.Dal
 
                 Country test = await countryDao.FindByIdAsync(CountryId);
                 Assert.IsTrue(test.Equals(country));
-            }
+            
         }
 
         [TestMethod]
@@ -101,7 +100,7 @@ namespace Wetr.Test.Dal
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                Country update = await countryDao.FindByIdAsync(1);
+                Country update = await countryDao.FindByIdAsync(3);
                 update.Name = "TestUpdate";
 
                 Assert.IsTrue(await countryDao.UpdateAsync(update));

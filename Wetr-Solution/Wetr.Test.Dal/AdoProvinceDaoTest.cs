@@ -21,14 +21,14 @@ namespace Wetr.Test.Dal
         {
             Country country = new Country
             {
-                CountryId = 5,
+                CountryId = 8,
                 Name = "TestCountry"
             };
             await countryDao.InsertAsync(country);
 
             Province province = new Province
             {
-                CountryId = 5,
+                CountryId = 8,
                 ProvinceId = 5,
                 Name = "TestProvince"
             };
@@ -39,7 +39,7 @@ namespace Wetr.Test.Dal
         public static async Task ClassCleanupAsync()
         {
             await provinceDao.DeleteAsync(5);
-            await countryDao.DeleteAsync(5);
+            await countryDao.DeleteAsync(8);
         }
 
         [TestMethod]
@@ -61,14 +61,14 @@ namespace Wetr.Test.Dal
             {
                 Province province = new Province
                 {
-                    CountryId = 5,
+                    CountryId = 8,
                     ProvinceId = 10,
                     Name = "Province 2"
                 };
 
                 Province province2 = new Province
                 {
-                    CountryId = 5,
+                    CountryId = 8,
                     ProvinceId = 11,
                     Name = "Province 3"
                 };
@@ -86,7 +86,7 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async Task TestFindByCountryIdAsync()
         {
-            int countryId = 5;
+            int countryId = 8;
             IEnumerable<Province> provinces = await provinceDao.FindByCountryIdAsync(countryId);
 
             foreach (var province in provinces)
@@ -109,7 +109,7 @@ namespace Wetr.Test.Dal
                 int provinceId = 12;
                 Province province = new Province
                 {
-                    CountryId = 5,
+                    CountryId = 8,
                     ProvinceId = provinceId,
                     Name = "Province 2"
                 };
