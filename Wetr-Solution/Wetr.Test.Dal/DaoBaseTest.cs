@@ -24,19 +24,10 @@ namespace Wetr.Test.Dal
             transaction.Dispose();
         }
 
-        [TestMethod]
         public abstract Task TestFindByIdAsync();
-
-        [TestMethod]
         public abstract Task TestFindAllAsync();
-
-        [TestMethod]
         public abstract Task TestUpdateAsync();
-
-        [TestMethod]
         public abstract Task TestDeleteAsync();
-
-        [TestMethod]
         public abstract Task TestInsertAsync();
     }
 }
