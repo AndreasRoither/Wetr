@@ -7,12 +7,10 @@ services:
    environment:
      MYSQL_ROOT_PASSWORD: 0c1cd84e
      MYSQL_DATABASE: wetr
-     MYSQL_USER: wetr
-     MYSQL_PASSWORD: bdf1fa05
    ports:
      - '3306:3306'
    volumes:
-     - mysql_data:/var/lib/mysql
+     - ./var/lib/mysql:/var/lib/mysql
  phpmyadmin:
     container_name: wetr-phpmyadmin
     restart: always
@@ -25,5 +23,3 @@ services:
       MYSQL_ROOT_PASSWORD: 0c1cd84e
     volumes:
       - ./sql:/tmp/sql/
-volumes:
-  mysql_data:

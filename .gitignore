@@ -329,3 +329,4 @@ ASALocalRun/
 .localhistory/
 *.bak
 *.bulk
+var/
