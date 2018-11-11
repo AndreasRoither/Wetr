@@ -12,43 +12,18 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoUserDaoTest : DaoBaseTest
     {
-        private readonly IUserDao adoUserDao = new AdoUserDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+        private static readonly IUserDao adoUserDao = new AdoUserDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static IList<User> users; 
 
-        [TestMethod]
-        public override async Task TestDeleteAsync()
+        [ClassInitialize]
+        public static async Task ClassInitializeAsync(TestContext context)
         {
-            // Setup
+
+            users = new List<User>();
 
             User a = new User
             {
-                UserId = 1,
-                FirstName = "Daniel",
-                LastName = "Englisch",
-                Email = "daniel.englisch@outlook.com",
-                Password = "SomeHash"
-            };
-
-            await adoUserDao.InsertAsync(a);
-
-            // Act
-
-            await adoUserDao.DeleteAsync(a.UserId);
-
-            User b = await adoUserDao.FindByIdAsync(a.UserId);
-
-            // Assert
-
-            Assert.IsNull(b);
-        }
-
-        [TestMethod]
-        public async override Task TestFindAllAsync()
-        {
-            // Setup
-
-            User a = new User
-            {
-                UserId = 1,
+                UserId = 2,
                 FirstName = "Daniel",
                 LastName = "Englisch",
                 Email = "daniel.englisch@outlook.com",
@@ -57,7 +32,7 @@ namespace Wetr.Test.Dal
 
             User b = new User
             {
-                UserId = 2,
+                UserId = 3,
                 FirstName = "Stefan",
                 LastName = "Granzer",
                 Email = "stef.gra@outlook.com",
@@ -66,127 +41,92 @@ namespace Wetr.Test.Dal
 
             User c = new User
             {
-                UserId = 3,
+                UserId = 4,
                 FirstName = "Markus",
                 LastName = "Persson",
                 Email = "mc.person@outlook.com",
                 Password = "SomeHash"
             };
 
-            // Act
+            users.Add(a);
+            users.Add(b);
+            users.Add(c);
 
-            await adoUserDao.InsertAsync(a);
-            await adoUserDao.InsertAsync(b);
-            await adoUserDao.InsertAsync(c);
+            foreach (User u in users)
+                await adoUserDao.InsertAsync(u);
 
+        }
+
+        [ClassCleanup]
+        public static async Task ClassCleanupAsync()
+        {
+            foreach (User u in users)
+                await adoUserDao.DeleteAsync(u.UserId);
+        }
+
+        [TestMethod]
+        public override async Task TestDeleteAsync()
+        {
+            await adoUserDao.DeleteAsync(3);
+            User u = await adoUserDao.FindByIdAsync(3);
+            Assert.IsNull(u);
+        }
+
+        [TestMethod]
+        public async override Task TestFindAllAsync()
+        {
             IEnumerable<User> fetchedUsers = await adoUserDao.FindAllAsync();
+            foreach (User u in users)
+                CollectionAssert.Contains(fetchedUsers.ToList(), u);
 
-            // Assert
-            CollectionAssert.Contains(fetchedUsers.ToList(), a);
-            CollectionAssert.Contains(fetchedUsers.ToList(), b);
-            CollectionAssert.Contains(fetchedUsers.ToList(), c);
         }
 
         [TestMethod]
         public async Task TestFindByEmailAsync()
         {
-            // Setup
-
-            User a = new User
-            {
-                UserId = 1,
-                FirstName = "Daniel",
-                LastName = "Englisch",
-                Email = "daniel.englisch@outlook.com",
-                Password = "SomeHash"
-            };
-
-            // Act
-
-            await adoUserDao.InsertAsync(a);
-
-            User b = await adoUserDao.FindByEmailAsync(a.Email);
-
-            // Assert
-
-            Assert.AreEqual(a, b);
+            User u = await adoUserDao.FindByEmailAsync("mc.person@outlook.com");
+            Assert.IsNotNull(u);
+            Assert.AreEqual(4, u.UserId);
         }
 
         [TestMethod]
         public async override Task TestFindByIdAsync()
         {
-            // Setup
-
-            User a = new User
-            {
-                UserId = 1,
-                FirstName = "Daniel",
-                LastName = "Englisch",
-                Email = "daniel.englisch@outlook.com",
-                Password = "SomeHash"
-            };
-
-            // Act
-
-            await adoUserDao.InsertAsync(a);
-
-            User b = await adoUserDao.FindByIdAsync(a.UserId);
-
-            // Assert
-
-            Assert.AreEqual(b.Email, a.Email);
+            User u = await adoUserDao.FindByIdAsync(2);
+            Assert.AreEqual("daniel.englisch@outlook.com", u.Email);
         }
 
         [TestMethod]
         public async override Task TestInsertAsync()
         {
-            // Setup
-
-            User a = new User
+            User d = new User
             {
-                UserId = 1,
-                FirstName = "Daniel",
-                LastName = "Englisch",
-                Email = "daniel.englisch@outlook.com",
+                UserId = 5,
+                FirstName = "Anna",
+                LastName = "Losbichler",
+                Email = "anna.l@gmx.com",
                 Password = "SomeHash"
             };
 
-            // Act
+            await adoUserDao.InsertAsync(d);
 
-            await adoUserDao.InsertAsync(a);
+            User u = await adoUserDao.FindByIdAsync(5);
 
-            User b = await adoUserDao.FindByEmailAsync(a.Email);
-
-            // Assert
-
-            Assert.AreEqual(a, b);
+            Assert.AreEqual(d,u);
         }
 
         [TestMethod]
         public override async Task TestUpdateAsync()
         {
-            // Setup
+            string newEmail = "new@email.at";
 
-            User a = new User
-            {
-                UserId = 1,
-                FirstName = "Daniel",
-                LastName = "Englisch",
-                Email = "daniel.englisch@outlook.com",
-                Password = "SomeHash"
-            };
+            User u = await adoUserDao.FindByIdAsync(2);
+            u.Email = newEmail;
+            await adoUserDao.UpdateAsync(u);
 
-            await adoUserDao.InsertAsync(a);
+            u = await adoUserDao.FindByIdAsync(2);
 
-            // Act
-
-            a.Email = "newMail@hagenberg.at";
-            await adoUserDao.UpdateAsync(a);
-
-            // Assert
-            User b = await adoUserDao.FindByIdAsync(a.UserId);
-
-            Assert.AreEqual(b.Email, "newMail@hagenberg.at");
+            Assert.AreEqual(newEmail, u.Email);
         }
 
     }
