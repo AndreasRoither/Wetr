@@ -9,7 +9,7 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoStationTypeDaoTest : DaoBaseTest
     {
-        private readonly IStationTypeDao stationTypeDao = new AdoStationTypeDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+        private readonly IStationTypeDao stationTypeDao = new AdoStationTypeDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
 
         [TestMethod]
         public async override Task TestDeleteAsync()

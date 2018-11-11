@@ -13,10 +13,10 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoDistrictDaoTest : DaoBaseTest
     {
-        private static readonly IDistrictDao districtDao = new AdoDistrictDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
-        private static readonly AdoCountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
-        private static readonly AdoProvinceDao provinceDao = new AdoProvinceDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
-        private static readonly AdoCommunityDao communityDao = new AdoCommunityDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+        private static readonly IDistrictDao districtDao = new AdoDistrictDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static readonly AdoCountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static readonly AdoProvinceDao provinceDao = new AdoProvinceDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static readonly AdoCommunityDao communityDao = new AdoCommunityDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
 
         [ClassInitialize]
         public static async Task ClassInitializeAsync(TestContext context)

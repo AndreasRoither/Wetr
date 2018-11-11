@@ -10,7 +10,7 @@ namespace Wetr.Test.Dal
     public class AdoPermissionDaoTest : DaoBaseTest
     {
 
-        private readonly IPermissionDao permissionDao = new AdoPermissionDao(DefaultConnectionFactory.FromConfiguration("MysqlConnection"));
+        private readonly IPermissionDao permissionDao = new AdoPermissionDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
 
         [TestMethod]
         public async Task TestFindForUserId()
