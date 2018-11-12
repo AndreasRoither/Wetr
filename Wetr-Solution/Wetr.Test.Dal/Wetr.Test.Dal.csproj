@@ -80,6 +80,10 @@
       <Project>{3dc15779-95a8-4fbf-8e1b-e0d02d8c4ef5}</Project>
       <Name>Wetr.Dal.Ado</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Factory\Wetr.Dal.Factory.csproj">
+      <Project>{C30D5B0E-44BD-467D-A584-410A827B0C25}</Project>
+      <Name>Wetr.Dal.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wetr.Dal.Interface\Wetr.Dal.Interface.csproj">
       <Project>{13F2E812-FA97-4306-91B9-9455CDF464C7}</Project>
       <Name>Wetr.Dal.Interface</Name>

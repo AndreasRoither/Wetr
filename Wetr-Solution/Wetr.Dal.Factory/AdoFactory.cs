@@ -4,12 +4,14 @@ using Wetr.Dal.Interface;
 
 namespace Wetr.Dal.Factory
 {
-    public sealed class AdoFactory : IDaoFactory
+    public class AdoFactory : IDaoFactory
     {
         private const string connectionStringConfigName_factory = "WETR-Testing";
 
         private static AdoFactory instance = null;
         private static readonly object padlock = new object();
+
+        private AdoFactory() { }
 
         // thread safe singleton
         public static AdoFactory Instance
@@ -25,8 +27,6 @@ namespace Wetr.Dal.Factory
                     return instance;
                 }
             }
-
-            private set { }
         }
 
         public IAddressDao GetAddressDao(string connectionStringConfigName = connectionStringConfigName_factory)
