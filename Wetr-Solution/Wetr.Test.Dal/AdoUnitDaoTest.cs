@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Common.Dal.Ado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
@@ -12,7 +13,8 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoUnitDaoTest : DaoBaseTest
     {
-        private readonly IUnitDao unitDao = new AdoUnitDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private readonly AdoUnitDao unitDao = (AdoUnitDao)factory.GetUnitDao();
 
         [TestMethod]
         public async override Task TestDeleteAsync()

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
@@ -13,14 +14,15 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoStationDaoTest : DaoBaseTest
     {
-        private static readonly IStationDao stationDao = new AdoStationDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoUserDao userDao = new AdoUserDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoCountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoProvinceDao provinceDao = new AdoProvinceDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoCommunityDao communityDao = new AdoCommunityDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoDistrictDao districtDao = new AdoDistrictDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoAddressDao addressDao = new AdoAddressDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly AdoStationTypeDao stationTypeDao = new AdoStationTypeDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private static readonly AdoStationDao stationDao = (AdoStationDao)factory.GetStationDao();
+        private static readonly AdoUserDao userDao = (AdoUserDao)factory.GetUserDao();
+        private static readonly AdoCountryDao countryDao = (AdoCountryDao)factory.GetCountryDao();
+        private static readonly AdoProvinceDao provinceDao = (AdoProvinceDao)factory.GetProvinceDao();
+        private static readonly AdoCommunityDao communityDao = (AdoCommunityDao)factory.GetCommunityDao();
+        private static readonly AdoDistrictDao districtDao = (AdoDistrictDao)factory.GetDistrictDao();
+        private static readonly AdoAddressDao addressDao = (AdoAddressDao)factory.GetAddressDao();
+        private static readonly AdoStationTypeDao stationTypeDao = (AdoStationTypeDao)factory.GetStationTypeDao();
 
         [ClassInitialize]
         public static async Task ClassInitializeAsync(TestContext context)

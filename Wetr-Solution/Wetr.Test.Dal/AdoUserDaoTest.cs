@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
@@ -12,7 +13,8 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoUserDaoTest : DaoBaseTest
     {
-        private static readonly IUserDao adoUserDao = new AdoUserDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private static readonly AdoUserDao adoUserDao = (AdoUserDao)factory.GetUserDao();
         private static IList<User> users; 
 
         [ClassInitialize]

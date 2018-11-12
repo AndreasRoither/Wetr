@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 
 namespace Wetr.Test.Dal
@@ -10,7 +11,8 @@ namespace Wetr.Test.Dal
     public class AdoPermissionDaoTest : DaoBaseTest
     {
 
-        private readonly IPermissionDao permissionDao = new AdoPermissionDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private static readonly AdoPermissionDao permissionDao = (AdoPermissionDao)factory.GetPermissionDao();
 
         [TestMethod]
         public async Task TestFindForUserId()

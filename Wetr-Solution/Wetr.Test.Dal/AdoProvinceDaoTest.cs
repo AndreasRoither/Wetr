@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
@@ -13,8 +14,10 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoProvinceDaoTest : DaoBaseTest
     {
-        private static readonly IProvinceDao provinceDao = new AdoProvinceDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
-        private static readonly ICountryDao countryDao = new AdoCountryDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private static readonly AdoCountryDao countryDao = (AdoCountryDao)factory.GetCountryDao();
+        private static readonly AdoProvinceDao provinceDao = (AdoProvinceDao)factory.GetProvinceDao();
+
 
         [ClassInitialize]
         public static async Task ClassInitializeAsync(TestContext context)

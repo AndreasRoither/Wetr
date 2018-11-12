@@ -2,6 +2,7 @@
 using Common.Dal.Ado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wetr.Dal.Ado;
+using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 
 namespace Wetr.Test.Dal
@@ -9,7 +10,8 @@ namespace Wetr.Test.Dal
     [TestClass]
     public class AdoMeasurementTypeDaoTest : DaoBaseTest
     {
-        private readonly IMeasurementTypeDao measurementTypeDao = new AdoMeasurementTypeDao(DefaultConnectionFactory.FromConfiguration("WETR-Testing"));
+        private static AdoFactory factory = AdoFactory.Instance;
+        private readonly AdoMeasurementDao measurementTypeDao = (AdoMeasurementDao)factory.GetMeasurementDao(); 
 
         [TestMethod]
         public async override Task TestDeleteAsync()
