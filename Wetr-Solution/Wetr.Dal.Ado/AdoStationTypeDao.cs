@@ -60,7 +60,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(StationType stationType)
         {
             return await this.template.ExecuteAsync(
-                "update stationType set name = @name, where stationTypeId = @stationTypeId",
+                "update stationType set name = @name where stationTypeId = @stationTypeId",
                 new Parameter("@stationTypeId", stationType.StationTypeId),
                 new Parameter("@name", stationType.Name)) == 1;
         }

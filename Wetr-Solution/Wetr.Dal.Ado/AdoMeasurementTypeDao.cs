@@ -61,7 +61,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(MeasurementType measurementType)
         {
             return await this.template.ExecuteAsync(
-                @"update measurementType set name = @name, where measurementTypeId = @measurementTypeId",
+                @"update measurementType set name = @name where measurementTypeId = @measurementTypeId",
                 new Parameter("@measurementTypeId", measurementType.MeasurementTypeId),
                 new Parameter("@name", measurementType.Name)) == 1;
         }
