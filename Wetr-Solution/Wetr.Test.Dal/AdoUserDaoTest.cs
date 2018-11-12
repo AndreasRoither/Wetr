@@ -14,7 +14,7 @@ namespace Wetr.Test.Dal
     public class AdoUserDaoTest : DaoBaseTest
     {
         private static AdoFactory factory = AdoFactory.Instance;
-        private static readonly AdoUserDao adoUserDao = (AdoUserDao)factory.GetUserDao();
+        private static readonly IUserDao adoUserDao = factory.GetUserDao();
         private static IList<User> users; 
 
         [ClassInitialize]

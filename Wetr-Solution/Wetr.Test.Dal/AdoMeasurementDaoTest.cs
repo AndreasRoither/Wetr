@@ -11,7 +11,7 @@ namespace Wetr.Test.Dal
     public class AdoMeasurementDaoTest : DaoBaseTest
     {
         private static AdoFactory factory = AdoFactory.Instance;
-        private readonly AdoMeasurementDao measurementDao = (AdoMeasurementDao)factory.GetMeasurementDao();
+        private readonly IMeasurementDao measurementDao = factory.GetMeasurementDao();
 
         [TestMethod]
         public async Task TestFindByStationIdAsync()

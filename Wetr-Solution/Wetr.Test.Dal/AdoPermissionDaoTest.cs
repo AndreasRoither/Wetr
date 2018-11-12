@@ -12,7 +12,7 @@ namespace Wetr.Test.Dal
     {
 
         private static AdoFactory factory = AdoFactory.Instance;
-        private static readonly AdoPermissionDao permissionDao = (AdoPermissionDao)factory.GetPermissionDao();
+        private static readonly IPermissionDao permissionDao = factory.GetPermissionDao();
 
         [TestMethod]
         public async Task TestFindForUserId()

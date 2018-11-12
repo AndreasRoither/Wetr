@@ -15,8 +15,8 @@ namespace Wetr.Test.Dal
     public class AdoProvinceDaoTest : DaoBaseTest
     {
         private static AdoFactory factory = AdoFactory.Instance;
-        private static readonly AdoCountryDao countryDao = (AdoCountryDao)factory.GetCountryDao();
-        private static readonly AdoProvinceDao provinceDao = (AdoProvinceDao)factory.GetProvinceDao();
+        private static readonly ICountryDao countryDao = factory.GetCountryDao();
+        private static readonly IProvinceDao provinceDao = factory.GetProvinceDao();
 
 
         [ClassInitialize]
