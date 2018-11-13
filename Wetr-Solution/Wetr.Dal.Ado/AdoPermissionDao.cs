@@ -62,7 +62,7 @@ namespace Wetr.Dal.Ado
         public async Task<IEnumerable<Permission>> FindForUserId(int userId)
         {
             var result = await this.template.QueryAsync(
-               "select * from hasPermission where userId = @userId",
+               "select permissionId, name, description from hasPermission INNER JOIN permission USING (permissionId) where userId = @userId ",
                MapRow,
                new Parameter("@userId", userId));
 
@@ -75,7 +75,7 @@ namespace Wetr.Dal.Ado
                 @"insert into permission (permissionId, name, description) VALUES (@permissionId, @name, @description)",
                 new Parameter("@permissionId", permission.PermissionId),
                 new Parameter("@name", permission.Name),
-                new Parameter("@name", permission.Description)) == 1;
+                new Parameter("@description", permission.Description)) == 1;
         }
 
         public async Task<bool> DeleteForUserId(int permissionId, int userId)
@@ -89,7 +89,7 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Permission permission)
         {
             return await this.template.ExecuteAsync(
-               @"update permission set name = @name, description = @description, where permissionId = @permissionId",
+               @"update permission set name = @name, description = @description where permissionId = @permissionId",
                new Parameter("@permissionId", permission.PermissionId),
                new Parameter("@name", permission.Name),
                new Parameter("@description", permission.Description)) == 1;
