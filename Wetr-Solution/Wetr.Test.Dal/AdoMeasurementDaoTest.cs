@@ -103,8 +103,8 @@ namespace Wetr.Test.Dal
                 UserId = user.UserId,
                 AddressId = address.AddressId,
                 Name = "TemperaturStation",
-                Latitude = 233.323M,
-                Longitude = 32323.3333M,
+                Latitude = 3.323M,
+                Longitude = -3.333M,
                 StationTypeId = stationType.StationTypeId
             };
 
@@ -132,7 +132,7 @@ namespace Wetr.Test.Dal
                 MeasurementTypeId = measurementType.MeasurementTypeId,
                 StationId = station.StationId,
                 Value = 23.3,
-                TimesStamp = DateTime.Now,
+                TimesStamp = DateTime.FromFileTime(131862006360000000),
                 UnitId = unit.UnitId
             };
 
@@ -187,7 +187,8 @@ namespace Wetr.Test.Dal
         public async Task TestFindByStationIdAsync()
         {
             IEnumerable<Measurement> fetched = await measurementDao.FindByStationIdAsync(32);
-            foreach(var m in measurements){
+            foreach (Measurement m in measurements)
+            {
                 CollectionAssert.Contains(fetched.ToList(), m);
             }
 
@@ -196,45 +197,86 @@ namespace Wetr.Test.Dal
         [TestMethod]
         public async Task TestFindByMeasurementTypeIdAsync()
         {
-            throw new System.NotImplementedException();
-
+            IEnumerable<Measurement> fetched = await measurementDao.FindByMeasurementTypeIdAsync(43);
+            foreach (Measurement m in measurements)
+            {
+                CollectionAssert.Contains(fetched.ToList(), m);
+            }
         }
 
         [TestMethod]
         public async Task TestFindByUnitIdAsync()
         {
-            throw new System.NotImplementedException();
-
+            IEnumerable<Measurement> fetched = await measurementDao.FindByUnitIdAsync(34);
+            foreach (Measurement m in measurements)
+            {
+                CollectionAssert.Contains(fetched.ToList(), m);
+            }
         }
 
         [TestMethod]
         public async override Task TestFindByIdAsync()
         {
-            throw new System.NotImplementedException();
+            Measurement toFind = measurements[1];
+            Measurement found = await measurementDao.FindByIdAsync(toFind.MeasurementId);
+            Assert.AreEqual(toFind, found);
         }
 
         [TestMethod]
         public async override Task TestFindAllAsync()
         {
-            throw new System.NotImplementedException();
+            IEnumerable<Measurement> fetched = await measurementDao.FindAllAsync();
+            foreach (Measurement m in measurements)
+            {
+                CollectionAssert.Contains(fetched.ToList(), m);
+            }
         }
 
         [TestMethod]
         public async override Task TestUpdateAsync()
         {
-            throw new System.NotImplementedException();
+            Measurement clone = await measurementDao.FindByIdAsync(44);
+            double newValue = -2323.4;
+
+            clone.Value = newValue;
+            await measurementDao.UpdateAsync(clone);
+
+            Measurement updated = await measurementDao.FindByIdAsync(clone.MeasurementId);
+            Assert.AreEqual(clone, updated);
+
+
         }
 
         [TestMethod]
         public async override Task TestDeleteAsync()
         {
-            throw new System.NotImplementedException();
+            Measurement m = measurements[2];
+            await measurementDao.DeleteAsync(m.MeasurementId);
+
+            Measurement deleted = await measurementDao.FindByIdAsync(m.MeasurementId);
+            Assert.IsNull(deleted);
         }
 
         [TestMethod]
         public async override Task TestInsertAsync()
         {
-            throw new System.NotImplementedException();
+            Measurement clone = measurements[0];
+
+            Measurement m4 = new Measurement
+            {
+                MeasurementId = 89,
+                MeasurementTypeId = clone.MeasurementTypeId,
+                StationId = clone.StationId,
+                Value = 3223.33,
+                TimesStamp = DateTime.FromFileTime(131862006360000000),
+                UnitId = clone.UnitId
+            };
+
+            await measurementDao.InsertAsync(m4);
+
+            Measurement inserted = await measurementDao.FindByIdAsync(m4.MeasurementId);
+
+            Assert.AreEqual(m4, inserted);
         }
     }
 }

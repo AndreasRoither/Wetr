@@ -25,7 +25,7 @@ namespace Wetr.Domain
                 Measurement temp = (Measurement)obj;
                 return ((this.MeasurementId == temp.MeasurementId) && (this.StationId == temp.StationId) 
                     && (this.MeasurementTypeId == temp.MeasurementTypeId) && (this.UnitId == temp.UnitId)
-                    && (this.Value == temp.Value) && (this.TimesStamp == temp.TimesStamp));
+                    && (this.Value == temp.Value));
             }
         }
     }
