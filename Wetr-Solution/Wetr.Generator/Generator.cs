@@ -7,6 +7,8 @@ namespace Wetr.Generator
 {
     internal class Generator
     {
+        private int dataCount = 0;
+
         public enum Season
         {
             SUMMER, WINTER, FALL, SPRING, UKN
@@ -106,9 +108,17 @@ namespace Wetr.Generator
             /* https://stackoverflow.com/questions/3135569/how-to-change-symbol-for-decimal-point-in-double-tostring */
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
 
+            // Temperatur Luftdruck Feuchtigkeit Niederschlag Windstärke Windrichtung
             this.GenerateTemperaturData();
             this.GenerateHumidityData();
             this.GenerateDownfallData();
+            this.GeneratePreassureData();
+            this.GenerateWindData();
+            this.GenerateWindDirectionData();
+
+            Console.WriteLine($"Generated {dataCount} data entries!");
+            Console.ReadLine();
+
         }
 
         private void GenerateDownfallData()
@@ -120,12 +130,79 @@ namespace Wetr.Generator
                 DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
 
                 /* For every station*/
+                for (int stationId = 0; stationId <= 70; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddDays(1d))
+                    {
+                        file.WriteLine($"'NULL', '{GetRandomNumber(0, (GetAvgDownfall(GetSeason(t))/365d)*2)}', '{getTimesamp(t)}', '{stationId}', '3', '3'");
+                        dataCount++;
+                    }
+                }
+            }
+        }
+
+        private void GeneratePreassureData()
+        {
+            /* Generate Preassure Data */
+            using (StreamWriter file = new StreamWriter("measurementsPreassure.bulk"))
+            {
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+                /* For every station*/
                 for (int stationId = 20; stationId <= 50; stationId++)
                 {
                     /* For every hour in one year */
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
-                        file.WriteLine($"'NULL', '{GetRandomNumber(0, GetAvgDownfall(GetSeason(t)) * 2)}', '{getTimesamp(t)}', '{stationId}', '3', '3'");
+                        file.WriteLine($"'NULL', '{GetRandomNumber(900, 1100)}', '{getTimesamp(t)}', '{stationId}', '2', '2'");
+                        dataCount++;
+
+                    }
+                }
+            }
+        }
+
+        private void GenerateWindData()
+        {
+            /* Generate Wind Data */
+            using (StreamWriter file = new StreamWriter("measurementsWind.bulk"))
+            {
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+                /* For every station*/
+                for (int stationId = 10; stationId <= 30; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
+                    {
+                        file.WriteLine($"'NULL', '{GetRandomNumber(0, 20)}', '{getTimesamp(t)}', '{stationId}', '1', '5'");
+                        dataCount++;
+
+                    }
+                }
+            }
+        }
+
+        private void GenerateWindDirectionData()
+        {
+            /* Generate Wind Direction Data */
+            using (StreamWriter file = new StreamWriter("measurementsWindDirection.bulk"))
+            {
+                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+
+                /* For every station*/
+                for (int stationId = 10; stationId <= 30; stationId++)
+                {
+                    /* For every hour in one year */
+                    for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
+                    {
+                        file.WriteLine($"'NULL', '{GetRandomNumber(0, 360)}', '{getTimesamp(t)}', '{stationId}', '7', '6'");
+                        dataCount++;
+
                     }
                 }
             }
@@ -146,6 +223,8 @@ namespace Wetr.Generator
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
                         file.WriteLine($"'NULL', '{GetAvgHumidity(GetSeason(t)) + GetRandomNumber(-10f, 10f)}', '{getTimesamp(t)}', '{stationId}', '6', '4'");
+                        dataCount++;
+
                     }
                 }
             }
@@ -166,6 +245,9 @@ namespace Wetr.Generator
                     for (DateTime t = beginning; t <= ending; t = t.AddHours(1d))
                     {
                         file.WriteLine($"'NULL', '{GetTemperature(GetSeason(t), t.Hour) + GetRandomNumber(-1.25f, 1.25f)}', '{getTimesamp(t)}', '{stationId}', '4', '1'");
+                        dataCount++;
+
+                    
                     }
                 }
             }

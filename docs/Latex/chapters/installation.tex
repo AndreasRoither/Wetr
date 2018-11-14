@@ -18,11 +18,11 @@ docker-compose up --build --force-recreate
 \end{minted}
 
 \subsection{Datenbank}
-Für die Datenbank muss die SQL Datei \grqq{}create.sql \grqq{} im Ordner sql ausgeführt werden. Falls das Unit Testing auch ausgeführt werden soll, wird die zweite SQL Datei \grqq{}create\textunderscore unitTest.sql \grqq{} auch benötigt.
+Für die Datenbank muss die SQL Datei \grqq{}create-wetr.sql \grqq{} im Ordner sql/Create ausgeführt werden. Falls das Unit Testing auch ausgeführt werden soll, wird die zweite SQL Datei \grqq{}create\textunderscore wetr-unit.testing.sql \grqq{} auch benötigt.
 \newline\newline
-Für die Füllung der Datenbank kann die SQL Datei \grqq{}InsertWithoutMeasurement.sql\grqq{} verwendet werden. Für die Measurement Daten muss spezieller vorgegangen werden dadurch kann aber die Insert Zeit drastisch verringert werden:
+Für die Füllung der Datenbank kann die SQL Datei \grqq{}InsertEverythingWithoutMeasurement.sql\grqq{} verwendet werden. Für die Measurement Daten muss spezieller vorgegangen werden dadurch kann aber die Insert Zeit drastisch verringert werden:
 \begin{itemize}
-\item Wetr.Generator.exe im Ordner sql starten
+\item Wetr.Generator.exe im Ordner sql/Insert starten
 \item http://localhost:8080/ im Browser aufmachen \newline (phpMyAdmin sollte starten)
 \item Benutzer: root Passwort: 0c1cd84e
 \item Datenbank wetr auswählen
@@ -40,6 +40,18 @@ FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
 LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsTemperature.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWind.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWindDirection.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsPreassure.bulk" INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 \end{minted}

@@ -330,3 +330,4 @@ ASALocalRun/
 *.bak
 *.bulk
 var/
+docs/Latex/build/

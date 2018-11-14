@@ -674,12 +674,13 @@ VALUES (1, "Lufttemperatur"),
 
 INSERT INTO unit (unitId, name)
 VALUES (1, "km/h"),
-	(2, "mph"),
+	(2, "hPa"),
     (3, "mm"),
     (4, "C"),
     (5, "F"),
     (6, "%"),
-    (7, "Windrose");
+	(7, "grad");
+
     
 INSERT INTO user (userId, firstName, lastName, email, password) 
 VALUES (1, "admin", "admin", "test@test.com", "$1$YOXunEUT$4X9aCMw9B63FkjCntsoGG0"),
