@@ -1,0 +1,45 @@
+\section{Installationsanleitung}
+
+\subsection{Benötigte Programme und Voraussetzungen}
+Für dieses Projekt wird zusätzliche Software benötigt:
+\begin{itemize}
+\item Docker \footnote{https://www.docker.com/}
+\item Visual Studio \footnote{https://visualstudio.microsoft.com/de/}
+\item MySql-Connector (optional, nur falls notwendig) \footnote{https://dev.mysql.com/get/Downloads/Connector-Net/mysql-connector-net-8.0.13.msi}
+\end{itemize}
+\raggedright
+
+Um die Datenbank zu erstellen muss Docker gestartet sein. Die Datenbank kann mit dem \textit{Powershell-Script} \grqq{}run.ps1 \grqq{} automatisch generiert werden.
+Falls dieses Script wegen fehlender Berechtigungen nicht ausgeführt werden kann, muss eine \textit{Shell} (Git-Bash oder ähnliches) im Ordner mit der Docker Compose Datei \grqq{}docker-compose.yaml \grqq{} geöffnet und folgenden Befehle nacheinander ausgeführt werden:
+\begin{minted}{dockerfile}
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker-compose up --build --force-recreate
+\end{minted}
+
+\subsection{Datenbank}
+Für die Datenbank muss die SQL Datei \grqq{}create.sql \grqq{} im Ordner sql ausgeführt werden. Falls das Unit Testing auch ausgeführt werden soll, wird die zweite SQL Datei \grqq{}create\textunderscore unitTest.sql \grqq{} auch benötigt.
+\newline\newline
+Für die Füllung der Datenbank kann die SQL Datei \grqq{}InsertWithoutMeasurement.sql\grqq{} verwendet werden. Für die Measurement Daten muss spezieller vorgegangen werden dadurch kann aber die Insert Zeit drastisch verringert werden:
+\begin{itemize}
+\item Wetr.Generator.exe im Ordner sql starten
+\item http://localhost:8080/ im Browser aufmachen \newline (phpMyAdmin sollte starten)
+\item Benutzer: root Passwort: 0c1cd84e
+\item Datenbank wetr auswählen
+\item Zum SQL Tab wechseln
+\item Die nachfolgenden SQL Anweisungen eingeben und ausführen
+\end{itemize}
+\newpage
+\begin{minted}{sql}
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsDownfall.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsHumidity.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsTemperature.bulk" INTO TABLE measurement
+FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
+LINES TERMINATED BY '\r\n';
+\end{minted}
