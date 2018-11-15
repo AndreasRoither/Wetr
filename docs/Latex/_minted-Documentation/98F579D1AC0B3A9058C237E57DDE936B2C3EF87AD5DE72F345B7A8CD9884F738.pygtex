@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsDownfall.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsHumidity.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsTemperature.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsWind.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsWindDirection.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+
+\PYG{k}{LOAD} \PYG{k}{DATA} \PYG{k}{LOCAL} \PYG{n}{INFILE} \PYG{l+s+ss}{\PYGZdq{}/tmp/sql/insert/measurementsPreassure.bulk\PYGZdq{}} \PYG{k}{INTO} \PYG{k}{TABLE} \PYG{n}{measurement}
+\PYG{n}{FIELDS} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}} \PYG{n}{ENCLOSED} \PYG{k}{BY} \PYG{l+s+ss}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+\PYG{n}{LINES} \PYG{n}{TERMINATED} \PYG{k}{BY} \PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}r\PYGZbs{}n\PYGZsq{}}\PYG{p}{;}
+\end{Verbatim}

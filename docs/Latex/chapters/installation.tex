@@ -23,6 +23,7 @@ Für die Datenbank muss die SQL Datei \grqq{}create-wetr.sql \grqq{} im Ordner s
 Für die Füllung der Datenbank kann die SQL Datei \grqq{}InsertEverythingWithoutMeasurement.sql\grqq{} verwendet werden. Für die Measurement Daten muss spezieller vorgegangen werden dadurch kann aber die Insert Zeit drastisch verringert werden:
 \begin{itemize}
 \item Wetr.Generator.exe im Ordner sql/Insert starten
+\item Die resultierenden \grqq{}.bulk\grqq{} Dateien in den sql Ordner kopieren (der phpMyAdmin Container wurde mit dem sql Ordner verbunden um diese Dateien verwenden zu können)
 \item http://localhost:8080/ im Browser aufmachen \newline (phpMyAdmin sollte starten)
 \item Benutzer: root Passwort: 0c1cd84e
 \item Datenbank wetr auswählen
