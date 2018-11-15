@@ -1,0 +1,4 @@
+\section{Extractor}
+Der \textit{Extractor} (befindet sich im extractor Ordner) wurde mit Python\footnote{https://www.python.org/} geschrieben und verwendet die Stationsliste der \textit{Zentralanstalt für Meteorologie und Geodynamik}\footnote{https://www.zamg.ac.at/cms/de/klima/messnetze/wetterstationen}. Die \grqq{}.csv\grqq{} Datei wird vom Extractor eingelesen und für jede \textit{Station} wird eine Insert Anweisung in eine \grqq{}.txt\grqq{} Datei geschrieben. Zusätzlich wird anhand des Längen- und Breitengrades der Ort mit einem geolocator der Aufenthaltsort der Station ermittelt. Anhand dieser Daten werden SQL Anweisungen für die \textit{Community} und \textit{Address} Tabellen erstellt die von der jeweiligen Stationen referenziert werden.
+
+\section{Generator}
