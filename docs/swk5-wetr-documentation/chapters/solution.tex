@@ -1,0 +1,42 @@
+\section{Visual Studio Projektmappe}
+
+Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welch in folgene Unterprojekte gegliedert ist:
+\begin{itemize}
+    \item \textbf{Common.Dal.Ado}: Hier befinden sich Hilfsklassen, die den Umgang mit ADO.NET leichter gstalten.
+    \item \textbf{Wetr.Domain}: Dieses Projekt beinhaltet die Domainobjekte, welche als einfache Datenbehälter genutzt werden.
+    \item \textbf{Wetr.Dal.Interface}: In diesem Paket befinden sich die Interfaces für die Datenzugriffschricht für jedes Domainobjekt bzw. Tabelle.
+    \item \textbf{Wetr.Dal.Ado}: Die ADO.NET Implementierung der Datenzugriffsschicht Interfaces.
+    \item \textbf{Wetr.Dal.Factory} Beinhaltet Factories um die Instanziierung der benötigen komkreten Klassen zu abstrahieren.
+    \item \textbf{Wetr.Test.Dal} Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
+    \item \textbf{Wetr.Generator}: Zuständig für das Generieren von Messdaten für die einzelnen Stationen.
+\end{itemize}
+
+\subsection{Common.Dal.Ado}
+\subsection{Wetr.Domain}
+\subsection{Wetr.Dal.Interface}
+\subsection{Wetr.Dal.Ado}
+\subsection{Wetr.Dal.Factory}
+\subsection{Wetr.Test.Dal}
+
+\subsection{Wetr.Generator}
+\label{sec:generator}
+
+Der Generator generiert pro \textit{MeasurementType} eine eigene Datei, in der sich die generierten Messdaten befinden. Pro Typ werden nicht genau gleich viele Messdaten generiert, somit ergibt sich eine Summe von etwa 1.2 Millionen Messdaten. Das Format der erzeugten Dateien ist so gestaltet, damit es mit einem speziellen SQL Befehl mittels Bulk-Insert\footnote{https://stackoverflow.com/questions/14330314/bulk-insert-in-mysql} sehr schnell in die Datenbank aufgenommen werden kann. Die generierten Daten haben einen Zeitstempel, der sich innerhalb von einem Jahr bewegt.~\\~\\ %WTF LaTeX?
+
+\textbf{Temperatur}\\
+Es wird jede Stunde ein Messwert generiert, der je nach Jahreszeit die Temperatur nach natürlichem Verlauf, sprich zur Mittagszeit ist es am wärmste und in der Nacht am kältesten, gestaltet. Die Werte beinhalten eine zufällige Abweichung von $\pm 1.25$. Der Minimal- bzw. Maximalwert wird pro Jahreszeit nach klimatabelle.info festgelegt.~\\~\\ %WTF LaTeX?
+
+\textbf{Luftfeuchtigkeit}\\
+Die Berechnung der Luftfeuchtigkeit funktioniert gleich, wie die der Temperatur, nur, dass die durchschnittlichen Luftfeuchtigkeitswerte hergenommen wurden. Als zufällige Abweichung wurden $\pm10\%$ gewählt.~\\~\\ %WTF LaTeX?
+
+\textbf{Niederschlag}\\
+Da nur der jährliche Durchschnittsniederschlag pro Jahreszeit zur Verfügung stand, wurden nicht stündlich, sondern täglich ein Messert generiert. Dieser Wert bewegt sich zwischen $0$ und der Anzahl des durchschnittlichen Tagesniederschalag Mal zwei.~\\~\\ %WTF LaTeX?
+
+\textbf{Luftdruck}\\
+Jede Stunde wird ein Luftdruckwert generiert, der zufällig zwischen $900$ und $1100$ Hektopascal liegt.~\\~\\ %WTF LaTeX?
+
+\textbf{Windrichtung}\\
+Die Windrichtung ändert sich in dieser einfachen Simulation jede Stunde und kann von $0$ bis $360$ Grad betragen.~\\~\\ %WTF LaTeX?
+
+\textbf{Windstärke}\\
+Die Generierung der Windstärke ist in der aktuellen Ausbaustufe sehr primitiv gehalten und ändert sich stündlich zufällig von $0$ und $20\ km/h$
