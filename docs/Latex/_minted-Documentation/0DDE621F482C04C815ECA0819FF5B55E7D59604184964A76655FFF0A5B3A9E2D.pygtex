@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-docker stop \PYG{k}{\PYGZdl{}(}docker ps \PYGZhy{}a \PYGZhy{}q\PYG{k}{)}
-docker rm \PYG{k}{\PYGZdl{}(}docker ps \PYGZhy{}a \PYGZhy{}q\PYG{k}{)}
-docker\PYGZhy{}compose up \PYGZhy{}\PYGZhy{}build \PYGZhy{}\PYGZhy{}force\PYGZhy{}recreate
-\end{Verbatim}
