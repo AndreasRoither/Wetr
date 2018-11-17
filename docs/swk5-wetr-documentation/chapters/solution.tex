@@ -12,11 +12,22 @@ Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welch in 
 \end{itemize}
 
 \subsection{Common.Dal.Ado}
-\subsection{Wetr.Domain}
+Das \textit{Common.Dal.Ado} Projekt verwendet die Klassen \textit{AdoTemplate}, \textit{DefaultConnectionFactory}, \textit{IConnectionFactory}, \textit{Parameter} und  \textit{RowMapper}. In der  \textit{AdoTemplate} Klasse werden alle anderen Klassen verwendet. Mithilfe  \textit{IConnection} wird eine Verbindung zu Datenbank aufgebaut.  \textit{AdoTemplate} stellt eine Funktion  \textit{QueryAsync} bereit um eine Datenbankabfragen durchführen zu können.
+
 \subsection{Wetr.Dal.Interface}
+Im \textit{Wetr.Dal.Interface} Projekt wird für jede Klasse in  \textit{Wetr.Domain} ein eigenes Interface bereitgestellt das von den jeweiligen \textit{Dao} Objekten implementiert wird. Jedes Interface implementiert \textit{IDaoBase}$<$\textit{T}$>$.
+
 \subsection{Wetr.Dal.Ado}
+Mit den Klassen im \textit{Wetr.Dal.Ado} Projekt kann eine Verbindung zur Datenbank aufgebaut werden und spezielle SQL Operationen ausgeführt werden. Für jedes \textit{Dao} Objekt gibt es eine \textit{Wetr.Domänen} Klasse. Diese Klassen werden als Behälter Klassen für die angefragten Daten der Datenbank verwendet.
+
 \subsection{Wetr.Dal.Factory}
+Im \textit{Wetr.Dal.Factory} Projekt wird eine Klasse \textit{AdoFactory} bereitgestellt mit deren Hilfe ein \textit{Dao} Objekt erstellt werden kann.
+
+\subsection{Wetr.Domain}
+Das \textit{Wetr.Domain} Projekt enthält alle Behälterklassen für alle \textit{Dao} Objekte.
+
 \subsection{Wetr.Test.Dal}
+Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao} Objekt getestet.
 
 \subsection{Wetr.Generator}
 \label{sec:generator}
