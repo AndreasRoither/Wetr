@@ -11,6 +11,7 @@ Für dieses Projekt wird zusätzliche Software benötigt:
 
 Um die Datenbank zu erstellen muss Docker gestartet sein. Die Datenbank kann mit dem \textit{Powershell-Script} \grqq{}run.ps1 \grqq{} automatisch generiert werden.
 Falls dieses Script wegen fehlender Berechtigungen nicht ausgeführt werden kann, muss eine \textit{Shell} (Git-Bash oder ähnliches) im Ordner mit der Docker Compose Datei \grqq{}docker-compose.yaml \grqq{} geöffnet und folgenden Befehle nacheinander ausgeführt werden:
+
 \begin{minted}{dockerfile}
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
@@ -18,41 +19,45 @@ docker-compose up --build --force-recreate
 \end{minted}
 
 \subsection{Datenbank}
-Für die Datenbank muss die SQL Datei \grqq{}create-wetr.sql \grqq{} im Ordner sql/Create ausgeführt werden. Falls das Unit Testing auch ausgeführt werden soll, wird die zweite SQL Datei \grqq{}create\textunderscore wetr-unit.testing.sql \grqq{} auch benötigt.
+Für dieses Projekt werden zwei Datenbanken benötigt, wobei die zweite eine Unit-Test Datenbank ist, die nur zur Ausführung solcher Tests benötigt wird.\\
+
+Alle SQL Skripts müssen im \textit{PhpMyAdmin} Interface unter dem \textit{Import} Tab ausgeführt werden. \textit{PhpMyAdmin} ist unter der Addresse \grqq{}\textit{http://localhost:8080/}\grqq{} erreichbar.\\
+
+Die benötigten Datenbanken können mit Hilfe von den zwei Skripts \glqq create\_wetr.sql\grqq\ und \glqq create\_wetr-unit-testing.sql\grqq\ ,welche sich im sql/Create Ordner befinden, erstellt werden. 
 \newline\newline
-Für die Füllung der Datenbank kann die SQL Datei \grqq{}InsertEverythingWithoutMeasurement.sql\grqq{} verwendet werden. Für die Measurement Daten muss spezieller vorgegangen werden dadurch kann aber die Insert Zeit drastisch verringert werden:
-\begin{itemize}
-\item Wetr.Generator.exe im Ordner sql/Insert starten
-\item Die resultierenden \grqq{}.bulk\grqq{} Dateien in den sql Ordner kopieren (der phpMyAdmin Container wurde mit dem sql Ordner verbunden um diese Dateien verwenden zu können)
-\item http://localhost:8080/ im Browser aufmachen \newline (phpMyAdmin sollte starten)
-\item Benutzer: root Passwort: 0c1cd84e
-\item Datenbank wetr auswählen
-\item Zum SQL Tab wechseln
-\item Die nachfolgenden SQL Anweisungen eingeben und ausführen
-\end{itemize}
+Nach Ausführen der Create-Scripts können für die Produktivdatenbank (wetr) Beispieldaten eingefügt werden. Dazu die Datenbank ausfählen und wieder in den Import Tab wechseln. Die zum Einfügen benötigte Datei \glqq InsertEverythingWithoutMeasurement.sql \grqq\ befindet sich im sql/Insert Ordner und fügt alle Beispieldaten, außer die der Messwerte, in die Datenbank ein.\\
+
+Die Messdaten müssen zuerst generiert werden. Hierzu muss die Datei \glqq Wetr.Generator.exe \grqq\ ausgeführt werden. Danach sollten sich sechs \textit{.bulk} Datein im Verzeichnis befinden, welche alle Messdaten für die verschiednen Kategorien beinhalten. Um die Daten in die Datenbank einzufügen müssen die Befehle im Skript \glqq InsertMeasurements.sql \grqq\ in PhpMyAdmin ausgeführt werden.\\
+
 \newpage
 \begin{minted}{sql}
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsDownfall.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsDownfall.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsHumidity.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsHumidity.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsTemperature.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsTemperature.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWind.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWind.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWindDirection.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsWindDirection.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 
-LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsPreassure.bulk" INTO TABLE measurement
+LOAD DATA LOCAL INFILE "/tmp/sql/insert/measurementsPreassure.bulk" 
+    INTO TABLE measurement
 FIELDS TERMINATED BY ', ' ENCLOSED BY "'"
 LINES TERMINATED BY '\r\n';
 \end{minted}
