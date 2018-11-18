@@ -3,7 +3,7 @@ Ein System zum Visualisieren von lokalen Wetterdaten
 
 **Entwickler:**
 * Englisch Daniel (S1610307056)
-* Roither Andreas (S16103070??)
+* Roither Andreas (S1610307097)
 
 ## Docker und Datenbank
 
