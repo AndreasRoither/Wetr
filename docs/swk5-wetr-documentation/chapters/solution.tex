@@ -25,7 +25,7 @@ Das \textit{Common.Dal.Ado} Projekt verwendet die Klassen \textit{AdoTemplate}, 
 
 \newpage
 \subsection{Wetr.Dal.Interface}
-Im \textit{Wetr.Dal.Interface} Projekt wird für jede Klasse in  \textit{Wetr.Domain} ein eigenes Interface bereitgestellt das von den jeweiligen \textit{Dao} Objekten implementiert wird. Jedes Interface implementiert \textit{IDaoBase}$<$\textit{T}$>$.
+Im \textit{Wetr.Dal.Interface} Projekt wird für jede Klasse in  \textit{Wetr.Domain} ein eigenes Interface bereitgestellt das von den jeweiligen \textit{Dao} Objekten implementiert wird. Jedes Interface implementiert \textit{IDaoBase}$<$\textit{T}$>$. Dieses Interface fasst die Methoden, die in jedem abgeleiteten \textit{Dao Objekt} implementiert werden müssen, zusammen (FindAll, FindById, Delete, Insert, Update).
 
 \begin{figure}[H]
 \centering
@@ -72,12 +72,20 @@ Das \textit{Wetr.Domain} Projekt enthält alle Behälterklassen für alle \texti
 
 \newpage
 \subsection{Wetr.Test.Dal}
-Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao} Objekt getestet.
+Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao} Objekt getestet. Alle Tests wurden von der Klassen DaoBaseTest abgeleitet, welche Test für Dao-Methoden forcieren, welche in allen Daos implementiert wurden. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{pictures/Wetr_Test_Dal.png}
 \caption{Wetr.Domain UML Diagramm}
+\label{fig:Wetr.Test.Dal}
+\end{figure}
+\raggedright
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{pictures/green_tests.png}
+\caption{Beweis, dass die UnitTests erfolgreich durchlaufen.}
 \label{fig:Wetr.Test.Dal}
 \end{figure}
 \raggedright
