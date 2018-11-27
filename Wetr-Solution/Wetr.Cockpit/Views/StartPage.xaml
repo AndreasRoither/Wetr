@@ -1,0 +1,18 @@
+﻿<Page
+    x:Class="Wetr.Cockpit.Views.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Wetr.Cockpit.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="LightGray">
+
+    <Page.DataContext>
+        <Binding Path="StartPageInstance" Source="{StaticResource Locator}" />
+    </Page.DataContext>
+
+    <Grid>
+        <TextBlock Text="{Binding HelloWorld}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="235" Height="61" Margin="34,37,0,0"/>
+    </Grid>
+</Page>
