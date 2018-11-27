@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Test.Dal", "Wetr.Test.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Dal.Factory", "Wetr.Dal.Factory\Wetr.Dal.Factory.csproj", "{C30D5B0E-44BD-467D-A584-410A827B0C25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Cockpit", "Wetr.Cockpit\Wetr.Cockpit.csproj", "{EC1832E0-C062-4DB3-9F21-195AD8489B78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C30D5B0E-44BD-467D-A584-410A827B0C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C30D5B0E-44BD-467D-A584-410A827B0C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C30D5B0E-44BD-467D-A584-410A827B0C25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1832E0-C062-4DB3-9F21-195AD8489B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1832E0-C062-4DB3-9F21-195AD8489B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1832E0-C062-4DB3-9F21-195AD8489B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1832E0-C062-4DB3-9F21-195AD8489B78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
