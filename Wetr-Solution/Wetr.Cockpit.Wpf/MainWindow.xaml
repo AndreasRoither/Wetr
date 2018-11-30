@@ -5,29 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
+                      xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
+                      mc:Ignorable="d ignore"
+        Height="590"
+        Width="800"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
+        <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
+            <TabItem Header="1">
+                <Grid Background="#efefef">
+                    <views:StationSelection/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="2">
+                <Grid Background="#efefef"/>
+            </TabItem>
+            <TabItem Header="3">
+                <Grid Background="#efefef"/>
+            </TabItem>
+            <TabItem Header="4">
+                <Grid Background="#efefef"/>
+            </TabItem>
+        </Controls:MetroAnimatedTabControl>
     </Grid>
 </Controls:MetroWindow>

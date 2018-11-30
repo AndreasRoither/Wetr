@@ -55,5 +55,4 @@ namespace Wetr.Cockpit.ViewModels
             // TODO Clear the ViewModels
         }
     }
-
 }

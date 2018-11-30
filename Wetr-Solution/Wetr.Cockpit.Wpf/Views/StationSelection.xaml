@@ -1,0 +1,38 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
+             xmlns:controlzex="urn:controlzex" 
+             x:Class="Wetr.Cockpit.Wpf.Views.StationSelection"
+             mc:Ignorable="d" 
+            Height="490"
+            Width="752" FontSize="7">
+    <Grid>
+        <Button x:Name="AddStationBtn" Content="Add" Margin="320,93,320,0" VerticalAlignment="Top" Height="28"/>
+        <Button x:Name="RemoveStationBtn" Content="Remove" Margin="0,148,320,0" VerticalAlignment="Top" Height="34" HorizontalAlignment="Right" Width="112"/>
+        <Button x:Name="ClearStationBtn" Content="Clear" Margin="0,203,320,0" VerticalAlignment="Top" Height="34" HorizontalAlignment="Right" Width="112"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Wheather station" VerticalAlignment="Top" Height="35" Width="200" FontSize="18"/>
+        <TextBlock Margin="0,10,4,0" TextWrapping="Wrap" Text="Selected stations" VerticalAlignment="Top" Height="35" FontSize="18" HorizontalAlignment="Right" Width="210"/>
+
+        <TextBox x:Name="SearchStations" Height="30" Margin="10,50,452,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
+        <TextBox x:Name="SearchSelectedStation" Height="30" Margin="0,50,10,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" HorizontalAlignment="Right" Width="290"/>
+
+        <ListView x:Name="AvailableStationsView" Margin="10,85,452,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="SelectedStationsView" Margin="0,85,10,10" HorizontalAlignment="Right" Width="290">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>
