@@ -1,0 +1,70 @@
+\section{UI Sketches}
+\setlength{\parindent}{0ex}
+\subsection{Simulator}
+
+Die Navigation im Simulator ist in vier Schritte eingeteilt:
+\begin{itemize}
+    \item Auswählen von zu simulierenden Stationen
+    \item Erstellen von Generierungspresets
+    \item Zuweisen dieser Presets zu den einzelnen Stationen
+    \item Simulieren der Messdatengenerierung mit Live-Visualisierung
+\end{itemize}
+
+Die einzelnen Stages werden mithilfe eines Tab-Controlls umgesetzt und man kann jederzeit, wenn die Simulation gestoppt ist, Einstellungen vornehmen.
+
+\subsubsection{Stationen auswählen}
+
+Alle verfügbaren Stationen werden in der rechten Liste (siehe Abbildung \ref{fig:sketch_select_station}) angezeigt. Es ist für beide Spalten möglich, den Inhalt mit der sich oberhalb befindelichen Filtereingabe zu filtern, wobei auf mehrere Eigenschaften einer Station (Name, Postleitzahl, Besitzer, etc.) gefiltert wird. Die Pfeile zwischen den Spalten dienen nur zu visuellen Betonung, dass die Stationen per Mausklick von der einen Spalte in die andere verschoben werden können. Nachdem alle zu simulierenden Stationen ausgewählt wurden, kann man entweder durch Klicken des \grqq Weiter\glqq-Buttons oder durch Auswählen des nächsten Tabs zum nächsten Schritt gewechselt werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{pictures/sketches/simulator/select_sataion.png}
+\caption{UI Sketch für das Auswählen von Stationen}
+\label{fig:sketch_select_station}
+\end{figure}
+\raggedright
+
+\subsubsection{Preset erstellen}
+
+Um ein Preset zu erstellen muss zunächst in die korrespondierenden Felder diverse Daten eingegeben werden. Für  Minimalwert und Maximalwert bzw. Presetname wurden einfache Textfelder verwendet. Die Eingabe des Beginn- und Enddatums erfolgt durch ein Datetime Feld. Der Typ der zu generierende Messdaten, die Art der Verteilung und die Frequenz der Erstellung des Presets wird, wie in Abbildung \ref{fig:sketch_add_preset} zu sehen, mit Dropdowns festgelegt. Wenn alle Presetdaten eingegeben wurde, kann das Preset mit dem \grqq Hinzufügen\glqq-Button in die darunter befindliche Tabelle eingefügt und auch wieder entfernt werden. Nach Abschluss dieses Schittes kann wie in der Vorherigen Ansicht auf den nächsten Schritt gewechselt werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{pictures/sketches/simulator/add_presets.png}
+\caption{UI Sketch für das Erstellen von Presets}
+\label{fig:sketch_add_preset}
+\end{figure}
+\raggedright
+
+\newpage
+
+\subsubsection{Presets zu Stationen zuweisen}
+
+In diesem Schritt können den einzelnen Stationen beliebig viele Presets zugewiesen werden. In Abbildung \ref{fig:sketch_assign_preset} ist zu sehen, dass per Klick auf die Station in der linken Spalte sich der Text über der mittleren Spalte ändert, damit deutlich wird, dass nun Presets zur Station B zugewiesen werden können. Das Zuweisen bzw. Löschen von Presets für die ausgewählte Station funktioniert gleich wie im ersten Schritt beschrieben. Per Klicken auf einen Eintrag der rechten Spalte, wird dieser in die mittlere Spalte verschoben und umgekehrt. Die Pfeile dienen wieder zur Verdeutlichung der gewünschten Interaktion der beiden Spalten.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{pictures/sketches/simulator/assign_preset.png}
+\caption{UI Sketch für das Zuweisen von Presets zu Stationen}
+\label{fig:sketch_assign_preset}
+\end{figure}
+\raggedright
+
+\newpage
+
+\subsubsection{Simulationsübersicht}
+
+Abbildung \ref{fig:sketch_simulation} zeigt die Liveansicht des Simulators in dem mit den zwei Buttons die Simulation gestartet oder gestoppt werden kann. Die Geschwindigkeit der Simulation, kann mit dem Slider zwischen Echtzeit und einem Vielfachen davon angepasst werden. Um bei hoher Last die Simulation zu entlasten, kann mit der Checkbox \glqq Graphen berechnen\grqq\ die Live-Visualisierung deaktiviert werden. Ansonsten wird pro in der rechten Dropdownliste ausgewählten Station für jedes zugewiesene Preset ein Graph gezeichnet, der den Verlauf der generierten Messdaten darstellt. Rechts davon befindet sich eine Liste der zugewiesenen Presets, die deaktiviert werden können, um die Visualisierung übersichtlicher zu gestellten.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{pictures/sketches/simulator/simulate.png}
+\caption{UI Sketch für die Simulationsübersicht}
+\label{fig:sketch_simulation}
+\end{figure}
+\raggedright
+
+
+\newpage
+
+\subsection{Cockpit}
