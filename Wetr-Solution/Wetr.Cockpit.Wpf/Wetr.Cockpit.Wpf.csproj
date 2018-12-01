@@ -83,8 +83,17 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StationSelectionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\StationSelection.xaml.cs">
-      <DependentUpon>StationSelection.xaml</DependentUpon>
+    <Compile Include="Views\PresetAssignmentView.xaml.cs">
+      <DependentUpon>PresetAssignmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PresetCreationView.xaml.cs">
+      <DependentUpon>PresetCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimulationView.xaml.cs">
+      <DependentUpon>SimulationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StationSelectionView.xaml.cs">
+      <DependentUpon>StationSelectionView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,7 +107,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\StationSelection.xaml">
+    <Page Include="Views\PresetAssignmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PresetCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SimulationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StationSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

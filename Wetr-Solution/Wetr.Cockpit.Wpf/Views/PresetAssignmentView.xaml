@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Wetr.Cockpit.Wpf.Views.PresetAssignmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
+             mc:Ignorable="d" 
+             Height="490"
+             Width="752"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.75*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="Wheather station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="Presets for station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Selected stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
+
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="SearchStations"  TextWrapping="Wrap" Text="Search" Margin="10"/>
+        <TextBox Grid.Row="1" Grid.Column="3" x:Name="SearchSelectedStation" TextWrapping="Wrap" Text="Search" Margin="10"/>
+
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="Add" Margin="10"></Button>
+            <Button Grid.Row="1" Content="Remove" Margin="10"></Button>
+            <Button Grid.Row="3" Content="Clear" Margin="10"></Button>
+        </Grid>
+
+        <ListView Grid.Row="2" Grid.Column="0" Margin="5">
+            
+        </ListView>
+        <ListView Grid.Row="2" Grid.Column="1" Margin="5">
+
+        </ListView>
+        <ListView Grid.Row="2" Grid.Column="3" Margin="5">
+
+        </ListView>
+
+        <Grid Grid.Row="3" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="5" Content="Finished" Margin="10"></Button>
+        </Grid>
+
+    </Grid>
+</UserControl>

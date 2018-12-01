@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Wetr.Cockpit.Wpf.Views
 {
     /// <summary>
-    /// Interaction logic for StationSelection.xaml
+    /// Interaction logic for PresetCreation.xaml
     /// </summary>
-    public partial class StationSelection : UserControl
+    public partial class PresetCreationView : UserControl
     {
-        public StationSelection()
+        public PresetCreationView()
         {
             InitializeComponent();
         }

@@ -1,0 +1,65 @@
+﻿<UserControl
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
+            xmlns:controlzex="urn:controlzex"
+            x:Class="Wetr.Cockpit.Wpf.Views.StationSelectionView"
+            mc:Ignorable="d"
+            Height="490"
+            Width="752" FontSize="7">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.8*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="1"  TextWrapping="Wrap" Text="Wheather station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Selected stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
+
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchStations"  TextWrapping="Wrap" Text="Search" Margin="5, 10, 5, 10"/>
+        <TextBox Grid.Row="1" Grid.Column="3" x:Name="SearchSelectedStation" TextWrapping="Wrap" Text="Search" Margin="5, 10, 5, 10"/>
+
+        <ListView Grid.Row="2" Grid.Column="1" x:Name="AvailableStationsView" Margin="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Grid.Row="2" Grid.Column="3" x:Name="SelectedStationsView" Margin="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" x:Name="AddStationBtn" Content="Add" Margin="10"/>
+            <Button Grid.Row="1" x:Name="RemoveStationBtn" Content="Remove" Margin="10"/>
+            <Button Grid.Row="3" x:Name="ClearStationBtn" Content="Clear" Margin="10" />
+        </Grid>
+
+        <Button Grid.Row="2" Grid.Column="4" x:Name="FinishedBtn" Content="Finished" VerticalAlignment="Bottom" Margin="10" />
+    </Grid>
+</UserControl>

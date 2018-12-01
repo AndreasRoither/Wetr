@@ -5,29 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-                      xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
-                      mc:Ignorable="d ignore"
+        xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
+        mc:Ignorable="d ignore"
         Height="590"
         Width="800"
-        Title="MVVM Light Application"
+        Title="Wetr Simulator"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
-            <TabItem Header="1">
+            <TabItem Header="Station wählen" Margin="0">
                 <Grid Background="#efefef">
-                    <views:StationSelection/>
+                    <views:StationSelectionView></views:StationSelectionView>
                 </Grid>
             </TabItem>
-            <TabItem Header="2">
-                <Grid Background="#efefef"/>
+            <TabItem Header="Presets erstellen">
+                <Grid Background="#efefef">
+                    <views:PresetCreationView></views:PresetCreationView>
+                </Grid>
             </TabItem>
-            <TabItem Header="3">
-                <Grid Background="#efefef"/>
+            <TabItem Header="Presets zuweisen">
+                <Grid Background="#efefef">
+                    <views:PresetAssignmentView></views:PresetAssignmentView>
+                </Grid>
             </TabItem>
-            <TabItem Header="4">
-                <Grid Background="#efefef"/>
+            <TabItem Header="Simulation">
+                <Grid Background="#efefef">
+                    <views:SimulationView></views:SimulationView>
+                </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
     </Grid>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="settings" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
 </Controls:MetroWindow>
