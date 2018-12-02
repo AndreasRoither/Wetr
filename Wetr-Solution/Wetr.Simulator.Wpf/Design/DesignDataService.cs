@@ -1,7 +1,7 @@
 ﻿using System;
-using Wetr.Cockpit.Wpf.Model;
+using Wetr.Simulator.Wpf.Model;
 
-namespace Wetr.Cockpit.Wpf.Design
+namespace Wetr.Simulator.Wpf.Design
 {
     public class DesignDataService : IDataService
     {
