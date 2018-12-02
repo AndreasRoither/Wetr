@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wetr.Cockpit.Wpf.ViewModel
+namespace Wetr.Simulator.Wpf.ViewModel
 {
     class StationSelectionViewModel : ViewModelBase
     {

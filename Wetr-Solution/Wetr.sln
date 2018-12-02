@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Dal.Factory", "Wetr.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Cockpit", "Wetr.Cockpit\Wetr.Cockpit.csproj", "{B0C77AB7-518A-4BF0-9811-75E1689A67B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Cockpit.Wpf", "Wetr.Cockpit.Wpf\Wetr.Cockpit.Wpf.csproj", "{6BC63BEE-B2E2-43E4-8400-FA22FB311841}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Simulator.Wpf", "Wetr.Cockpit.Wpf\Wetr.Simulator.Wpf.csproj", "{6BC63BEE-B2E2-43E4-8400-FA22FB311841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

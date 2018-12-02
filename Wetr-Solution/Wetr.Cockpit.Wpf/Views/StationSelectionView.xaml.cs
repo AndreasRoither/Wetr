@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Wetr.Cockpit.Wpf.Views
+namespace Wetr.Simulator.Wpf.Views
 {
     /// <summary>
     /// Interaction logic for StationSelection.xaml

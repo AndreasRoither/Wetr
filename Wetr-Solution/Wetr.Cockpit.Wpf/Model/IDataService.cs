@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Wetr.Cockpit.Wpf.Model
+namespace Wetr.Simulator.Wpf.Model
 {
     public interface IDataService
     {

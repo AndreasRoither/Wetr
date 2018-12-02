@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using Wetr.Cockpit.Wpf.Model;
+using Wetr.Simulator.Wpf.Model;
 
-namespace Wetr.Cockpit.Wpf.ViewModel
+namespace Wetr.Simulator.Wpf.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

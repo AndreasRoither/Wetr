@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Wetr.Cockpit.Wpf.Views
+namespace Wetr.Simulator.Wpf.Views
 {
     /// <summary>
     /// Interaction logic for SimulationView.xaml
