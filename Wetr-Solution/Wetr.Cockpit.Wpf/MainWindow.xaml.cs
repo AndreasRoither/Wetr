@@ -17,5 +17,10 @@ namespace Wetr.Cockpit.Wpf
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
+
+        private void HamburgerMenuControl_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        {
+
+        }
     }
 }

@@ -138,11 +138,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Icons\baseline_person_pin_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_home_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_cloud_circle_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_delete_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_graphic_eq_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_search_black_48dp.png" />
+    <Resource Include="Assets\Icons\baseline_assignment_black_48dp.png" />
     <Content Include="Resources\Images\cloud.svg" />
     <Resource Include="Resources\Images\cloud.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
