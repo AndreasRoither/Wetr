@@ -28,7 +28,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -124,13 +124,29 @@
         
         <TextBlock Grid.Row="3" Grid.Column="2"></TextBlock>
         <TextBlock Grid.Row="4" Grid.Column="2"></TextBlock>
+
+
+
+        <TextBox x:Name="LoginUserNameTxtBox" Grid.Row="3" Grid.Column="2" Margin="45,15,45,10" MaxLines="1" FontSize="20"
+                 Controls:TextBoxHelper.ClearTextButton="True" 
+                 Controls:TextBoxHelper.IsWaitingForData="True"
+                 Controls:TextBoxHelper.Watermark="Username"/>
         
-        
-        
-        <TextBox x:Name="LoginUserNameTxtBox" Grid.Row="3" Grid.Column="2" Template="{StaticResource TextBoxBaseControlTemplate}" Margin="45,15,45,10" TextAlignment="Center" MaxLines="1" Text="Username" FontSize="20" Foreground="LightGray" GotFocus="LoginUserNameTxtBox_GotFocus" LostFocus="LoginUserNameTxtBox_LostFocus"></TextBox>
-        <TextBox x:Name="LoginPasswordTxtBox" Grid.Row="4" Grid.Column="2" Template="{StaticResource TextBoxBaseControlTemplate}" Margin="45,10,45,15" TextAlignment="Center" MaxLines="1" Text="Password" FontSize="20" Foreground="LightGray" GotFocus="LoginPasswordTxtBox_GotFocus" LostFocus="LoginPasswordTxtBox_LostFocus"></TextBox>
+        <PasswordBox  x:Name="LoginPasswordTxtBox" Grid.Row="4" Grid.Column="2" Margin="45,10,45,15" FontSize="20"
+                      Controls:TextBoxHelper.ClearTextButton="True"
+                      Controls:TextBoxHelper.IsWaitingForData="True" 
+                      Controls:TextBoxHelper.Watermark="Password">
+            
+            <Controls:PasswordBoxHelper.CapsLockWarningToolTip>
+                <TextBlock>
+                    <Run Foreground="Red"
+                            Text="CAPS LOCK"
+                            TextDecorations="Underline" />
+                    <Run Text=" is on" />
+                </TextBlock>
+            </Controls:PasswordBoxHelper.CapsLockWarningToolTip>
+        </PasswordBox>
 
         <Button Grid.Row="6" Grid.Column="2" Margin="45,15,45,15" Style="{DynamicResource RoundCorner}" Content="Sign in" Foreground="White" FontSize="25"></Button>
-
     </Grid>
 </UserControl>

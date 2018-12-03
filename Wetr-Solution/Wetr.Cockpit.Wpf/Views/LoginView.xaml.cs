@@ -34,8 +34,8 @@ namespace Wetr.Cockpit.Wpf.Views
 
         private void LoginPasswordTxtBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (LoginPasswordTxtBox.Text.Equals("Password"))
-                LoginPasswordTxtBox.Text = String.Empty;
+           // if (LoginPasswordTxtBox.Text.Equals("Password"))
+               // LoginPasswordTxtBox.Text = String.Empty;
             LoginPasswordTxtBox.Foreground = Brushes.Black;
         }
 
@@ -48,8 +48,8 @@ namespace Wetr.Cockpit.Wpf.Views
 
         private void LoginPasswordTxtBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (LoginPasswordTxtBox.Text.Equals(String.Empty))
-                LoginPasswordTxtBox.Text = "Password";
+            //if (LoginPasswordTxtBox.Text.Equals(String.Empty))
+                //LoginPasswordTxtBox.Text = "Password";
             LoginPasswordTxtBox.Foreground = Brushes.LightGray;
         }
     }
