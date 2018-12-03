@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4500B14-7DDF-4A79-8219-27F30C5A04A9}</ProjectGuid>
+    <ProjectGuid>{6BC63BEE-B2E2-43E4-8400-FA22FB311841}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Wetr.Cockpit.Wpf</RootNamespace>
@@ -87,24 +87,19 @@
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\StationSelectionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\DashboardView.xaml.cs">
-      <DependentUpon>DashboardView.xaml</DependentUpon>
+    <Compile Include="Views\PresetAssignmentView.xaml.cs">
+      <DependentUpon>PresetAssignmentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
+    <Compile Include="Views\PresetCreationView.xaml.cs">
+      <DependentUpon>PresetCreationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\partials\WeatherStation_Add.xaml.cs">
-      <DependentUpon>WeatherStation_Add.xaml</DependentUpon>
+    <Compile Include="Views\SimulationView.xaml.cs">
+      <DependentUpon>SimulationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\partials\WeatherStation_Edit.xaml.cs">
-      <DependentUpon>WeatherStation_Edit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WeatherAnalysisView.xaml.cs">
-      <DependentUpon>WeatherAnalysisView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WeeatherStationManagementView.xaml.cs">
-      <DependentUpon>WeeatherStationManagementView.xaml</DependentUpon>
+    <Compile Include="Views\StationSelectionView.xaml.cs">
+      <DependentUpon>StationSelectionView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -118,27 +113,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\DashboardView.xaml">
+    <Page Include="Views\PresetAssignmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginView.xaml">
+    <Page Include="Views\PresetCreationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\partials\WeatherStation_Add.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\partials\WeatherStation_Edit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WeatherAnalysisView.xaml">
+    <Page Include="Views\SimulationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WeeatherStationManagementView.xaml">
+    <Page Include="Views\StationSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,20 +158,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Icons\baseline_person_pin_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_home_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_cloud_circle_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_delete_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_graphic_eq_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_search_black_48dp.png" />
-    <Resource Include="Assets\Icons\baseline_assignment_black_48dp.png" />
-    <Content Include="Resources\Images\cloud.svg" />
-    <Resource Include="Resources\Images\cloud.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

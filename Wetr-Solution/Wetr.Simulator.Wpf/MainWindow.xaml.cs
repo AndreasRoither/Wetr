@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
-using Wetr.Cockpit.Wpf.ViewModel;
+using Wetr.Simulator.Wpf.ViewModel;
 
-namespace Wetr.Cockpit.Wpf
+namespace Wetr.Simulator.Wpf
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -16,11 +16,6 @@ namespace Wetr.Cockpit.Wpf
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-        }
-
-        private void HamburgerMenuControl_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
-        {
-
         }
     }
 }
