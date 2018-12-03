@@ -3,10 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views.partials"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.8*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Text="Location" FontSize="20" Margin="10"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="0" Margin="10"></ComboBox>
+            <ComboBox Grid.Column="1" Margin="10"></ComboBox>
+            <ComboBox Grid.Column="2" Margin="10"></ComboBox>
+            <ComboBox Grid.Column="3" Margin="10"></ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Margin="10,15,25,15" Controls:TextBoxHelper.Watermark="Address"></TextBox>
+        </Grid>
+        
+        <Grid Grid.Row="4">
+            <TextBlock Text="Station" FontSize="20" Margin="10"/>
+        </Grid>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Margin="10,15,10,15"
+                     Controls:TextBoxHelper.Watermark="Name"></TextBox>
+            <TextBox Grid.Column="1" Margin="10,15,10,15"
+                     Controls:TextBoxHelper.Watermark="Longitude"></TextBox>
+            <TextBox Grid.Column="2" Margin="10,15,10,15"
+                     Controls:TextBoxHelper.Watermark="Latitude"></TextBox>
+            <ComboBox Grid.Column="3" Margin="10,15,10,15"></ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Please fill in all necessary boxes" Margin="10,0,0,0" FontSize="20"></TextBlock>
+            <Button Grid.Column="5" Margin="15,35,15,35" Content="Save"></Button>
+        </Grid>
+
+        
+        
     </Grid>
 </UserControl>
