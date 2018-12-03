@@ -116,9 +116,9 @@
             <Controls:HamburgerMenu.ItemsSource>
                 <Controls:HamburgerMenuItemCollection>
                     <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_home_black_48dp.png" Label="Home" />
-                    <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_assignment_black_48dp.png" Label="Aggregate" />
+                    <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_graphic_eq_black_48dp.png" Label="Analysis" />
                     <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_person_pin_black_48dp.png" Label="Stations" />
-                    <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_graphic_eq_black_48dp.png" Label="Visualize" />
+                    
                 </Controls:HamburgerMenuItemCollection>
             </Controls:HamburgerMenu.ItemsSource>
 
