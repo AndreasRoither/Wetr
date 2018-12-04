@@ -48,10 +48,13 @@
 
             <TextBlock Grid.Column="1" Margin="15" Text="{Binding ElementName=SimulationTimeSlider, Path=Value, StringFormat={}{0:0.0}}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
-            <Controls:ToggleSwitch Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Style="{StaticResource CustomMetroToggleSwitch}"
+
+            <Controls:ToggleSwitch x:Name="enabledSwitch" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Header="Graph enabled"
                                    IsChecked="True"
-                                   Header="Graph enabled"/>
+                                   OffLabel="Off"
+                                   OnLabel="On"
+                                   Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
 
         </Grid>
 
