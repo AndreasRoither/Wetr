@@ -4,7 +4,7 @@
       <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:Wetr.Cockpit.Wpf.ViewModel"
                                    x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
@@ -12,6 +12,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Wetr.Cockpit.Wpf.ViewModel;
 using Wetr.Simulator.Wpf.Model;
 
 namespace Wetr.Simulator.Wpf.ViewModel
@@ -39,6 +40,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<PresetCreationViewModel>();
+            SimpleIoc.Default.Register<PresetsAssignmentViewModel>();
+            SimpleIoc.Default.Register<SimulationViewModel>();
+            SimpleIoc.Default.Register<StationSelectionViewModel>();
         }
 
         /// <summary>
@@ -52,6 +57,50 @@ namespace Wetr.Simulator.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public PresetCreationViewModel PresetCreation
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public PresetsAssignmentViewModel PresetAssignment
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PresetsAssignmentViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public SimulationViewModel Simulation
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SimulationViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public StationSelectionViewModel StationsSelection
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<StationSelectionViewModel>();
             }
         }
 

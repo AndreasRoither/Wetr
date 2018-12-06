@@ -22,7 +22,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         /// <summary>
         /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string WelcomeTitle
         {

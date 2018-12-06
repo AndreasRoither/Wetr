@@ -83,10 +83,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Interface\IWetrViewModelBase.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\Preset.cs" />
+    <Compile Include="Model\StationPreset.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PresetCreationViewModel.cs" />
+    <Compile Include="ViewModel\PresetsAssignmentViewModel.cs" />
+    <Compile Include="ViewModel\SimulationViewModel.cs" />
     <Compile Include="ViewModel\StationSelectionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\PresetAssignmentView.xaml.cs">
@@ -157,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj">
+      <Project>{4ebe8ec8-9c9b-4709-a595-115298ea87f7}</Project>
+      <Name>Wetr.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

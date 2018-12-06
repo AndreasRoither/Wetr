@@ -12,10 +12,12 @@
 
         public override bool Equals(object obj)
         {
-            if ((obj == null) || ! this.GetType().Equals(obj.GetType())) {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
                 return false;
             }
-            else {
+            else
+            {
                 Address temp = (Address)obj;
                 return ((this.AddressId == temp.AddressId) && (this.CommunityId == temp.CommunityId) && (this.Location == temp.Location) && (this.Zip == temp.Zip));
             }

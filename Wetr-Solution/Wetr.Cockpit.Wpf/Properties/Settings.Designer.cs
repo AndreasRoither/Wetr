@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wetr.Cockpit.Wpf.Properties
+namespace Wetr.Simulator.Wpf.Properties
 {
 
 
