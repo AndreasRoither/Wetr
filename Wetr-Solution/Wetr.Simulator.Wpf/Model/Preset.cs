@@ -1,20 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Wetr.Domain;
 
-namespace Wetr.Cockpit.Wpf.Model
+namespace Wetr.Simulator.Wpf.Model
 {
-
+    /// <summary>
+    /// Enum: Types of distribution
+    /// </summary>
     public enum Distribution
     {
         Linear, Random, Cubic
     }
 
+    /// <summary>
+    /// Enum: Types of frequencies
+    /// </summary>
     public enum Frequency
     {
         Second, Minute, Hour, Day, Week
     }
 
+    /// <summary>
+    /// Class that holds Informations about a preset for a station
+    /// </summary>
     public class Preset
     {
         private static int NextId = 0;
@@ -35,7 +43,7 @@ namespace Wetr.Cockpit.Wpf.Model
         public double MaxValue { get; set; }
         public MeasurementType MeasurementType { get; set; }
 
-        public List<Station> Stations { get; set; } = new List<Station>();
+        public ObservableCollection<Station> Stations { get; set; } = new ObservableCollection<Station>();
 
     }
 }

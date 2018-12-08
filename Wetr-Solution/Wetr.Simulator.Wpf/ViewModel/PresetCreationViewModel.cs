@@ -3,13 +3,13 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Wetr.Cockpit.Wpf.Model;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
+using Wetr.Simulator.Wpf.Model;
 
-namespace Wetr.Cockpit.Wpf.ViewModel
+namespace Wetr.Simulator.Wpf.ViewModel
 {
     /// <summary>
     /// This class contains properties that the PresetCreationView can bind to
@@ -23,7 +23,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public Collection<MeasurementType> MeasurementTypeList { get; set; }
         public MeasurementType SelectedMeasurementType { get; set; }
         public Preset SelectedPreset { get; set; }
-
 
         public Frequency SelectedFrequency { get; set; }
         public Distribution SelectedDistribution { get; set; }
@@ -109,7 +108,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         private bool CanExecuteAddPreset()
         {
-            /* TODO: Add contraint */
+            /* TODO: Add constraint */
             return true;
         }
 
@@ -126,8 +125,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 Distribution = this.SelectedDistribution,
                 MeasurementType = this.SelectedMeasurementType
             });
+            this.PresetName = String.Empty;
             this.DeletePreset.RaiseCanExecuteChanged();
-
         }
 
         private bool CanExecuteDeletePreset()
@@ -169,14 +168,14 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             /* Add preset command */
             AddPreset = new RelayCommand(
                 ExecuteAddPreset,
-                CanExecuteAddPreset);
+                CanExecuteAddPreset
+            );
 
             /* Remove preset command */
             DeletePreset = new RelayCommand(
                 ExecuteDeletePreset,
                 CanExecuteDeletePreset
-                );
-
+            );
         }
 
         public void CleanUp()

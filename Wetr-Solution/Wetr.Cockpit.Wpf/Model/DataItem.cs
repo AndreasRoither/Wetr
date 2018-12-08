@@ -1,4 +1,4 @@
-﻿namespace Wetr.Cockpit.Wpf.Model
+﻿namespace Wetr.Simulator.Wpf.Model
 {
     public class DataItem
     {

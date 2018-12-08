@@ -19,7 +19,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
     /// <seealso cref="Wetr.Simulator.Wpf.Interface.IWetrViewModelBase"/>
     public class StationSelectionViewModel : ViewModelBase, IWetrViewModelBase
     {
-
         #region variables
 
         private String availableStationsFilter;
@@ -32,7 +31,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 if (availableStationsFilter != value)
                 {
                     Set(ref availableStationsFilter, value);
-                    UpdateAvailableStationsFilter();
+                    this.AvailableStations.Refresh();
                 }
             }
         }
@@ -47,19 +46,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 if (selectedStationsFilter != value)
                 {
                     Set(ref selectedStationsFilter, value);
-                    UpdateSelectedStationsFilter();
+                    this.SelectedStations.Refresh();
                 }
             }
-        }
-
-        private void UpdateAvailableStationsFilter()
-        {
-            this.AvailableStations.Refresh();
-        }
-
-        private void UpdateSelectedStationsFilter()
-        {
-            this.SelectedStations.Refresh();
         }
 
         private Station selectedAvailableStation;
@@ -90,9 +79,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-
         private CollectionViewSource availableStationsCollection;
-
         private ObservableCollection<Station> availableStations;
 
         public ICollectionView AvailableStations
@@ -111,7 +98,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
         #endregion variables
 
         #region commands
-
 
         public RelayCommand AddStation { get; private set; }
         public RelayCommand RemoveStation { get; private set; }
@@ -156,7 +142,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.selectedStations.Clear();
             this.ClearStations.RaiseCanExecuteChanged();
             this.RemoveStation.RaiseCanExecuteChanged();
-
         }
 
         private bool CanExecuteClearStation()
@@ -164,9 +149,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.selectedStations.Count > 0;
         }
 
-
         #endregion commands
-
 
         public StationSelectionViewModel()
         {
@@ -204,7 +187,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             ClearStations = new RelayCommand(
                 ExecuteClearStation,
                 CanExecuteClearStation);
-
         }
 
         private void FilterAvailableStations(object sender, FilterEventArgs e)

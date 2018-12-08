@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Wetr.Cockpit.Wpf.Extension
+namespace Wetr.Simulator.Wpf.Extension
 {
     public class EnumerationExtension : MarkupExtension
     {
         private Type _enumType;
-
 
         public EnumerationExtension(Type enumType)
         {

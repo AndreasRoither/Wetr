@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
-             xmlns:ext="clr-namespace:Wetr.Cockpit.Wpf.Extension"
-             xmlns:mdl="clr-namespace:Wetr.Cockpit.Wpf.Model"
-
+             xmlns:ext="clr-namespace:Wetr.Simulator.Wpf.Extension"
+             xmlns:mdl="clr-namespace:Wetr.Simulator.Wpf.Model"
              mc:Ignorable="d"
              Height="490"
              Width="752"
@@ -121,13 +120,26 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Margin" Value="5,0,5,0"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                
                                 <TextBlock FontWeight="Bold" FontSize="12px" Text="{Binding Path=Name}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=MinValue}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=MaxValue}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=StartDate}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=EndDate}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=Distribution}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=Frequency}"></TextBlock>
+                                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                 <TextBlock FontSize="12px" Text="{Binding Path=MeasurementType.Name}"></TextBlock>
                             </StackPanel>
                         </DataTemplate>

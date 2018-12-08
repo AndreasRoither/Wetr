@@ -1,9 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using System.Collections.ObjectModel;
-using Wetr.Cockpit.Wpf.Model;
 using Wetr.Simulator.Wpf.Interface;
 
-namespace Wetr.Cockpit.Wpf.ViewModel
+namespace Wetr.Simulator.Wpf.ViewModel
 {
     /// <summary>
     /// This class contains properties that the SimulatorView can bind to
@@ -12,12 +10,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// <seealso cref="Wetr.Simulator.Wpf.Interface.IWetrViewModelBase"/>
     public class SimulationViewModel : ViewModelBase, IWetrViewModelBase
     {
-        #region variables
-
-      
-
-        #endregion variables
-
         public SimulationViewModel()
         {
         }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Wetr.Cockpit.Wpf.Views.partials
+namespace Wetr.Simulator.Wpf.Views.partials
 {
     /// <summary>
     /// Interaction logic for WeatherStation_Edit.xaml
