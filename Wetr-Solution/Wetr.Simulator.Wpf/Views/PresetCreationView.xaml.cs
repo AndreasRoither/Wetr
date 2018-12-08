@@ -24,5 +24,6 @@ namespace Wetr.Simulator.Wpf.Views
         {
             InitializeComponent();
         }
+
     }
 }

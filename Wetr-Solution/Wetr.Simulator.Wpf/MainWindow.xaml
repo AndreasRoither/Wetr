@@ -23,7 +23,9 @@
             </TabItem>
             <TabItem Header="Presets erstellen">
                 <Grid Background="#efefef">
-                    <views:PresetCreationView></views:PresetCreationView>
+                    <views:PresetCreationView
+                        DataContext="{Binding PresetCreation, Source={StaticResource Locator}}"
+                        ></views:PresetCreationView>
                 </Grid>
             </TabItem>
             <TabItem Header="Presets zuweisen">
