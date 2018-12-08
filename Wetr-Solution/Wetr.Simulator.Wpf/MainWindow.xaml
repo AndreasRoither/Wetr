@@ -16,7 +16,9 @@
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
             <TabItem Header="Station wählen" Margin="0">
                 <Grid Background="#efefef">
-                    <views:StationSelectionView></views:StationSelectionView>
+                    <views:StationSelectionView
+                        DataContext="{Binding StationsSelection, Source={StaticResource Locator}}"
+                        ></views:StationSelectionView>
                 </Grid>
             </TabItem>
             <TabItem Header="Presets erstellen">

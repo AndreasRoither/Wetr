@@ -165,9 +165,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.Dal.Ado\Common.Dal.Ado.csproj">
+      <Project>{7832f4ba-d688-4d52-a3f3-9cece5e0f2da}</Project>
+      <Name>Common.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Cockpit.Wpf\Wetr.Cockpit.Wpf.csproj">
+      <Project>{a4500b14-7ddf-4a79-8219-27f30c5a04a9}</Project>
+      <Name>Wetr.Cockpit.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Ado\Wetr.Dal.Ado.csproj">
+      <Project>{3dc15779-95a8-4fbf-8e1b-e0d02d8c4ef5}</Project>
+      <Name>Wetr.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Factory\Wetr.Dal.Factory.csproj">
+      <Project>{c30d5b0e-44bd-467d-a584-410a827b0c25}</Project>
+      <Name>Wetr.Dal.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Interface\Wetr.Dal.Interface.csproj">
+      <Project>{13F2E812-FA97-4306-91B9-9455CDF464C7}</Project>
+      <Name>Wetr.Dal.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj">
       <Project>{4ebe8ec8-9c9b-4709-a595-115298ea87f7}</Project>
       <Name>Wetr.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Generator\Wetr.Generator.csproj">
+      <Project>{e13f1a2b-e7f9-441a-adce-cf5d16cc0aef}</Project>
+      <Name>Wetr.Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Test.Dal\Wetr.Test.Dal.csproj">
+      <Project>{2d04c4d2-d8e5-4449-9cf8-cdcb8268c672}</Project>
+      <Name>Wetr.Test.Dal</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

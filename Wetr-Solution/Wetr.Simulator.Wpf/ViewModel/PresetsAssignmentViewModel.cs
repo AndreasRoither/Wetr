@@ -1,6 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Wetr.Cockpit.Wpf.Model;
+using Wetr.Dal.Factory;
+using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 
@@ -55,6 +59,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public PresetsAssignmentViewModel()
         {
+            
+
         }
 
         public void CleanUp()

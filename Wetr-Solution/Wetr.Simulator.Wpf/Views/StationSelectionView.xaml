@@ -9,7 +9,8 @@
             x:Class="Wetr.Simulator.Wpf.Views.StationSelectionView"
             mc:Ignorable="d"
             Height="490"
-            Width="752" FontSize="7">
+            Width="752" FontSize="7"
+    >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*" />
@@ -27,24 +28,30 @@
         <TextBlock Grid.Row="0" Grid.Column="1"  TextWrapping="Wrap" Text="Weather station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
         <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Selected stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
 
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchStations"  TextWrapping="Wrap" Margin="5, 10, 5, 10"
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchStations" Text="{Binding Path=AvailableStationsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin="5, 10, 5, 10"
                  Controls:TextBoxHelper.Watermark="Search" />
-        <TextBox Grid.Row="1" Grid.Column="3" x:Name="SearchSelectedStation" TextWrapping="Wrap" Margin="5, 10, 5, 10"
+        <TextBox Grid.Row="1" Grid.Column="3" x:Name="SearchSelectedStation" Text="{Binding Path=SelectedStationsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin="5, 10, 5, 10"
                  Controls:TextBoxHelper.Watermark="Search" />
 
-        <ListView Grid.Row="2" Grid.Column="1" x:Name="AvailableStationsView" Margin="5">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn />
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Row="2" Grid.Column="1" x:Name="AvailableStationsView" Margin="5" ItemsSource="{Binding Path=AvailableStations}"
+                  SelectedItem="{Binding Path=SelectedAvailableStation, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="2" Grid.Column="3" x:Name="SelectedStationsView" Margin="5">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn />
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Row="2" Grid.Column="3" x:Name="SelectedStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
+                  SelectedItem="{Binding Path=SelectedSelectedStation, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="2" Grid.Column="2">
@@ -58,9 +65,9 @@
                 <RowDefinition Height="0.1*" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" x:Name="AddStationBtn" Content="Add" Margin="10" />
-            <Button Grid.Row="1" x:Name="RemoveStationBtn" Content="Remove" Margin="10" />
-            <Button Grid.Row="3" x:Name="ClearStationBtn" Content="Clear" Margin="10" />
+            <Button Grid.Row="0" x:Name="AddStationBtn" Content="Add" Margin="10" Command="{Binding AddStation}"/>
+            <Button Grid.Row="1" x:Name="RemoveStationBtn" Content="Remove" Margin="10" Command="{Binding RemoveStation}"/>
+            <Button Grid.Row="3" x:Name="ClearStationBtn" Content="Clear" Margin="10" Command="{Binding ClearStations}"/>
         </Grid>
 
         <Button Grid.Row="2" Grid.Column="4" x:Name="FinishedBtn" Content="Finished" VerticalAlignment="Bottom" Margin="10" />
