@@ -38,7 +38,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="8px" Text="{Binding Path=Name}"></TextBlock>
+                        <TextBlock FontSize="12px" Text="{Binding Path=Name}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -48,7 +48,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="8px" Text="{Binding Path=Name}"></TextBlock>
+                        <TextBlock FontSize="12px" Text="{Binding Path=Name}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

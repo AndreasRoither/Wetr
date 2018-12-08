@@ -89,7 +89,6 @@
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\Preset.cs" />
-    <Compile Include="Model\StationPreset.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PresetCreationViewModel.cs" />
     <Compile Include="ViewModel\PresetsAssignmentViewModel.cs" />

@@ -23,14 +23,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="Weather station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="Presets for station" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Selected stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
-
-        <TextBox Grid.Row="1" Grid.Column="0" x:Name="SearchStations"  TextWrapping="Wrap" Margin="12"
-                 Controls:TextBoxHelper.Watermark="Search"/>
-        <TextBox Grid.Row="1" Grid.Column="3" x:Name="SearchSelectedStation" TextWrapping="Wrap" Margin="12"
-                 Controls:TextBoxHelper.Watermark="Search"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="Weather stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="Assigned Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
 
         <Grid Grid.Row="2" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -47,14 +42,29 @@
             <Button Grid.Row="3" Content="Clear" Margin="10"></Button>
         </Grid>
 
-        <ListView Grid.Row="2" Grid.Column="0" Margin="5">
-            
+        <ListView Grid.Row="2" Grid.Column="0" x:Name="SelectedStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
+                  SelectedItem="{Binding Path=SelectedStation, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="12px" Text="{Binding Path=Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
+            
         <ListView Grid.Row="2" Grid.Column="1" Margin="5">
 
         </ListView>
-        <ListView Grid.Row="2" Grid.Column="3" Margin="5">
-
+        <ListView Grid.Row="2" Grid.Column="3" x:Name="PresetsStationsView" Margin="5" ItemsSource="{Binding Path=Presets}"
+                  SelectedItem="{Binding Path=SelectedPreset, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="12px" Text="{Binding Path=Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="3" Grid.Column="4">

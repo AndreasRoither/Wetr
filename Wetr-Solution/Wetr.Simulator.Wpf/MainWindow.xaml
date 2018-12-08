@@ -30,12 +30,16 @@
             </TabItem>
             <TabItem Header="Presets zuweisen">
                 <Grid Background="#efefef">
-                    <views:PresetAssignmentView></views:PresetAssignmentView>
+                    <views:PresetAssignmentView
+                       DataContext="{Binding PresetAssignment, Source={StaticResource Locator}}"
+                        ></views:PresetAssignmentView>
                 </Grid>
             </TabItem>
             <TabItem Header="Simulation">
                 <Grid Background="#efefef">
-                    <views:SimulationView></views:SimulationView>
+                    <views:SimulationView
+                         DataContext="{Binding Simulation, Source={StaticResource Locator}}"
+                        ></views:SimulationView>
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>

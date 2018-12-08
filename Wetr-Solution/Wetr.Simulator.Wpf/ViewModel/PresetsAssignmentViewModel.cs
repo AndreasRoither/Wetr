@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
+using Wetr.Simulator.Wpf.ViewModel;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
@@ -19,40 +21,20 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     {
         #region variables
 
-        private ObservableCollection<Preset> presets;
+        private StationSelectionViewModel stationSelectionViewModel = ServiceLocator.Current.GetInstance<StationSelectionViewModel>();
+        private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
 
         public ObservableCollection<Preset> Presets
         {
-            get { return presets; }
-            set
-            {
-                if (presets != value)
-                    Set(ref presets, value);
-            }
+            get { return presetCreationViewModel.PresetList; }
         }
 
-        private ObservableCollection<StationPreset> stationPresets;
+        public Station SelectedStation { get; set; }
+        public Preset SelectedPreset { get; set; }
 
-        public ObservableCollection<StationPreset> StationPresets
+        public ObservableCollection<Station> SelectedStations
         {
-            get { return stationPresets; }
-            set
-            {
-                if (stationPresets != value)
-                    Set(ref stationPresets, value);
-            }
-        }
-
-        private ObservableCollection<Station> stations;
-
-        public ObservableCollection<Station> Stations
-        {
-            get { return stations; }
-            set
-            {
-                if (stations != value)
-                    Set(ref stations, value);
-            }
+            get { return stationSelectionViewModel.selectedStations; }
         }
 
         #endregion variables
@@ -60,7 +42,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public PresetsAssignmentViewModel()
         {
             
-
         }
 
         public void CleanUp()

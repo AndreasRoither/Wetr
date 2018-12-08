@@ -14,17 +14,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     {
         #region variables
 
-        private ObservableCollection<StationPreset> stationsPreset;
-
-        public ObservableCollection<StationPreset> StationPresets
-        {
-            get { return stationsPreset; }
-            set
-            {
-                if (stationsPreset != value)
-                    Set(ref stationsPreset, value);
-            }
-        }
+      
 
         #endregion variables
 

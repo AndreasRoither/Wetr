@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.Model
@@ -33,6 +34,8 @@ namespace Wetr.Cockpit.Wpf.Model
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         public MeasurementType MeasurementType { get; set; }
+
+        public List<Station> Stations { get; set; } = new List<Station>();
 
     }
 }

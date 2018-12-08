@@ -101,7 +101,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         }
 
         private CollectionViewSource selectedStationsCollection;
-        private ObservableCollection<Station> selectedStations;
+        public ObservableCollection<Station> selectedStations;
 
         public ICollectionView SelectedStations
         {
@@ -176,11 +176,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
             this.selectedStationsCollection = new CollectionViewSource();
             selectedStationsCollection.Source = this.selectedStations;
-            selectedStationsCollection.Filter += FilterStations;
+            selectedStationsCollection.Filter += FilterSelectedStations;
 
             this.availableStationsCollection = new CollectionViewSource();
             availableStationsCollection.Source = this.availableStations;
-            availableStationsCollection.Filter += FilterStations;
+            availableStationsCollection.Filter += FilterAvailableStations;
 
             /* Loading stations from db */
             IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
@@ -207,7 +207,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         }
 
-        private void FilterStations(object sender, FilterEventArgs e)
+        private void FilterAvailableStations(object sender, FilterEventArgs e)
         {
             Station station = (Station)e.Item;
 
@@ -218,6 +218,20 @@ namespace Wetr.Simulator.Wpf.ViewModel
             else
             {
                 e.Accepted = station.Name.ToLower().Contains(this.AvailableStationsFilter.ToLower());
+            }
+        }
+
+        private void FilterSelectedStations(object sender, FilterEventArgs e)
+        {
+            Station station = (Station)e.Item;
+
+            if (string.IsNullOrWhiteSpace(this.SelectedStationsFilter) || this.SelectedStationsFilter.Length == 0)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = station.Name.ToLower().Contains(this.SelectedStationsFilter.ToLower());
             }
         }
 
