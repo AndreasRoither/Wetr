@@ -176,11 +176,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
             this.selectedStationsCollection = new CollectionViewSource();
             selectedStationsCollection.Source = this.selectedStations;
-            selectedStationsCollection.Filter += Filter_SelectedStations;
+            selectedStationsCollection.Filter += FilterStations;
 
             this.availableStationsCollection = new CollectionViewSource();
             availableStationsCollection.Source = this.availableStations;
-            availableStationsCollection.Filter += Filter_AvailableStations;
+            availableStationsCollection.Filter += FilterStations;
 
             /* Loading stations from db */
             IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
@@ -207,7 +207,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         }
 
-        private void Filter_AvailableStations(object sender, FilterEventArgs e)
+        private void FilterStations(object sender, FilterEventArgs e)
         {
             Station station = (Station)e.Item;
 
@@ -217,21 +217,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
             else
             {
-                e.Accepted = station.Name.Contains(this.AvailableStationsFilter);
-            }
-        }
-
-        private void Filter_SelectedStations(object sender, FilterEventArgs e)
-        {
-            Station station = (Station)e.Item;
-
-            if (string.IsNullOrWhiteSpace(this.SelectedStationsFilter) || this.SelectedStationsFilter.Length == 0)
-            {
-                e.Accepted = true;
-            }
-            else
-            {
-                e.Accepted = station.Name.Contains(this.SelectedStationsFilter);
+                e.Accepted = station.Name.ToLower().Contains(this.AvailableStationsFilter.ToLower());
             }
         }
 
