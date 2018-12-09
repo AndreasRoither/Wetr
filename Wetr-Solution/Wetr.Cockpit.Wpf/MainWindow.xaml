@@ -7,8 +7,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
                       xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
                       mc:Ignorable="d ignore"
-        Height="590"
-        Width="800"
+        Height="650"
+        Width="850"
         Title="Wetr Cockpit"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -149,9 +149,9 @@
                                            Text="{Binding Label}" />
                         </Border>
                         <Controls:TransitioningContentControl Grid.Row="1"
-                                                                  Content="{Binding Tag}"
-                                                                  RestartTransitionOnContentChange="True"
-                                                                  Transition="Default">
+                                                                Content="{Binding Tag}"
+                                                                RestartTransitionOnContentChange="True"
+                                                                Transition="Default">
                         </Controls:TransitioningContentControl>
                     </Grid>
                 </DataTemplate>

@@ -3,10 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="820">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="1.2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.8*"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+                <TextBlock Text="Station" VerticalAlignment="Center" FontSize="20"/>
+                <ComboBox Margin="10,10,10,10"/>
+            </DockPanel>
+
+            <TextBox Grid.Column="1" Margin="10" Controls:TextBoxHelper.Watermark="Longitude" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Column="2" Margin="10" Controls:TextBoxHelper.Watermark="Latitude" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Column="3" Margin="10" Controls:TextBoxHelper.Watermark="Radius" VerticalContentAlignment="Center"/>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="1" Margin="10"></ComboBox>
+            <ComboBox Grid.Column="2" Margin="10"></ComboBox>
+            <DatePicker Grid.Column="3" Margin="10"></DatePicker>
+            <DatePicker Grid.Column="4" Margin="10"></DatePicker>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <DataGrid AutoGenerateColumns="True" Margin="10">
+                
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

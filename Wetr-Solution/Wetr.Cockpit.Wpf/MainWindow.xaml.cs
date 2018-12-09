@@ -20,7 +20,7 @@ namespace Wetr.Cockpit.Wpf
 
         private void HamburgerMenuControl_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
-
+            HamburgerMenuControl.Content = e.InvokedItem;
         }
     }
 }

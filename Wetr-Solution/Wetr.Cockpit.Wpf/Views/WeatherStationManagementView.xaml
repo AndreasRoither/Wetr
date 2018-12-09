@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              xmlns:partials="clr-namespace:Wetr.Cockpit.Wpf.Views.partials"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="820">
     <Grid>
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
             <TabItem Header="Station bearbeiten" Margin="0">
