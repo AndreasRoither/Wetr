@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
-namespace Wetr.Simulator.Wpf
+namespace Wetr.Cockpit.Wpf
 {
     /// <summary>
     /// Interaction logic for App.xaml

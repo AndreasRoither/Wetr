@@ -1,8 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
-using Wetr.Simulator.Wpf.ViewModel;
+using Wetr.Cockpit.Wpf.ViewModel;
 
-namespace Wetr.Simulator.Wpf
+namespace Wetr.Cockpit.Wpf
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

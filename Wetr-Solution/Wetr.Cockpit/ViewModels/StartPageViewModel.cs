@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace Wetr.Simulator.ViewModels
+namespace Wetr.Cockpit.ViewModels
 {
     public class StartPageViewModel : ViewModelBase
     {

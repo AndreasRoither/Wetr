@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 
-namespace Wetr.Simulator.ViewModels
+namespace Wetr.Cockpit.ViewModels
 {
     /// <summary>
     /// This class contains static references to all the view models in the

@@ -103,8 +103,8 @@
     <Compile Include="Views\WeatherAnalysisView.xaml.cs">
       <DependentUpon>WeatherAnalysisView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WeeatherStationManagementView.xaml.cs">
-      <DependentUpon>WeeatherStationManagementView.xaml</DependentUpon>
+    <Compile Include="Views\WeatherStationManagementView.xaml.cs">
+      <DependentUpon>WeatherStationManagementView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -138,7 +138,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WeeatherStationManagementView.xaml">
+    <Page Include="Views\WeatherStationManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

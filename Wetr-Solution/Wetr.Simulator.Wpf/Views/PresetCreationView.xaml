@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
+             xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              xmlns:ext="clr-namespace:Wetr.Simulator.Wpf.Extension"
              xmlns:mdl="clr-namespace:Wetr.Simulator.Wpf.Model"
              mc:Ignorable="d"

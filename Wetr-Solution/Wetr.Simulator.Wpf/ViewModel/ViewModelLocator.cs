@@ -12,7 +12,6 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Wetr.Simulator.Wpf.ViewModel;
 using Wetr.Simulator.Wpf.Model;
 
 namespace Wetr.Simulator.Wpf.ViewModel

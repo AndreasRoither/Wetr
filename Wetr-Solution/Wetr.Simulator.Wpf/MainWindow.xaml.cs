@@ -1,5 +1,4 @@
 ﻿using MahApps.Metro.Controls;
-using System.Windows;
 using Wetr.Simulator.Wpf.ViewModel;
 
 namespace Wetr.Simulator.Wpf

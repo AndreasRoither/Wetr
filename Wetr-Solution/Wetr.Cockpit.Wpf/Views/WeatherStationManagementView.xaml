@@ -1,20 +1,23 @@
-﻿<UserControl x:Class="Wetr.Simulator.Wpf.Views.WeeatherStationManagementView"
+﻿<UserControl x:Class="Wetr.Cockpit.Wpf.Views.WeatherStationManagementView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
+             xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
+             xmlns:partials="clr-namespace:Wetr.Cockpit.Wpf.Views.partials"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
             <TabItem Header="Station bearbeiten" Margin="0">
                 <Grid Background="#efefef">
+                    <partials:WeatherStation_Edit></partials:WeatherStation_Edit>
                 </Grid>
             </TabItem>
             <TabItem Header="Station hinzufügen">
                 <Grid Background="#efefef">
+                    <partials:WeatherStation_Add></partials:WeatherStation_Add>
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
