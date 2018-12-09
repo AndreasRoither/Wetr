@@ -23,9 +23,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="Assigned Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" Text="Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="58,20.333,64.333,10.333"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="Assigned Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="9.667,20.333,28,10.333"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" TextWrapping="Wrap" Text="Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="53.667,20.333,61.667,10.333" />
 
         <Grid Grid.Row="2" Grid.Column="2">
             <Grid.RowDefinitions>

@@ -113,9 +113,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         private void ExecuteAddPreset()
         {
-            if (!PresetStations.Contains(SelectedStation))
+            if (!SelectedPreset.Stations.Contains(SelectedStation))
             {
-                PresetStations.Add(SelectedStation);
+                SelectedPreset.Stations.Add(SelectedStation);
                 RaisePropertyChanged(nameof(PresetStations));
                 this.AddPreset.RaiseCanExecuteChanged();
             }
@@ -125,7 +125,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         private void ExecuteDeletePreset()
         {
-            PresetStations.Remove(SelectedPresetStation);
+            SelectedPreset.Stations.Remove(SelectedPresetStation);
             this.DeletePreset.RaiseCanExecuteChanged();
         }
 
@@ -133,7 +133,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void ExecuteClearPreset()
         {
-            PresetStations.Clear();
+            SelectedPreset.Stations.Clear();
             this.ClearPreset.RaiseCanExecuteChanged();
         }
 

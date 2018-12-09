@@ -36,21 +36,21 @@
             <Slider x:Name="SimulationTimeSlider"
                     Grid.Column="0"
                     AutoToolTipPlacement="TopLeft"
-                    Maximum="10"
-                    Minimum="0"
+                    Maximum="2500000"
+                    Minimum="1"
                     Orientation="Horizontal"
-                    Value="1"
-                    TickFrequency="0.5"
+                    Value="{Binding Path=SpeedFactor}"
+                    TickFrequency="1"
                     TickPlacement="BottomRight"
                     Margin="15"
                     IsSnapToTickEnabled="True" />
 
-            <TextBlock Grid.Column="1" Margin="15" Text="{Binding ElementName=SimulationTimeSlider, Path=Value, StringFormat={}{0:0.0 s}}"
+            <TextBlock Grid.Column="1" Margin="15" Text="{Binding ElementName=SimulationTimeSlider, Path=Value, StringFormat={}{0:0 times}}"
                        FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
             <Controls:ToggleSwitch x:Name="enabledSwitch" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
                                    Header="Graph enabled"
-                                   IsChecked="True"
+                                   IsChecked="{Binding Path=GraphEnabled}"
                                    OffLabel="Off"
                                    OnLabel="On"
                                    Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
@@ -62,7 +62,7 @@
                 <ColumnDefinition Width="0.3*" />
             </Grid.ColumnDefinitions>
 
-            <lvc:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right">
+            <lvc:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled}" >
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Value" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
@@ -72,10 +72,24 @@
             </lvc:CartesianChart>
 
             <DockPanel Grid.Column="1" LastChildFill="True">
-                <ComboBox Margin="5" DockPanel.Dock="Top">
+                <ComboBox Margin="5" DockPanel.Dock="Top" ItemsSource="{Binding Path=Presets}" SelectedItem="{Binding Path=SelectedPreset}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ListBox Margin="5,0,5,5" DockPanel.Dock="Bottom">
-                </ListBox>
+                <ListView Margin="5,0,5,5" DockPanel.Dock="Bottom" ItemsSource="{Binding Path=PresetStations}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </DockPanel>
         </Grid>
 
@@ -87,8 +101,8 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="2" x:Name="StartSimulationBtn" Content="Start Simulation" Margin="13"></Button>
-            <Button Grid.Column="3" x:Name="StopSimulationBtn" Content="Stop Simulation" Margin="13"></Button>
+            <Button Grid.Column="2" x:Name="StartSimulationBtn" Content="Start Simulation" Margin="13" Command="{Binding StartSimulation}"></Button>
+            <Button Grid.Column="3" x:Name="StopSimulationBtn" Content="Stop Simulation" Margin="13" Command="{Binding StopSimulation}"></Button>
         </Grid>
     </Grid>
 </UserControl>
