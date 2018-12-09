@@ -36,11 +36,11 @@
             <Slider x:Name="SimulationTimeSlider"
                     Grid.Column="0"
                     AutoToolTipPlacement="TopLeft"
-                    Maximum="2500000"
+                    Maximum="100"
                     Minimum="1"
                     Orientation="Horizontal"
                     Value="{Binding Path=SpeedFactor}"
-                    TickFrequency="1"
+                    TickFrequency="0.1"
                     TickPlacement="BottomRight"
                     Margin="15"
                     IsSnapToTickEnabled="True" />
