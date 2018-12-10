@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-                      xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
-                      mc:Ignorable="d ignore"
+        xmlns:views="clr-namespace:Wetr.Cockpit.Wpf.Views"
+        mc:Ignorable="d ignore"
         Height="650"
         Width="850"
         Title="Wetr Cockpit"
@@ -102,16 +102,16 @@
         <!--<views:LoginView Margin="0" />-->
 
         <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
-                                    HamburgerVisibility="Visible"
-                                    HamburgerWidth="48"
-                                    IsPaneOpen="True"
-                                    ItemInvoked="HamburgerMenuControl_ItemInvoked"
-                                    ItemTemplate="{StaticResource HamburgerMenuItem}"
-                                    OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}"
-                                    SelectedIndex="0"
-                                    Style="{StaticResource HamburgerMenuCreatorsStyle}"
-                                    VerticalScrollBarOnLeftSide="False"
-                                    OpenPaneLength="130">
+                                HamburgerVisibility="Visible"
+                                HamburgerWidth="48"
+                                IsPaneOpen="True"
+                                ItemInvoked="HamburgerMenuControl_ItemInvoked"
+                                ItemTemplate="{StaticResource HamburgerMenuItem}"
+                                OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}"
+                                SelectedIndex="0"
+                                Style="{StaticResource HamburgerMenuCreatorsStyle}"
+                                VerticalScrollBarOnLeftSide="False"
+                                OpenPaneLength="130">
             <!--  Items  -->
             <Controls:HamburgerMenu.ItemsSource>
                 <Controls:HamburgerMenuItemCollection>
@@ -136,7 +136,7 @@
             <!--  Content  -->
             <Controls:HamburgerMenu.ContentTemplate>
                 <DataTemplate>
-                    <Grid x:Name="ContentGrid">
+                    <Grid x:Name="ContentGrid" Background="#f4f4f4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                             <RowDefinition />

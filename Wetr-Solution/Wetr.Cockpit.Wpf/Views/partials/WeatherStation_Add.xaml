@@ -9,20 +9,20 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="0.4*"/>
             <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.4*"/>
             <RowDefinition Height="0.7*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBlock Text="Location" FontSize="20" Margin="10"/>
+            <TextBlock Text="Location" FontSize="20" Margin="10,5,0,5"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" MaxHeight="50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -37,7 +37,7 @@
             <ComboBox Grid.Column="3" Margin="10"></ComboBox>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" MaxHeight="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="1*"/>
@@ -46,10 +46,10 @@
         </Grid>
         
         <Grid Grid.Row="4">
-            <TextBlock Text="Station" FontSize="20" Margin="10"/>
+            <TextBlock Text="Station" FontSize="20" Margin="10,5,0,5"/>
         </Grid>
 
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="5" MaxHeight="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
