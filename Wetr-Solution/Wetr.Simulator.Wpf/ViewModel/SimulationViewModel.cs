@@ -204,10 +204,12 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void SecondTick(object sender, EventArgs e)
         {
-            foreach(Preset p in this.Presets)
+            foreach (Preset p in this.Presets)
             {
-                if(p.Frequency == Frequency.Minute)
+                if(p.Frequency == Frequency.Second)
                 {
+                    Console.WriteLine("Creating data for preset " + p.Name);
+
                     if (p.CurrentDate == null)
                         p.CurrentDate = p.StartDate;
 
@@ -227,6 +229,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
                             p.GeneratedData.Add(s, new List<Measurement>());
 
                         p.GeneratedData[s].Add(m);
+                        Console.WriteLine("Station " + s.Name);
                         Console.WriteLine(m);
 
                     }

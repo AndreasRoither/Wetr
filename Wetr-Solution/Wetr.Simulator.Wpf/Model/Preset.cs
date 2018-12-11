@@ -47,7 +47,7 @@ namespace Wetr.Simulator.Wpf.Model
 
         public ObservableCollection<Station> Stations { get; set; } = new ObservableCollection<Station>();
 
-        public Dictionary<Station, List<Measurement>> GeneratedData { get; set; }
+        public Dictionary<Station, List<Measurement>> GeneratedData { get; set; } = new Dictionary<Station, List<Measurement>>();
 
     }
 }
