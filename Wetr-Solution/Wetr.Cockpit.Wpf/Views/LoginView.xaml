@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
-             mc:Ignorable="d" Height="450" Width="690">
+             mc:Ignorable="d" Height="450" Width="690"
+             DataContext="{Binding Login, Source={StaticResource Locator}}">
 
     <UserControl.Resources>
         <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
@@ -147,6 +148,7 @@
             </Controls:PasswordBoxHelper.CapsLockWarningToolTip>
         </PasswordBox>
 
-        <Button Grid.Row="6" Grid.Column="2" Margin="45,15,45,15" Style="{DynamicResource RoundCorner}" Content="Sign in" Foreground="White" FontSize="25"></Button>
+        <Button Grid.Row="6" Grid.Column="2" Margin="45,15,45,15" Style="{DynamicResource RoundCorner}" Content="Sign in" Foreground="White" FontSize="25" 
+                Command="{Binding LoginCommand}"/>
     </Grid>
 </UserControl>

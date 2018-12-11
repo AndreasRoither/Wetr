@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wetr.Cockpit.Wpf.Interface;
+using Wetr.Cockpit.Wpf.Views;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
@@ -15,9 +13,24 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
     public class LoginViewModel : ViewModelBase, IWetrViewModelBase
     {
+        public RelayCommand LoginCommand { get; private set; }
+
+        public bool CanExecuteLoginCommand()
+        {
+            return true;
+        }
+
+        public void ExecuteLoginCommand()
+        {
+            MainWindow.SetContentControl(new MainContentView());
+        }
+
         public LoginViewModel()
         {
-
+            LoginCommand = new RelayCommand(
+                ExecuteLoginCommand,
+                CanExecuteLoginCommand
+            );
         }
 
         public void CleanUp()

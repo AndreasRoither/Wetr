@@ -11,7 +11,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// </summary>
     /// <seealso cref="Wetr.Cockpit.Wpf.Views.DashboardView"/>
     /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
-    class DashboardViewModel : ViewModelBase, IWetrViewModelBase
+    public class DashboardViewModel : ViewModelBase, IWetrViewModelBase
     {
         #region variabls
         #endregion variables

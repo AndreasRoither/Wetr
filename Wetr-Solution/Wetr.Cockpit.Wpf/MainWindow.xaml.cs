@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using System.Windows;
+using System.Windows.Controls;
 using Wetr.Cockpit.Wpf.ViewModel;
+using Wetr.Cockpit.Wpf.Views;
 
 namespace Wetr.Cockpit.Wpf
 {
@@ -9,6 +10,8 @@ namespace Wetr.Cockpit.Wpf
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private static ContentControl contentControl;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -16,11 +19,14 @@ namespace Wetr.Cockpit.Wpf
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+            contentControl = this.ContentControl;
+            contentControl.Content = new LoginView();
         }
 
-        private void HamburgerMenuControl_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        public static void SetContentControl(UserControl control)
         {
-            HamburgerMenuControl.Content = e.InvokedItem;
+            contentControl.Content = control;
         }
+
     }
 }
