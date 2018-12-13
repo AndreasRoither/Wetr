@@ -51,9 +51,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-        private string minVal;
+        private double minVal;
 
-        public string MinVal
+        public double MinVal
         {
             get { return minVal; }
             set
@@ -75,9 +75,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-        private string maxVal;
+        private double maxVal;
 
-        public string MaxVal
+        public double MaxVal
         {
             get { return maxVal; }
             set
@@ -123,7 +123,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 StartDate = this.StartDate,
                 Frequency = this.SelectedFrequency,
                 Distribution = this.SelectedDistribution,
-                MeasurementType = this.SelectedMeasurementType
+                MeasurementType = this.SelectedMeasurementType,
+                MinValue = this.MinVal,
+                MaxValue = this.MaxVal
             });
             this.PresetName = String.Empty;
             this.DeletePreset.RaiseCanExecuteChanged();

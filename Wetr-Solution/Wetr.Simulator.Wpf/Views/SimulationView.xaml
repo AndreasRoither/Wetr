@@ -36,7 +36,7 @@
             <Slider x:Name="SimulationTimeSlider"
                     Grid.Column="0"
                     AutoToolTipPlacement="TopLeft"
-                    Maximum="100"
+                    Maximum="86400"
                     Minimum="1"
                     Orientation="Horizontal"
                     Value="{Binding Path=SpeedFactor}"

@@ -10,6 +10,7 @@ using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;
+using Wetr.Simulator.Wpf.BusinessLogic;
 
 namespace Wetr.Simulator.Wpf.ViewModel
 {
@@ -155,19 +156,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
-        private Dictionary<int, int> unitmapping;
-
         public SimulationViewModel()
         {
-
-            /* Init unitmapping */
-            this.unitmapping = new Dictionary<int, int>();
-            this.unitmapping[1] = 4; /* Temp -> Celsius */
-            this.unitmapping[2] = 2; /* Druck -> hPa*/
-            this.unitmapping[3] = 3; /* Regen -> mm */
-            this.unitmapping[4] = 6; /* Feucht -> %*/
-            this.unitmapping[5] = 1; /* WindGesch -> km/h*/
-            this.unitmapping[6] = 7; /* WindRich -> grad */
 
             /* Start Simulation command */
             StartSimulation = new RelayCommand(
@@ -204,58 +194,27 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void SecondTick(object sender, EventArgs e)
         {
-            foreach (Preset p in this.Presets)
-            {
-                if(p.Frequency == Frequency.Second)
-                {
-                    Console.WriteLine("Creating data for preset " + p.Name);
-
-                    if (p.CurrentDate == null)
-                        p.CurrentDate = p.StartDate;
-
-                    foreach(Station s in p.Stations)
-                    {
-                        Measurement m = new Measurement()
-                        {
-                            StationId = s.StationId,
-                            MeasurementTypeId = p.MeasurementType.MeasurementTypeId,
-                            TimesStamp = p.CurrentDate,
-                            Value = 1.123, /* Todo: Make linear/cubic/random generator for these values*/
-                            UnitId = this.unitmapping[p.MeasurementType.MeasurementTypeId],
-                            
-                        };
-
-                        if (!p.GeneratedData.ContainsKey(s))
-                            p.GeneratedData.Add(s, new List<Measurement>());
-
-                        p.GeneratedData[s].Add(m);
-                        Console.WriteLine("Station " + s.Name);
-                        Console.WriteLine(m);
-
-                    }
-                    p.CurrentDate = p.CurrentDate.AddMinutes(1);
-                }
-            }
+            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Second);
         }
 
         public void MinuteTick(object sender, EventArgs e)
         {
-            Console.WriteLine("MinuteTick");
+            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Minute);
         }
 
         public void HourTick(object sender, EventArgs e)
         {
-            Console.WriteLine("HourTick");
+            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Hour);
         }
 
         public void DayTick(object sender, EventArgs e)
         {
-            Console.WriteLine("DayTick");
+            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Day);
         }
 
         public void WeekTick(object sender, EventArgs e)
         {
-            Console.WriteLine("WeekTick");
+            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Week);
         }
         public void CleanUp()
         {

@@ -10,7 +10,7 @@ namespace Wetr.Simulator.Wpf.Model
     /// </summary>
     public enum Distribution
     {
-        Linear, Random, Cubic
+        LinearAsc, LinearDesc, Random, RealisticTemp
     }
 
     /// <summary>
@@ -32,6 +32,7 @@ namespace Wetr.Simulator.Wpf.Model
             return NextId++;
         }
 
+
         public int Id { get; set; }
         public Distribution Distribution { get; set; }
         public Frequency Frequency { get; set; }
@@ -39,7 +40,7 @@ namespace Wetr.Simulator.Wpf.Model
         public string Name { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime CurrentDate { get; set; }
+        public DateTime CurrentDate { get; set; } 
 
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
