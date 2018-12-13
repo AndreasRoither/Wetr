@@ -32,7 +32,6 @@ namespace Wetr.Simulator.Wpf.Model
             return NextId++;
         }
 
-
         public int Id { get; set; }
         public Distribution Distribution { get; set; }
         public Frequency Frequency { get; set; }
@@ -49,6 +48,5 @@ namespace Wetr.Simulator.Wpf.Model
         public ObservableCollection<Station> Stations { get; set; } = new ObservableCollection<Station>();
 
         public Dictionary<Station, List<Measurement>> GeneratedData { get; set; } = new Dictionary<Station, List<Measurement>>();
-
     }
 }

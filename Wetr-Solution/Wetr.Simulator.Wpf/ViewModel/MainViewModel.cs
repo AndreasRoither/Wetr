@@ -55,11 +55,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 });
         }
 
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
-
-        ////    base.Cleanup();
-        ////}
+        public override void Cleanup()
+        {
+            // Clean up if needed
+            base.Cleanup();
+        }
     }
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -36,11 +37,11 @@
             <Slider x:Name="SimulationTimeSlider"
                     Grid.Column="0"
                     AutoToolTipPlacement="TopLeft"
-                    Maximum="86400"
+                    Maximum="{Binding MaxSliderValue}"
                     Minimum="1"
                     Orientation="Horizontal"
                     Value="{Binding Path=SpeedFactor}"
-                    TickFrequency="0.1"
+                    TickFrequency="1"
                     TickPlacement="BottomRight"
                     Margin="15"
                     IsSnapToTickEnabled="True" />
@@ -50,7 +51,7 @@
 
             <Controls:ToggleSwitch x:Name="enabledSwitch" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
                                    Header="Graph enabled"
-                                   IsChecked="{Binding Path=GraphEnabled}"
+                                   IsChecked="{Binding Path=GraphEnabled, Mode=TwoWay}"
                                    OffLabel="Off"
                                    OnLabel="On"
                                    Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
@@ -62,7 +63,7 @@
                 <ColumnDefinition Width="0.3*" />
             </Grid.ColumnDefinitions>
 
-            <lvc:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled}" >
+            <lvc:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled, Mode=TwoWay}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Value" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
@@ -73,6 +74,11 @@
 
             <DockPanel Grid.Column="1" LastChildFill="True">
                 <ComboBox Margin="5" DockPanel.Dock="Top" ItemsSource="{Binding Path=Presets}" SelectedItem="{Binding Path=SelectedPreset}">
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding ComboBoxChanged}"/>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

@@ -11,23 +11,24 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.005*"/>
             <RowDefinition Height="0.15*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="58,20.333,64.333,10.333"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="Assigned Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="9.667,20.333,28,10.333"/>
-        <TextBlock Grid.Row="1" Grid.Column="3" TextWrapping="Wrap" Text="Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="53.667,20.333,61.667,10.333" />
+        <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="58,20.333,64.333,10.333"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" TextWrapping="Wrap" Text="Assigned Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="9.667,20.333,28,10.333"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" TextWrapping="Wrap" Text="Stations" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Margin="53.667,20.333,61.667,10.333" />
 
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid Grid.Row="2" Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -42,7 +43,7 @@
             <Button Grid.Row="3" Content="Clear" Margin="10" Command="{Binding ClearPreset}"></Button>
         </Grid>
 
-        <ListView Grid.Row="2" Grid.Column="0" x:Name="PresetsListView" Margin="5" ItemsSource="{Binding Path=Presets}"
+        <ListView Grid.Row="2" Grid.Column="1" x:Name="PresetsListView" Margin="5" ItemsSource="{Binding Path=Presets}"
                   SelectedItem="{Binding Path=SelectedPreset, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -53,7 +54,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Path=PresetStations}"
+        <ListView Grid.Row="2" Grid.Column="2" Margin="5" ItemsSource="{Binding Path=PresetStations}"
                   SelectedItem="{Binding Path=SelectedPresetStation, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -63,7 +64,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="2" Grid.Column="3" x:Name="PresetsStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
+        <ListView Grid.Row="2" Grid.Column="4" x:Name="PresetsStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
                   SelectedItem="{Binding Path=SelectedStation, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -73,19 +74,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <Grid Grid.Row="3" Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <Button Grid.Row="5" Content="Finished" Margin="10"></Button>
-        </Grid>
-
     </Grid>
 </UserControl>

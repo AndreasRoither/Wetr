@@ -17,7 +17,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*" />
@@ -69,7 +69,5 @@
             <Button Grid.Row="1" x:Name="RemoveStationBtn" Content="Remove" Margin="10" Command="{Binding RemoveStation}"/>
             <Button Grid.Row="3" x:Name="ClearStationBtn" Content="Clear" Margin="10" Command="{Binding ClearStations}"/>
         </Grid>
-
-        <Button Grid.Row="2" Grid.Column="4" x:Name="FinishedBtn" Content="Finished" VerticalAlignment="Bottom" Margin="10" />
     </Grid>
 </UserControl>

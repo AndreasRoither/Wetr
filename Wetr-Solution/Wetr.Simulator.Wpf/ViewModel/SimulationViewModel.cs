@@ -11,6 +11,8 @@ using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;
 using Wetr.Simulator.Wpf.BusinessLogic;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace Wetr.Simulator.Wpf.ViewModel
 {
@@ -21,8 +23,25 @@ namespace Wetr.Simulator.Wpf.ViewModel
     /// <seealso cref="Wetr.Simulator.Wpf.Interface.IWetrViewModelBase"/>
     public class SimulationViewModel : ViewModelBase, IWetrViewModelBase
     {
+        #region variables
 
+        private int MaxChartValues = 60;
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
+
+        public SeriesCollection SeriesCollection { get; set; }
+        public ObservableCollection<string> Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
+
+        private int maxSliderValue;
+
+        public int MaxSliderValue
+        {
+            get { return maxSliderValue; }
+            set {
+                if (maxSliderValue != value)
+                    Set(ref maxSliderValue, value);
+            }
+        }
 
         public ObservableCollection<Preset> Presets
         {
@@ -40,9 +59,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
             get { return selectedPreset; }
             set
             {
-                selectedPreset = value;
+                Set(ref selectedPreset, value);
                 RaisePropertyChanged(nameof(PresetStations));
-
             }
         }
 
@@ -67,7 +85,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
             set
             {
                 if (value != graphEnabled)
-                    this.graphEnabled = value;
+                    Set(ref graphEnabled, value);
             }
         }
 
@@ -83,8 +101,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
             {
                 if (value != speedFactor)
                 {
-                    this.speedFactor = value;
-
+                    Set(ref speedFactor, value);
+                           
                     this.secondTimer.Stop();
                     this.minuteTimer.Stop();
                     this.hourTimer.Stop();
@@ -97,67 +115,31 @@ namespace Wetr.Simulator.Wpf.ViewModel
                     this.dayTimer.Interval = 1000.0 * 60.0 * 60.0 * 24.0 / this.speedFactor;
                     this.weekTimer.Interval = 1000.0 * 60.0 * 60.0 * 24.0 * 7.0 / this.speedFactor;
 
-                    this.secondTimer.Start();
-                    this.minuteTimer.Start();
-                    this.hourTimer.Start();
-                    this.dayTimer.Start();
-                    this.weekTimer.Start();
-
+                    if (SimulationRunning)
+                    {
+                        this.secondTimer.Start();
+                        this.minuteTimer.Start();
+                        this.hourTimer.Start();
+                        this.dayTimer.Start();
+                        this.weekTimer.Start();
+                    }
                 }
             }
         }
 
         public RelayCommand StartSimulation { get; private set; }
         public RelayCommand StopSimulation { get; private set; }
+        public RelayCommand ComboBoxChanged { get; private set; }
 
         public bool SimulationRunning { get; set; }
 
-        private bool CanExecuteStartSimulation()
-        {
-            return this.SimulationRunning == false;
-        }
-
-        private bool CanExecuteStopSimulation()
-        {
-            return this.SimulationRunning == true;
-        }
-
-        private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
-
-        private void ExecuteStartSimulation()
-        {
-            Console.WriteLine("Starting Simulation");
-            this.SimulationRunning = true;
-
-            this.secondTimer.Start();
-            this.minuteTimer.Start();
-            this.hourTimer.Start();
-            this.dayTimer.Start();
-            this.weekTimer.Start();
-
-            this.StopSimulation.RaiseCanExecuteChanged();
-            this.StartSimulation.RaiseCanExecuteChanged();
-
-        }
-
-
-        private void ExecuteStopSimulation()
-        {
-            Console.WriteLine("Stopping Simulation");
-            this.SimulationRunning = false;
-
-            this.secondTimer.Stop();
-            this.minuteTimer.Stop();
-            this.hourTimer.Stop();
-            this.dayTimer.Stop();
-            this.weekTimer.Stop();
-
-            this.StopSimulation.RaiseCanExecuteChanged();
-            this.StartSimulation.RaiseCanExecuteChanged();
-        }
+        #endregion variables
 
         public SimulationViewModel()
         {
+            SeriesCollection = new SeriesCollection();
+            Labels = new ObservableCollection<string>();
+            MaxSliderValue = 60;
 
             /* Start Simulation command */
             StartSimulation = new RelayCommand(
@@ -169,6 +151,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
             StopSimulation = new RelayCommand(
                 ExecuteStopSimulation,
                 CanExecuteStopSimulation
+            );
+
+            ComboBoxChanged = new RelayCommand(
+                ExecuteSelectionChanged,
+                CanExecuteSelectionChanged
             );
 
             this.secondTimer = new Timer();
@@ -188,37 +175,183 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.hourTimer.Elapsed += HourTick;
             this.dayTimer.Elapsed += DayTick;
             this.weekTimer.Elapsed += WeekTick;
-
         }
 
+        private bool CanExecuteSelectionChanged()
+        {
+            return true;
+        }
+
+        private void ExecuteSelectionChanged()
+        {
+            if (SelectedPreset != null)
+            {
+                switch (selectedPreset.Frequency)
+                {
+                    case Frequency.Second:
+                        MaxSliderValue = 10;
+                        break;
+                    case Frequency.Minute:
+                        MaxSliderValue = 600;
+                        break;
+                    case Frequency.Hour:
+                        MaxSliderValue = 36000;
+                        break;
+                    case Frequency.Day:
+                        MaxSliderValue = 864000;
+                        break;
+                    case Frequency.Week:
+                        MaxSliderValue = 6048000;
+                        break;
+                }
+
+                if (SpeedFactor > MaxSliderValue)
+                {
+                    SpeedFactor = MaxSliderValue/10;
+                }
+
+                ResetChart();
+            }
+        }
+
+        #region functions
+
+        private bool CanExecuteStartSimulation()
+        {
+            return this.SimulationRunning == false;
+        }
+
+        private bool CanExecuteStopSimulation()
+        {
+            return this.SimulationRunning == true;
+        }
+
+        private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
+
+        private void ExecuteStartSimulation()
+        {
+            Console.WriteLine("Starting Simulation");
+            this.SimulationRunning = true;
+
+            ResetChart();
+
+            this.secondTimer.Start();
+            this.minuteTimer.Start();
+            this.hourTimer.Start();
+            this.dayTimer.Start();
+            this.weekTimer.Start();
+
+            this.StopSimulation.RaiseCanExecuteChanged();
+            this.StartSimulation.RaiseCanExecuteChanged();
+        }
+
+        private void ExecuteStopSimulation()
+        {
+            Console.WriteLine("Stopping Simulation");
+            this.SimulationRunning = false;
+
+            this.secondTimer.Stop();
+            this.minuteTimer.Stop();
+            this.hourTimer.Stop();
+            this.dayTimer.Stop();
+            this.weekTimer.Stop();
+
+            this.StopSimulation.RaiseCanExecuteChanged();
+            this.StartSimulation.RaiseCanExecuteChanged();
+        }
 
         public void SecondTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Second);
+            if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Second)
+                UpdateChart();
         }
 
         public void MinuteTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Minute);
+            if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Minute)
+                UpdateChart();
         }
 
         public void HourTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Hour);
+            if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Hour)
+                UpdateChart();
         }
 
         public void DayTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Day);
+            if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Day)
+                UpdateChart();
         }
 
         public void WeekTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Week);
+            if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Week)
+                UpdateChart();
         }
+
+        public void UpdateChart()
+        {
+            if (SelectedPreset != null && GraphEnabled)
+            {
+                int count = 0;
+                foreach (Station s in this.SelectedPreset.Stations)
+                {
+                    List<Measurement> tempList = SelectedPreset.GeneratedData[s];
+                    Measurement m = tempList[tempList.Count - 1];
+                    if (SeriesCollection[count].Values.Count > MaxChartValues)
+                    {
+                        ClearChart(1);
+                    }
+                    SeriesCollection[count].Values.Add(m.Value);
+                    count++;
+                }
+            }
+        }
+
+        void ClearChart(int range)
+        {
+            int count = 0;
+            foreach (Station s in this.SelectedPreset.Stations)
+            {
+                for (int i = 0; i < range && i < SeriesCollection[count].Values.Count - 1; ++i)
+                    SeriesCollection[count].Values.RemoveAt(i);
+                count++;
+            }
+        }
+
+        private void ResetChart()
+        {
+            if (SelectedPreset != null)
+            {
+                Labels.Clear();
+                SeriesCollection.Clear();
+
+                List<string> tempLabels = new List<string>();
+                foreach (Station s in this.SelectedPreset.Stations)
+                {
+                    tempLabels.Add(s.Name);
+                    SeriesCollection.Add(new LineSeries
+                    {
+                        Title = s.Name,
+                        LineSmoothness = 1,
+                        Values = new ChartValues<double>()
+                    });
+                }
+                Labels = new ObservableCollection<string>(tempLabels);
+            }
+        }
+
         public void CleanUp()
         {
-            throw new System.NotImplementedException();
+            base.Cleanup();
         }
+
+        #endregion functions
     }
 }

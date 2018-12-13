@@ -113,7 +113,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         private void ExecuteAddPreset()
         {
-            if (!SelectedPreset.Stations.Contains(SelectedStation))
+            if (SelectedPreset != null && SelectedStation != null && !SelectedPreset.Stations.Contains(SelectedStation))
             {
                 SelectedPreset.Stations.Add(SelectedStation);
                 RaisePropertyChanged(nameof(PresetStations));
@@ -125,16 +125,22 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         private void ExecuteDeletePreset()
         {
-            SelectedPreset.Stations.Remove(SelectedPresetStation);
-            this.DeletePreset.RaiseCanExecuteChanged();
+            if (SelectedPreset != null && SelectedStation != null)
+            {
+                SelectedPreset.Stations.Remove(SelectedPresetStation);
+                this.DeletePreset.RaiseCanExecuteChanged();
+            }
         }
 
         /* Clear Preset Command */
 
         public void ExecuteClearPreset()
         {
-            SelectedPreset.Stations.Clear();
-            this.ClearPreset.RaiseCanExecuteChanged();
+            if (SelectedPreset != null)
+            {
+                SelectedPreset.Stations.Clear();
+                this.ClearPreset.RaiseCanExecuteChanged();
+            }
         }
 
         #endregion commands
@@ -162,7 +168,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void CleanUp()
         {
-            throw new System.NotImplementedException();
+            base.Cleanup();
         }
     }
 }

@@ -182,7 +182,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            base.Cleanup();
         }
     }
 }

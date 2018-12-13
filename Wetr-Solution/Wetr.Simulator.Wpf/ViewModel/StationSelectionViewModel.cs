@@ -106,12 +106,15 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /* Add Station Command */
         private void ExecuteAddStation()
         {
-            Station newStation = this.SelectedAvailableStation;
-            if (!this.SelectedStations.Contains(newStation))
+            if (SelectedAvailableStation != null)
             {
-                this.selectedStations.Add(newStation);
-                this.RemoveStation.RaiseCanExecuteChanged();
-                this.ClearStations.RaiseCanExecuteChanged();
+                Station newStation = this.SelectedAvailableStation;
+                if (!this.SelectedStations.Contains(newStation))
+                {
+                    this.selectedStations.Add(newStation);
+                    this.RemoveStation.RaiseCanExecuteChanged();
+                    this.ClearStations.RaiseCanExecuteChanged();
+                }
             }
         }
 
@@ -219,7 +222,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public void CleanUp()
         {
-            throw new System.NotImplementedException();
+            base.Cleanup();
         }
     }
 }
