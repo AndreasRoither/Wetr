@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -26,6 +27,33 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public Frequency SelectedFrequency { get; set; }
         public Distribution SelectedDistribution { get; set; }
+
+        private SolidColorBrush presetNameColor;
+
+        public SolidColorBrush PresetNameColor
+        {
+            get
+            {
+                return presetNameColor;
+            }
+            set
+            {
+                if (presetNameColor != value)
+                    Set(ref presetNameColor, value);
+            }
+        }
+
+        private string addWarningText;
+
+        public string AddWarningText
+        {
+            get { return addWarningText; }
+            set
+            {
+                Set(ref addWarningText, value);
+            }
+        }
+
 
         private DateTime startDate;
 
@@ -115,20 +143,30 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /* Add Preset Command */
         private void ExecuteAddPreset()
         {
-            this.PresetList.Add(new Preset()
+            if (this.PresetName != null && this.PresetName != String.Empty)
             {
-                Id = Preset.NextInt(),
-                Name = this.PresetName,
-                EndDate = this.EndDate,
-                StartDate = this.StartDate,
-                Frequency = this.SelectedFrequency,
-                Distribution = this.SelectedDistribution,
-                MeasurementType = this.SelectedMeasurementType,
-                MinValue = this.MinVal,
-                MaxValue = this.MaxVal
-            });
-            this.PresetName = String.Empty;
-            this.DeletePreset.RaiseCanExecuteChanged();
+                this.PresetNameColor = Brushes.Black;
+                this.AddWarningText = "";
+                this.PresetList.Add(new Preset()
+                {
+                    Id = Preset.NextInt(),
+                    Name = this.PresetName,
+                    EndDate = this.EndDate,
+                    StartDate = this.StartDate,
+                    Frequency = this.SelectedFrequency,
+                    Distribution = this.SelectedDistribution,
+                    MeasurementType = this.SelectedMeasurementType,
+                    MinValue = this.MinVal,
+                    MaxValue = this.MaxVal
+                });
+                this.PresetName = String.Empty;
+                this.DeletePreset.RaiseCanExecuteChanged();
+            }
+            else
+            {
+                this.PresetNameColor = Brushes.Red;
+                this.AddWarningText = "Missing name";
+            }
         }
 
         private bool CanExecuteDeletePreset()
@@ -149,6 +187,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public PresetCreationViewModel()
         {
+            presetNameColor = Brushes.Black;
             this.MeasurementTypeList = new Collection<MeasurementType>();
 
             /* Loading measurementtypes from db */
