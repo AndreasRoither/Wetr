@@ -9,6 +9,8 @@ Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welch in 
     \item \textbf{Wetr.Dal.Factory} Beinhaltet Factories um die Instanziierung der benötigen komkreten Klassen zu abstrahieren.
     \item \textbf{Wetr.Test.Dal} Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
     \item \textbf{Wetr.Generator}: Zuständig für das Generieren von Messdaten für die einzelnen Stationen.
+    \item \textbf{Wetr.Cockpit.Wpf}: Cockpit Programm, verwendet WPF, MVVM Light Toolkit\footnote{http://www.mvvmlight.net/}, MahAppsMetro\footnote{https://mahapps.com/} und LiveCharts\footnote{https://lvcharts.net/} um Usern die Möglichkeit zu geben Messtationen anzuzeigen bzw ändern zu können.
+    \item \textbf{Wetr.Simulator.Wpf}: Simulator Programm, verwendet ebenfalls WPF, MVVM Light Framework, MahAppsMetro und LiveCharts. Hier können Messwerte für Stationen generiert werden.
 \end{itemize}
 
 \newpage
@@ -113,3 +115,75 @@ Die Windrichtung ändert sich in dieser einfachen Simulation jede Stunde und kan
 
 \textbf{Windstärke}\\
 Die Generierung der Windstärke ist in der aktuellen Ausbaustufe sehr primitiv gehalten und ändert sich stündlich zufällig von $0$ und $20\ km/h$
+
+
+\newpage
+\subsection{Wetr.Cockpit.Wpf}
+Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip erstellt.\textit{Views} und \textit{ViewModels} werden verwendet und mithilfe von \textit{DataBinding} werden vom \textit{ViewModel} Daten bei der \textit{View} angezeigt. Nach dem erfolgreichen Login bietet das Cockpit Usern die Möglichkeit Messtationen zu editieren bzw hinzuzufügen. Im weiteren ist es dem User auch möglich die Messwerte seiner Stationen zu aggregieren.
+\newline
+\newline
+Das Hauptprogramm (nach dem Login) ist in drei verschiedenen Tabs eingeteilt: \newline\textit{Home}, \textit{Analysis} und \textit{Stations}.
+\newline
+\newline
+\textbf{Home}\newline
+Eine kleine Übersicht über die Stationen des Users. Hier werden nützliche Werte für den User angezeigt (zb. Stationene Anzahl).
+\newline
+\newline
+\textbf{Analysis}\newline
+Hier wird die Aggregation der Messwerte der Stationen ermöglicht. Einzelne Stationen und verschiedene Messwertarten können zum Aggregieren ausgewählt werden.
+\newline
+\newline
+\textbf{Stations}\newline
+Im Tab Stations wird dem User die Möglichkeit geboten seine Stationen zu ändern oder neue Stationen hinzuzufügen.
+
+\newpage
+\subsection{Wetr.Simulator.Wpf}
+Auch dieses Projekt wurde nach dem MVVM Prinzip erstellt.
+Der Simulator ist in 4 verschieden Bereiche unterteilt: \textit{Station selection}, \textit{Preset creation}, \textit{Preset assignment} und \textit{Simulation}.
+\newline
+\newline
+\textbf{Station selection}\newline
+In diesem Bereich werden die Stationen ausgewählt die für die nachfolgenden Schritte verwendet werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_1_StationSelection.png}
+\caption{Station selection}
+\label{fig:Wetr.Simulator.Wpf.StationSelection}
+\end{figure}
+\raggedright
+
+\textbf{Preset creation}\newline
+Ein \textit{Preset} ist eine Berechnungseinstellung. Für diese Einstellung können Daten wie Messart, Start und Enddatum, Minimum und Maximum der Berechnung, Berechnungsart (zb. Linear) und die Regelmäßigkeit der Berechnung eingestellt werden. 
+Grundsätzlich können mehrere \textit{Presets} erstellt werden. Diese werden durch den vergebenen Namen identifiziert.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_2_PresetCreation.png}
+\caption{Preset creation}
+\label{fig:Wetr.Simulator.Wpf.PresetCreation}
+\end{figure}
+\raggedright
+
+\textbf{Preset assignment}\newline
+Nachdem ein \textit{Preset} erstellt wurde kann diesem eine \textit{Station} zugeteilt werden. Nur \textit{Stationen} die am Anfang ausgewählt wurden können hinzugefügt werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_3_PresetAssignment.png}
+\caption{Preset assignment}
+\label{fig:Wetr.Simulator.Wpf.PresetAssignment}
+\end{figure}
+\raggedright
+
+\textbf{Simulation}\newline
+In diesem Bereich können nun die zuvor erstellen \textit{Presets} simuliert werden. Durch auswählen eines \textit{Presets} und anschließendem Starten der Simulation können die Zwischenergebnisse in dem Graphen daneben angezeigt werden. 
+Falls die Geschwindigkeit einer Simulation zu langsam ist kann diese mit dem Schieber über dem Graphen verändert werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_4_Simulation.png}
+\caption{Simulation}
+\label{fig:Wetr.Simulator.Wpf.Simulation}
+\end{figure}
+\raggedright
