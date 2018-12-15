@@ -106,6 +106,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /* Add Station Command */
         private void ExecuteAddStation()
         {
+            
+
             if (SelectedAvailableStation != null)
             {
                 Station newStation = this.SelectedAvailableStation;

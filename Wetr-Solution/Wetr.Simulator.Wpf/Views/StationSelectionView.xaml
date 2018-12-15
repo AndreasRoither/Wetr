@@ -9,8 +9,8 @@
             x:Class="Wetr.Simulator.Wpf.Views.StationSelectionView"
             mc:Ignorable="d"
             Height="490"
-            Width="752" FontSize="7"
-    >
+            Width="752" FontSize="7">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*" />
@@ -34,7 +34,7 @@
                  Controls:TextBoxHelper.Watermark="Search" />
 
         <ListView Grid.Row="2" Grid.Column="1" x:Name="AvailableStationsView" Margin="5" ItemsSource="{Binding Path=AvailableStations}"
-                  SelectedItem="{Binding Path=SelectedAvailableStation, Mode=TwoWay}">
+                  SelectedItem="{Binding Path=SelectedAvailableStation, Mode=TwoWay}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -44,7 +44,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="2" Grid.Column="3" x:Name="SelectedStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
-                  SelectedItem="{Binding Path=SelectedSelectedStation, Mode=TwoWay}">
+                  SelectedItem="{Binding Path=SelectedSelectedStation, Mode=TwoWay}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

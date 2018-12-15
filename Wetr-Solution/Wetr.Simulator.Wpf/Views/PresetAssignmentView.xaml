@@ -44,7 +44,7 @@
         </Grid>
 
         <ListView Grid.Row="2" Grid.Column="1" x:Name="PresetsListView" Margin="5" ItemsSource="{Binding Path=Presets}"
-                  SelectedItem="{Binding Path=SelectedPreset, Mode=TwoWay}">
+                  SelectedItem="{Binding Path=SelectedPreset, Mode=TwoWay}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -55,7 +55,7 @@
         </ListView>
 
         <ListView Grid.Row="2" Grid.Column="2" Margin="5" ItemsSource="{Binding Path=PresetStations}"
-                  SelectedItem="{Binding Path=SelectedPresetStation, Mode=TwoWay}">
+                  SelectedItem="{Binding Path=SelectedPresetStation, Mode=TwoWay}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -65,7 +65,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="2" Grid.Column="4" x:Name="PresetsStationsView" Margin="5" ItemsSource="{Binding Path=SelectedStations}"
-                  SelectedItem="{Binding Path=SelectedStation, Mode=TwoWay}">
+                  SelectedItem="{Binding Path=SelectedStation, Mode=TwoWay}" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
