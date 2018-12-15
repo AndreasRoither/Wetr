@@ -21,11 +21,12 @@ namespace Wetr.Simulator.Wpf.ViewModel
     /// </summary>
     /// <seealso cref="Wetr.Simulator.Wpf.Views.SimulationView"/>
     /// <seealso cref="Wetr.Simulator.Wpf.Interface.IWetrViewModelBase"/>
-    public class SimulationViewModel : ViewModelBase, IWetrViewModelBase
+    public class SimulationViewModel : ViewModelBase, IWetrViewModelBase, IDisposable
     {
         #region variables
 
         private int MaxChartValues = 60;
+        private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -226,8 +227,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.SimulationRunning == true;
         }
 
-        private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
-
         private void ExecuteStartSimulation()
         {
             Console.WriteLine("Starting Simulation");
@@ -350,6 +349,21 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public void CleanUp()
         {
             base.Cleanup();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            secondTimer.Dispose();
+            minuteTimer.Dispose();
+            hourTimer.Dispose();
+            dayTimer.Dispose();
+            weekTimer.Dispose();
         }
 
         #endregion functions

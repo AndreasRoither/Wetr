@@ -11,8 +11,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private ContentControl mainContentControl;
-
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>

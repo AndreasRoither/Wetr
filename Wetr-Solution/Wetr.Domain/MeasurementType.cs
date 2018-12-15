@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System.Collections.Generic;
+
+namespace Wetr.Domain
 {
     public class MeasurementType
     {
@@ -19,6 +21,14 @@
                 MeasurementType temp = (MeasurementType)obj;
                 return ((this.MeasurementTypeId == temp.MeasurementTypeId) && (this.Name == temp.Name));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 2069641964;
+            hashCode = hashCode * -1521134295 + MeasurementTypeId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }

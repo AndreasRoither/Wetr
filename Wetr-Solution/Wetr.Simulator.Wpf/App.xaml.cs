@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿#pragma warning disable 0436
+
+using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Wetr.Cockpit.Wpf

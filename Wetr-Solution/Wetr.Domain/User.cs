@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wetr.Domain
 {
@@ -26,6 +27,17 @@ namespace Wetr.Domain
                     && (this.LastName == temp.LastName) && (this.Password == temp.Password)
                     && (this.Email == temp.Email));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1698601670;
+            hashCode = hashCode * -1521134295 + UserId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
+            return hashCode;
         }
     }
 }

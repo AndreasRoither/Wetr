@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System.Collections.Generic;
+
+namespace Wetr.Domain
 {
     public class Province
     {
@@ -20,6 +22,15 @@
                 Province temp = (Province)obj;
                 return ((this.ProvinceId == temp.ProvinceId) && (this.Name == temp.Name) && (this.CountryId == temp.CountryId));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1615181142;
+            hashCode = hashCode * -1521134295 + ProvinceId.GetHashCode();
+            hashCode = hashCode * -1521134295 + CountryId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }

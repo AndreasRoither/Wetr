@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System.Collections.Generic;
+
+namespace Wetr.Domain
 {
     public class Address
     {
@@ -21,6 +23,16 @@
                 Address temp = (Address)obj;
                 return ((this.AddressId == temp.AddressId) && (this.CommunityId == temp.CommunityId) && (this.Location == temp.Location) && (this.Zip == temp.Zip));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -699461029;
+            hashCode = hashCode * -1521134295 + AddressId.GetHashCode();
+            hashCode = hashCode * -1521134295 + CommunityId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Location);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Zip);
+            return hashCode;
         }
     }
 }

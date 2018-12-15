@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System.Collections.Generic;
+
+namespace Wetr.Domain
 {
     public class Community
     {
@@ -20,6 +22,15 @@
                 Community temp = (Community)obj;
                 return ((this.CommunityId == temp.CommunityId) && (this.DistrictId == temp.DistrictId) && (this.Name == temp.Name));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 944434587;
+            hashCode = hashCode * -1521134295 + CommunityId.GetHashCode();
+            hashCode = hashCode * -1521134295 + DistrictId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }

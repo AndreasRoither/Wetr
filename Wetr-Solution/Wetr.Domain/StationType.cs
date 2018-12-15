@@ -1,4 +1,6 @@
-﻿namespace Wetr.Domain
+﻿using System.Collections.Generic;
+
+namespace Wetr.Domain
 {
     public class StationType
     {
@@ -19,6 +21,14 @@
                 StationType temp = (StationType)obj;
                 return ((this.StationTypeId == temp.StationTypeId) && (this.Name == temp.Name));
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -189422660;
+            hashCode = hashCode * -1521134295 + StationTypeId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }

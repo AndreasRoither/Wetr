@@ -28,5 +28,17 @@ namespace Wetr.Domain
                     && (this.Value == temp.Value));
             }
         }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -510074534;
+            hashCode = hashCode * -1521134295 + MeasurementId.GetHashCode();
+            hashCode = hashCode * -1521134295 + StationId.GetHashCode();
+            hashCode = hashCode * -1521134295 + MeasurementTypeId.GetHashCode();
+            hashCode = hashCode * -1521134295 + UnitId.GetHashCode();
+            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            hashCode = hashCode * -1521134295 + TimesStamp.GetHashCode();
+            return hashCode;
+        }
     }
 }
