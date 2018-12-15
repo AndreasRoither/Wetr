@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wetr.Dal.Ado\Wetr.Dal.Ado.csproj" />
+    <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
