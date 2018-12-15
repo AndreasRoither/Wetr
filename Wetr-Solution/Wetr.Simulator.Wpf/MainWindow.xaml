@@ -44,11 +44,4 @@
             </TabItem>
         </Controls:MetroAnimatedTabControl>
     </Grid>
-
-    <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button Content="settings" />
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
-
 </Controls:MetroWindow>
