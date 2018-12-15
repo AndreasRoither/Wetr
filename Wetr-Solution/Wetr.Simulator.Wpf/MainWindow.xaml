@@ -14,21 +14,21 @@
 
     <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
-            <TabItem Header="Station wählen" Margin="0">
+            <TabItem Header="Station selection" Margin="0">
                 <Grid Background="#efefef">
                     <views:StationSelectionView
                         DataContext="{Binding StationsSelection, Source={StaticResource Locator}}"
                         ></views:StationSelectionView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Presets erstellen">
+            <TabItem Header="Preset creation">
                 <Grid Background="#efefef">
                     <views:PresetCreationView
                         DataContext="{Binding PresetCreation, Source={StaticResource Locator}}"
                         ></views:PresetCreationView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Presets zuweisen">
+            <TabItem Header="Preset assignment">
                 <Grid Background="#efefef">
                     <views:PresetAssignmentView
                        DataContext="{Binding PresetAssignment, Source={StaticResource Locator}}"
