@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -17,31 +18,31 @@ namespace Wetr.BusinessLogic
 
         #region functions
 
-        public IEnumerable<Station> GetAllStations()
+        public async Task<IEnumerable<Station>> GetAllStations()
         {
-            return stationDao.FindAllAsync().Result;
+            return await stationDao.FindAllAsync();
         }
 
-        public IEnumerable<Station> GetStationsForUser(int userId)
+        public async Task<IEnumerable<Station>> GetStationsForUser(int userId)
         {
-            return stationDao.FindByUserIdAsync(userId).Result;
+            return await stationDao.FindByUserIdAsync(userId);
         }
 
-        public bool UpdateStation(Station updatedStation)
+        public async Task<bool> UpdateStation(Station updatedStation)
         {
             if (!CheckStation(updatedStation)) return false;
-            return stationDao.UpdateAsync(updatedStation).Result;
+            return await stationDao.UpdateAsync(updatedStation);
         }
 
-        public bool AddStation(Station newStation)
+        public async Task<bool> AddStation(Station newStation)
         {
             if (!CheckStation(newStation)) return false;
-            return stationDao.InsertAsync(newStation).Result;
+            return await stationDao.InsertAsync(newStation);
         }
        
         private bool CheckStation(Station station)
         {
-            if (station.Name.Equals(string.Empty)) return false;
+            if (string.IsNullOrEmpty(station.Name)) return false;
             if (station.AddressId < 0) return false;
             if (station.Latitude < -90) return false;
             if (station.Latitude > 90) return false;

@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -16,9 +17,9 @@ namespace Wetr.BusinessLogic
 
         #region functions
 
-        public bool UserCredentialValidation(string email, string password)
+        public async Task<bool> UserCredentialValidation(string email, string password)
         {
-            User user = userDao.FindByEmailAsync(email).Result;
+            User user = await userDao.FindByEmailAsync(email);
             return BCrypt.Net.BCrypt.Verify(password, user.Password);
 
             // hash and save a password
@@ -30,18 +31,18 @@ namespace Wetr.BusinessLogic
             // BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        public bool RegisterUser(User user)
+        public async Task<bool> RegisterUser(User user)
         {
             if (!CheckUser(user)) return false;
-            return userDao.InsertAsync(user).Result;
+            return await userDao.InsertAsync(user);
         }
 
         public bool CheckUser(User user)
         {
-            if (user.Email.Equals(string.Empty)) return false;
-            if (user.FirstName.Equals(string.Empty)) return false;
-            if (user.LastName.Equals(string.Empty)) return false;
-            if (user.Password.Equals(string.Empty)) return false;
+            if (string.IsNullOrEmpty(user.Email)) return false;
+            if (string.IsNullOrEmpty(user.FirstName)) return false;
+            if (string.IsNullOrEmpty(user.LastName)) return false;
+            if (string.IsNullOrEmpty(user.Password)) return false;
             return true;
         }
 

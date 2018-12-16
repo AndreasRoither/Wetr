@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -16,15 +17,15 @@ namespace Wetr.BusinessLogic
 
         #region functions
 
-        public IEnumerable<Measurement> GetAllMeasurements()
+        public async Task<IEnumerable<Measurement>> GetAllMeasurements()
         {
-            return measurementDao.FindAllAsync().Result;
+            return await measurementDao.FindAllAsync();
         }
 
-        public IEnumerable<Measurement> GetAllMeasurementsForStation(int stationId)
+        public async Task<IEnumerable<Measurement>> GetAllMeasurementsForStation(int stationId)
         {
             if (stationId < 0) return null;
-            return measurementDao.FindByStationIdAsync(stationId).Result;
+            return await measurementDao.FindByStationIdAsync(stationId);
         }
 
         #endregion functions
