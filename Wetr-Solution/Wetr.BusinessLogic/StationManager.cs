@@ -1,37 +1,39 @@
 ﻿using System.Collections.Generic;
+using Wetr.Dal.Factory;
+using Wetr.Dal.Interface;
 using Wetr.Domain;
 
 namespace Wetr.BusinessLogic
 {
     public class StationManager
     {
-        public StationManager()
+        IStationDao stationDao;
+
+        public StationManager(string databaseName)
         {
+            stationDao = AdoFactory.Instance.GetStationDao(databaseName);
         }
 
         #region functions
 
         public IEnumerable<Station> GetAllStations()
         {
-            return null;
+            return stationDao.FindAllAsync().Result;   
         }
 
         public IEnumerable<Station> GetStationsForUser(int userId)
         {
-            return null;
+            return stationDao.FindByUserIdAsync(userId).Result;
         }
 
-        public IEnumerable<StationType> GetAllStationTypes()
+        public bool UpdateStation(Station updatedStation)
         {
-            return null;
+            return stationDao.UpdateAsync(updatedStation).Result;
         }
 
-        public void UpdateStation(Station updatedStation)
+        public bool AddStation(Station newStation)
         {
-        }
-
-        public void AddStation(Station newStation)
-        {
+            return stationDao.InsertAsync(newStation).Result;
         }
 
         #endregion functions

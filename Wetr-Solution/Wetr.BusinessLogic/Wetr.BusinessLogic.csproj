@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +51,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StationManager.cs" />
     <Compile Include="UserManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wetr.Dal.Factory\Wetr.Dal.Factory.csproj">
+      <Project>{C30D5B0E-44BD-467D-A584-410A827B0C25}</Project>
+      <Name>Wetr.Dal.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Interface\Wetr.Dal.Interface.csproj">
+      <Project>{13F2E812-FA97-4306-91B9-9455CDF464C7}</Project>
+      <Name>Wetr.Dal.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj">
+      <Project>{4EBE8EC8-9C9B-4709-A595-115298EA87F7}</Project>
+      <Name>Wetr.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

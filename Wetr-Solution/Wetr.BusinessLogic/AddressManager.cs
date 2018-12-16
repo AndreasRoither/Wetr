@@ -5,7 +5,7 @@ namespace Wetr.BusinessLogic
 {
     public class AddressManager
     {
-        public AddressManager()
+        public AddressManager(string databaseName)
         {
         }
 

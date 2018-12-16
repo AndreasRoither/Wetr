@@ -7,6 +7,7 @@
         private static StationManager stationManager;
         private static UserManager userManager;
         private static readonly object padlock = new object();
+        private static readonly string databaseName = "wetr";
 
         public static AddressManager GetAddressManagerInstance
         {
@@ -16,7 +17,7 @@
                 {
                     if (addressManager == null)
                     {
-                        addressManager = new AddressManager();
+                        addressManager = new AddressManager(databaseName);
                     }
                     return addressManager;
                 }
@@ -31,7 +32,7 @@
                 {
                     if (measurementManager == null)
                     {
-                        measurementManager = new MeasurementManager();
+                        measurementManager = new MeasurementManager(databaseName);
                     }
                     return measurementManager;
                 }
@@ -46,7 +47,7 @@
                 {
                     if (stationManager == null)
                     {
-                        stationManager = new StationManager();
+                        stationManager = new StationManager(databaseName);
                     }
                     return stationManager;
                 }
@@ -61,7 +62,7 @@
                 {
                     if (userManager == null)
                     {
-                        userManager = new UserManager();
+                        userManager = new UserManager(databaseName);
                     }
                     return userManager;
                 }

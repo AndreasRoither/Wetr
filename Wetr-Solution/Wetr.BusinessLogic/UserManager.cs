@@ -3,7 +3,7 @@ namespace Wetr.BusinessLogic
 {
     public class UserManager
     {
-        public UserManager()
+        public UserManager(string databaseName)
         {
         }
 

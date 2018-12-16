@@ -5,7 +5,7 @@ namespace Wetr.BusinessLogic
 {
     public class MeasurementManager
     {
-        public MeasurementManager()
+        public MeasurementManager(string databaseName)
         {
         }
 
