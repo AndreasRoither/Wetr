@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -61,6 +64,7 @@
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -191,12 +195,26 @@
     <Resource Include="Assets\Icons\baseline_graphic_eq_black_48dp.png" />
     <Resource Include="Assets\Icons\baseline_search_black_48dp.png" />
     <Resource Include="Assets\Icons\baseline_assignment_black_48dp.png" />
+    <Resource Include="LICENSE.txt" />
     <Content Include="Resources\Images\cloud.svg" />
     <Resource Include="Resources\Images\cloud.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Dal.Ado\Common.Dal.Ado.csproj">
+      <Project>{7832F4BA-D688-4D52-A3F3-9CECE5E0F2DA}</Project>
+      <Name>Common.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.BusinessLogic\Wetr.BusinessLogic.csproj">
+      <Project>{29EDB67E-049C-4AD1-BB23-22604836536E}</Project>
+      <Name>Wetr.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Dal.Ado\Wetr.Dal.Ado.csproj">
+      <Project>{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}</Project>
+      <Name>Wetr.Dal.Ado</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

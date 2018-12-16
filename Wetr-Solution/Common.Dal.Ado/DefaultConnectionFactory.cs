@@ -9,6 +9,11 @@ namespace Common.Dal.Ado
 
         public static IConnectionFactory FromConfiguration(string connectionStringConfigName)
         {
+            if (ConfigurationManager.ConnectionStrings[connectionStringConfigName] == null)
+            {
+                throw new System.Exception($"ConfigurationManager.ConnectionStrings for {connectionStringConfigName} is null!");
+            }
+
             string connectionString = ConfigurationManager
                                  .ConnectionStrings[connectionStringConfigName]
                                  .ConnectionString;

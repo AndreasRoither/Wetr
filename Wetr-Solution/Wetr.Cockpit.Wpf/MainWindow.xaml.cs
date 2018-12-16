@@ -27,6 +27,5 @@ namespace Wetr.Cockpit.Wpf
         {
             contentControl.Content = control;
         }
-
     }
 }

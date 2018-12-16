@@ -131,13 +131,14 @@
         <TextBox x:Name="LoginUserNameTxtBox" Grid.Row="3" Grid.Column="2" Margin="45,15,45,10" MaxLines="1" FontSize="20"
                  Controls:TextBoxHelper.ClearTextButton="True" 
                  Controls:TextBoxHelper.IsWaitingForData="True"
-                 Controls:TextBoxHelper.Watermark="Username"/>
-        
-        <PasswordBox  x:Name="LoginPasswordTxtBox" Grid.Row="4" Grid.Column="2" Margin="45,10,45,15" FontSize="20"
+                 Controls:TextBoxHelper.Watermark="Email"
+                 Text="{Binding Email, Mode=TwoWay}"/>
+
+        <PasswordBox  x:Name="LoginPasswordBox" Grid.Row="4" Grid.Column="2" Margin="45,10,45,15" FontSize="20"
                       Controls:TextBoxHelper.ClearTextButton="True"
                       Controls:TextBoxHelper.IsWaitingForData="True" 
                       Controls:TextBoxHelper.Watermark="Password">
-            
+
             <Controls:PasswordBoxHelper.CapsLockWarningToolTip>
                 <TextBlock>
                     <Run Foreground="Red"
@@ -149,6 +150,10 @@
         </PasswordBox>
 
         <Button Grid.Row="6" Grid.Column="2" Margin="45,15,45,15" Style="{DynamicResource RoundCorner}" Content="Sign in" Foreground="White" FontSize="25" 
-                Command="{Binding LoginCommand}"/>
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=LoginPasswordBox}"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"
+                   Text="{Binding LoginMessage}" FontSize="20"/>
     </Grid>
 </UserControl>

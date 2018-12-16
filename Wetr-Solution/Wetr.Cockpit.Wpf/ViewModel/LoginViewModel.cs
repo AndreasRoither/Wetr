@@ -1,8 +1,14 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Common.Dal.Ado;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
+using System.Configuration;
+using System.Security.Cryptography;
+using System.Windows.Controls;
+using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Views;
+using Wetr.Dal.Ado;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
@@ -13,29 +19,77 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
     public class LoginViewModel : ViewModelBase, IWetrViewModelBase
     {
-        public RelayCommand LoginCommand { get; private set; }
+        #region variables
+        private UserManager userManager;
 
-        public bool CanExecuteLoginCommand()
+        public RelayCommand<object> LoginCommand { get; private set; }
+
+        private string loginMessage;
+
+        public string LoginMessage
         {
-            return true;
+            get { return loginMessage; }
+            set {
+                if (loginMessage != value)
+                    Set(ref loginMessage, value);
+            }
         }
 
-        public void ExecuteLoginCommand()
+        private string email;
+
+        public string Email
         {
-            MainWindow.SetContentControl(new MainContentView());
+            get { return email; }
+            set {
+                if (email != value)
+                    Set(ref email, value);
+            }
         }
+
+        #endregion variables
 
         public LoginViewModel()
         {
-            LoginCommand = new RelayCommand(
+            userManager = ManagerLocator.GetUserManagerInstance;
+
+            LoginCommand = new RelayCommand<object>(
                 ExecuteLoginCommand,
                 CanExecuteLoginCommand
             );
         }
 
+        #region functions
+
+        public bool CanExecuteLoginCommand(object obj)
+        {
+            return true;
+        }
+
+        // we should not use binding to the password directly
+        // http://gigi.nullneuron.net/gigilabs/security-risk-in-binding-wpf-passwordbox-password/
+        // instead:
+        // https://stackoverflow.com/questions/15390727/passwordbox-and-mvvm/15391318#15391318
+        public async void ExecuteLoginCommand(object obj)
+        {
+            PasswordBox pwBox = obj as PasswordBox;
+            bool result = await userManager.UserCredentialValidation(email, pwBox.Password);
+
+            if (!result)
+            {
+                LoginMessage = "Login failed!";
+            }
+            else
+            {
+                LoginMessage = string.Empty;
+                MainWindow.SetContentControl(new MainContentView());
+            }
+        }        
+
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            base.Cleanup();
         }
+
+        #endregion functions
     }
 }

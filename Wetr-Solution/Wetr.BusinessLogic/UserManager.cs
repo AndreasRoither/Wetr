@@ -19,7 +19,13 @@ namespace Wetr.BusinessLogic
 
         public async Task<bool> UserCredentialValidation(string email, string password)
         {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) return false;
+
             User user = await userDao.FindByEmailAsync(email);
+
+            if (user == null) return false;
+
+            // will cause invalid salt version exception if not hashed with BCrypt
             return BCrypt.Net.BCrypt.Verify(password, user.Password);
 
             // hash and save a password
