@@ -4,12 +4,19 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
             xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
             xmlns:controlzex="urn:controlzex"
             x:Class="Wetr.Simulator.Wpf.Views.StationSelectionView"
             mc:Ignorable="d"
             Height="490"
             Width="752" FontSize="7">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding StationSelectionViewLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.ColumnDefinitions>

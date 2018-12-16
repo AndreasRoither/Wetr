@@ -1,12 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Data;
-using Wetr.Dal.Factory;
-using Wetr.Dal.Interface;
+using Wetr.BusinessLogic;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 
@@ -20,6 +19,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
     public class StationSelectionViewModel : ViewModelBase, IWetrViewModelBase
     {
         #region variables
+
+        private StationManager stationManager;
 
         private String availableStationsFilter;
 
@@ -102,12 +103,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public RelayCommand AddStation { get; private set; }
         public RelayCommand RemoveStation { get; private set; }
         public RelayCommand ClearStations { get; private set; }
+        public RelayCommand StationSelectionViewLoadedCommand { get; set; }
 
         /* Add Station Command */
         private void ExecuteAddStation()
         {
-            
-
             if (SelectedAvailableStation != null)
             {
                 Station newStation = this.SelectedAvailableStation;
@@ -154,10 +154,27 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.selectedStations.Count > 0;
         }
 
+        private async void ExecuteViewLoaded()
+        {
+            var stations = await Task.Run(() => stationManager.GetAllStations());
+
+            foreach (Station s in stations)
+            {
+                availableStations.Add(s);
+            }
+        }
+
+        public bool CanExecuteViewLoaded()
+        {
+            return true;
+        }
+
         #endregion commands
 
         public StationSelectionViewModel()
         {
+            stationManager = ManagerLocator.GetStationManagerInstance;
+
             /* Init properties */
             this.selectedStations = new ObservableCollection<Station>();
             this.availableStations = new ObservableCollection<Station>();
@@ -169,14 +186,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.availableStationsCollection = new CollectionViewSource();
             availableStationsCollection.Source = this.availableStations;
             availableStationsCollection.Filter += FilterAvailableStations;
-
-            /* Loading stations from db */
-            IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
-            IEnumerable<Station> stations = stationDao.FindAllAsync().Result;
-            foreach (Station s in stations)
-            {
-                this.availableStations.Add(s);
-            }
 
             /* Add command */
             AddStation = new RelayCommand(
@@ -192,6 +201,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
             ClearStations = new RelayCommand(
                 ExecuteClearStation,
                 CanExecuteClearStation);
+
+            StationSelectionViewLoadedCommand = new RelayCommand(
+                ExecuteViewLoaded,
+                CanExecuteViewLoaded);
         }
 
         private void FilterAvailableStations(object sender, FilterEventArgs e)

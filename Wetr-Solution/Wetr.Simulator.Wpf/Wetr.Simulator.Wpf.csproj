@@ -170,6 +170,10 @@
       <Project>{7832f4ba-d688-4d52-a3f3-9cece5e0f2da}</Project>
       <Name>Common.Dal.Ado</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wetr.BusinessLogic\Wetr.BusinessLogic.csproj">
+      <Project>{29EDB67E-049C-4AD1-BB23-22604836536E}</Project>
+      <Name>Wetr.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wetr.Cockpit.Wpf\Wetr.Cockpit.Wpf.csproj">
       <Project>{a4500b14-7ddf-4a79-8219-27f30c5a04a9}</Project>
       <Name>Wetr.Cockpit.Wpf</Name>
