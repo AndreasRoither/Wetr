@@ -105,7 +105,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public RelayCommand ClearStations { get; private set; }
         public RelayCommand StationSelectionViewLoadedCommand { get; set; }
 
-        /* Add Station Command */
+        /// <summary>
+        /// Add station to selected stations
+        /// </summary>
         private void ExecuteAddStation()
         {
             if (SelectedAvailableStation != null)
@@ -126,7 +128,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return true;
         }
 
-        /* Remove Station Command */
+        /// <summary>
+        /// Remove Station from the selected stations
+        /// </summary>
         private void ExecuteRemoveStation()
         {
             if (this.SelectedSelectedStation == null)
@@ -141,7 +145,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.selectedStations.Count > 0;
         }
 
-        /* Clear Stations Command */
+        /// <summary>
+        /// Remove all selected stations
+        /// </summary>
         private void ExecuteClearStation()
         {
             this.selectedStations.Clear();
@@ -154,6 +160,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.selectedStations.Count > 0;
         }
 
+        /// <summary>
+        /// Load all Stations from the DB
+        /// <para>Called when View loaded</para>
+        /// </summary>
+        /// <see cref="Wetr.BusinessLogic.StationManager"/>
         private async void ExecuteViewLoaded()
         {
             var stations = await Task.Run(() => stationManager.GetAllStations());
@@ -207,6 +218,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 CanExecuteViewLoaded);
         }
 
+        /// <summary>
+        /// Filters available stations according to the search term
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterAvailableStations(object sender, FilterEventArgs e)
         {
             Station station = (Station)e.Item;
@@ -221,6 +237,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
+        /// <summary>
+        /// Filters selected stations according to the search term
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterSelectedStations(object sender, FilterEventArgs e)
         {
             Station station = (Station)e.Item;

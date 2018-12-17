@@ -23,7 +23,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public ObservableCollection<Preset> Presets
         {
             get
-            {   if (presetCreationViewModel != null)
+            {
+                if (presetCreationViewModel != null)
                     return presetCreationViewModel.PresetList;
                 return null;
             }
@@ -99,18 +100,17 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         private bool CanExecuteDeletePreset()
         {
-            // TODO: Add Constraint
             return true;
         }
 
         private bool CanExecuteClear()
         {
-            // TODO: Add Constraint
             return true;
         }
 
-        /* Add Preset Command */
-
+        /// <summary>
+        /// Add Selected Station to the Selected PReset
+        /// </summary>
         private void ExecuteAddPreset()
         {
             if (SelectedPreset != null && SelectedStation != null && !SelectedPreset.Stations.Contains(SelectedStation))
@@ -121,8 +121,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-        /* Delete Preset Command */
-
+        /// <summary>
+        /// Removes a station from the selected preset
+        /// </summary>
         private void ExecuteDeletePreset()
         {
             if (SelectedPreset != null && SelectedStation != null)
@@ -132,8 +133,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-        /* Clear Preset Command */
-
+        /// <summary>
+        /// Removes all stations from the selected preset
+        /// </summary>
         public void ExecuteClearPreset()
         {
             if (SelectedPreset != null)

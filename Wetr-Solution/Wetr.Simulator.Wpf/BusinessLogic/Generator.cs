@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -10,9 +7,11 @@ using Wetr.Simulator.Wpf.Model;
 
 namespace Wetr.Simulator.Wpf.BusinessLogic
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class Generator
     {
-
         private static IMeasurementDao measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
 
         private static Dictionary<int, int> unitmapping = new Dictionary<int, int>()
@@ -36,7 +35,7 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
         {
             double total = (p.EndDate - p.StartDate).TotalSeconds;
             double x = (p.CurrentDate - p.StartDate).TotalSeconds;
-            double k = (p.MaxValue-p.MinValue)/total;
+            double k = (p.MaxValue - p.MinValue) / total;
 
             return k * x + p.MinValue;
         }
@@ -63,7 +62,6 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                 return Map(hour, 0, 11, (float)p.MinValue, (float)p.MaxValue);
 
             return Map(hour, 12, 23, (float)p.MaxValue, (float)p.MinValue);
-
         }
 
         public static void Generate(IEnumerable<Preset> presets, Frequency frequency)
@@ -72,7 +70,6 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
             {
                 if (p.Frequency == frequency)
                 {
-                    
                     /* If this is the first meassurement */
                     if (p.CurrentDate == DateTime.MinValue)
                         p.CurrentDate = p.StartDate;
@@ -89,12 +86,15 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                             case Distribution.Random:
                                 value = GetRandomNumber(p.MinValue, p.MaxValue);
                                 break;
+
                             case Distribution.LinearAsc:
                                 value = GetLinearAscNumber(p);
                                 break;
+
                             case Distribution.LinearDesc:
                                 value = GetLinearDescNumber(p);
                                 break;
+
                             case Distribution.RealisticTemp:
                                 value = GetRealisticTempNumber(p);
                                 break;
@@ -107,7 +107,6 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                             TimesStamp = p.CurrentDate,
                             Value = value,
                             UnitId = unitmapping[p.MeasurementType.MeasurementTypeId],
-
                         };
 
                         if (!p.GeneratedData.ContainsKey(s))
@@ -116,7 +115,6 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                         p.GeneratedData[s].Add(m);
                         bool res = measurementDao.InsertAsync(m).Result;
                         Console.WriteLine(m);
-
                     }
 
                     switch (frequency)
@@ -125,23 +123,26 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                             p.CurrentDate = p.CurrentDate.AddSeconds(1);
 
                             break;
+
                         case Frequency.Minute:
                             p.CurrentDate = p.CurrentDate.AddMinutes(1);
 
                             break;
+
                         case Frequency.Hour:
                             p.CurrentDate = p.CurrentDate.AddHours(1);
 
                             break;
+
                         case Frequency.Day:
                             p.CurrentDate = p.CurrentDate.AddDays(1);
 
                             break;
+
                         case Frequency.Week:
                             p.CurrentDate = p.CurrentDate.AddDays(7);
 
                             break;
-
                     }
                 }
             }

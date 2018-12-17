@@ -54,7 +54,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-
         private DateTime startDate;
 
         public DateTime StartDate
@@ -140,7 +139,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return true;
         }
 
-        /* Add Preset Command */
+        /// <summary>
+        /// AddPreset Command Execution
+        /// <para>Adds preset to preset list</para>
+        /// </summary>
         private void ExecuteAddPreset()
         {
             if (this.PresetName != null && this.PresetName != String.Empty)
@@ -174,7 +176,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.PresetList.Count > 0;
         }
 
-        /* Delete Preset Command */
+        /// <summary>
+        /// Removes preset from the preset list
+        /// </summary>
         private void ExecuteDeletePreset()
         {
             if (this.SelectedPreset == null)

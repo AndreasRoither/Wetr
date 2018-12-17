@@ -9,8 +9,7 @@
         mc:Ignorable="d ignore"
         Height="590"
         Width="800"
-        Title="Wetr Simulator"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        Title="Wetr Simulator">
 
     <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">

@@ -1,6 +1,8 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +10,6 @@ using System.Timers;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace Wetr.Simulator.Wpf.ViewModel
 {
@@ -35,7 +35,8 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public int MaxSliderValue
         {
             get { return maxSliderValue; }
-            set {
+            set
+            {
                 if (maxSliderValue != value)
                     Set(ref maxSliderValue, value);
             }
@@ -52,6 +53,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         }
 
         private Preset selectedPreset;
+
         public Preset SelectedPreset
         {
             get { return selectedPreset; }
@@ -73,6 +75,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         }
 
         private bool graphEnabled = true;
+
         public bool GraphEnabled
         {
             get
@@ -88,6 +91,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         }
 
         private double speedFactor = 1;
+
         public double SpeedFactor
         {
             get
@@ -100,7 +104,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 if (value != speedFactor)
                 {
                     Set(ref speedFactor, value);
-                           
+
                     this.secondTimer.Stop();
                     this.minuteTimer.Stop();
                     this.hourTimer.Stop();
@@ -175,11 +179,17 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.weekTimer.Elapsed += WeekTick;
         }
 
+        #region functions
+
         private bool CanExecuteSelectionChanged()
         {
             return true;
         }
 
+        /// <summary>
+        /// Set MaxSlider Value Depending on the Frequency used
+        /// </summary>
+        /// <seealso cref="Frequency"/>
         private void ExecuteSelectionChanged()
         {
             if (SelectedPreset != null)
@@ -189,15 +199,19 @@ namespace Wetr.Simulator.Wpf.ViewModel
                     case Frequency.Second:
                         MaxSliderValue = 10;
                         break;
+
                     case Frequency.Minute:
                         MaxSliderValue = 600;
                         break;
+
                     case Frequency.Hour:
                         MaxSliderValue = 36000;
                         break;
+
                     case Frequency.Day:
                         MaxSliderValue = 864000;
                         break;
+
                     case Frequency.Week:
                         MaxSliderValue = 6048000;
                         break;
@@ -205,14 +219,12 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
                 if (SpeedFactor > MaxSliderValue)
                 {
-                    SpeedFactor = MaxSliderValue/10;
+                    SpeedFactor = MaxSliderValue / 10;
                 }
 
                 ResetChart();
             }
         }
-
-        #region functions
 
         private bool CanExecuteStartSimulation()
         {
@@ -224,6 +236,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             return this.SimulationRunning == true;
         }
 
+        /// <summary>
+        /// Starts the simulation
+        /// </summary>
         private void ExecuteStartSimulation()
         {
             Console.WriteLine("Starting Simulation");
@@ -241,6 +256,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
+        /// <summary>
+        /// Stops the simulation
+        /// </summary>
         private void ExecuteStopSimulation()
         {
             Console.WriteLine("Stopping Simulation");
@@ -256,6 +274,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
+        /// <summary>
+        /// Called when second Timer.Elapsed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void SecondTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Second);
@@ -263,6 +286,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 UpdateChart();
         }
 
+        /// <summary>
+        /// Called when minute Timer.Elapsed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void MinuteTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Minute);
@@ -270,6 +298,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 UpdateChart();
         }
 
+        /// <summary>
+        /// Called when hour Timer.Elapsed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HourTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Hour);
@@ -277,6 +310,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 UpdateChart();
         }
 
+        /// <summary>
+        /// Called when day Timer.Elapsed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void DayTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Day);
@@ -284,6 +322,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 UpdateChart();
         }
 
+        /// <summary>
+        /// Called when week Timer.Elapsed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void WeekTick(object sender, EventArgs e)
         {
             Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Week);
@@ -291,6 +334,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 UpdateChart();
         }
 
+        /// <summary>
+        /// Update Chart with new values
+        /// <para>Calls ClearChart to reduce lag in the chart</para>
+        /// </summary>
         public void UpdateChart()
         {
             if (SelectedPreset != null && GraphEnabled)
@@ -310,7 +357,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
             }
         }
 
-        void ClearChart(int range)
+        /// <summary>
+        /// Removes values from a SeriesCollection LineChart
+        /// </summary>
+        /// <param name="range">How many values should be removed</param>
+        private void ClearChart(int range)
         {
             int count = 0;
             foreach (Station s in this.SelectedPreset.Stations)

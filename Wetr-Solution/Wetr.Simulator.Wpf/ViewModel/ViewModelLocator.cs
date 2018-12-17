@@ -38,25 +38,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
-            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PresetCreationViewModel>();
             SimpleIoc.Default.Register<PresetsAssignmentViewModel>();
             SimpleIoc.Default.Register<SimulationViewModel>();
             SimpleIoc.Default.Register<StationSelectionViewModel>();
-        }
-
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
