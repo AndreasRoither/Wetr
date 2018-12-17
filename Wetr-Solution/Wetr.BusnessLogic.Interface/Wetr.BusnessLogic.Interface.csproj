@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29EDB67E-049C-4AD1-BB23-22604836536E}</ProjectGuid>
+    <ProjectGuid>{CF86EBA2-6745-4DFD-81E9-70983DAE30B1}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wetr.BusinessLogic</RootNamespace>
-    <AssemblyName>Wetr.BusinessLogic</AssemblyName>
+    <RootNamespace>Wetr.BusnessLogic.Interface</RootNamespace>
+    <AssemblyName>Wetr.BusnessLogic.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,10 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
-      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,36 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressManager.cs" />
-    <Compile Include="ManagerLocator.cs" />
-    <Compile Include="MeasurementManager.cs" />
+    <Compile Include="IAddressManager.cs" />
+    <Compile Include="IMeasurementManager.cs" />
+    <Compile Include="IStationManager.cs" />
+    <Compile Include="IUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StationManager.cs" />
-    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wetr.BusnessLogic.Interface\Wetr.BusnessLogic.Interface.csproj">
-      <Project>{cf86eba2-6745-4dfd-81e9-70983dae30b1}</Project>
-      <Name>Wetr.BusnessLogic.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wetr.Dal.Factory\Wetr.Dal.Factory.csproj">
-      <Project>{C30D5B0E-44BD-467D-A584-410A827B0C25}</Project>
-      <Name>Wetr.Dal.Factory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wetr.Dal.Interface\Wetr.Dal.Interface.csproj">
-      <Project>{13F2E812-FA97-4306-91B9-9455CDF464C7}</Project>
-      <Name>Wetr.Dal.Interface</Name>
-    </ProjectReference>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj">
       <Project>{4EBE8EC8-9C9B-4709-A595-115298EA87F7}</Project>
       <Name>Wetr.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

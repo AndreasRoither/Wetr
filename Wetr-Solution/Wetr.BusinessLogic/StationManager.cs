@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wetr.BusnessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
 namespace Wetr.BusinessLogic
 {
-    public class StationManager
+    public class StationManager : IStationManager
     {
         IStationDao stationDao;
 
@@ -45,7 +46,7 @@ namespace Wetr.BusinessLogic
             return await stationDao.GetTotalNumberOfStationsAsync();
         }
 
-        private bool CheckStation(Station station)
+        public bool CheckStation(Station station)
         {
             if (string.IsNullOrEmpty(station.Name)) return false;
             if (station.AddressId < 0) return false;

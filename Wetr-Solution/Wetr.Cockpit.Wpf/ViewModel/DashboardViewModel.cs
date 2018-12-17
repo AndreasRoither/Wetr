@@ -164,14 +164,14 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
 
             StationCount = (int) await stationManager.GetNumberOfStations();
-            MeasurementCount = (int) await measurementManager.GetNumberOfMeasurements();
-            WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeek();
+            MeasurementCount = (int) await measurementManager.GetNumberOfMeasurementsAsync();
+            WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeekAsync();
 
-            var temperatureValues = await measurementManager.GetDashbardTemperatures();
+            var temperatureValues = await measurementManager.GetDashbardTemperaturesAsync();
             foreach (double d in temperatureValues)
                 SeriesCollectionAverageTemperature[0].Values.Add(d);
 
-            var rainValues = await measurementManager.GetDashboardRainValues();
+            var rainValues = await measurementManager.GetDashboardRainValuesAsync();
             foreach (double d in rainValues)
                 SeriesCollectionAverageRain[0].Values.Add(d);
 

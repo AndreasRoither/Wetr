@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wetr.BusnessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
 namespace Wetr.BusinessLogic
 {
-    public class AddressManager
+    public class AddressManager : IAddressManager
     {
         ICountryDao countryDao;
         IProvinceDao provinceDao;

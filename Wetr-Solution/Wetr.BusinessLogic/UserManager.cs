@@ -1,12 +1,13 @@
 ﻿
 using System.Threading.Tasks;
+using Wetr.BusnessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
 
 namespace Wetr.BusinessLogic
 {
-    public class UserManager
+    public class UserManager : IUserManager
     {
         IUserDao userDao;
 
