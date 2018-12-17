@@ -2,6 +2,12 @@
 
 namespace Wetr.Domain
 {
+
+    public enum EMeasurementType
+    {
+        Temperature = 1, Preassure = 2, Rain =3, Humidity = 4, Wind = 5, Direction = 6
+    }
+
     public class MeasurementType
     {
         public int MeasurementTypeId { get; set; }

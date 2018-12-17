@@ -162,183 +162,25 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public async Task LoadDashboardValues()
         {
-            var stations = await stationManager.GetStationsForUser(loginViewModel.loggedInUser.UserId);
-            userStations = new Collection<Station>(stations.ToList());
 
-            StationCount = userStations.Count;
+            StationCount = (int) await stationManager.GetNumberOfStations();
+            MeasurementCount = (int) await measurementManager.GetNumberOfMeasurements();
+            WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeek();
 
-            double[] allTemp = new double[7];
-            double[] allTempCount = new double[7];
+            var temperatureValues = await measurementManager.GetDashbardTemperatures();
+            foreach (double d in temperatureValues)
+                SeriesCollectionAverageTemperature[0].Values.Add(d);
 
-            double[] allRain = new double[7];
-            double[] allRainCount = new double[7];
-
-            foreach (Station s in userStations)
-            {
-                var measurements = await measurementManager.GetAllMeasurementsForStation(s.StationId);
-                Collection<Measurement> stationMeasurements = new Collection<Measurement>(measurements.ToList());
-
-                MeasurementCount += stationMeasurements.Count;
-
-                foreach (Measurement m in stationMeasurements)
-                {
-                    if (m.TimesStamp.Date >= DateTime.Now.AddDays(-6).Date)
-                    {
-                        weeklyMeasurementCount += 1;
-
-                        switch (m.MeasurementTypeId)
-                        {
-                            // temperature
-                            case 1:
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-6).Day)
-                                {
-                                    allTemp[0] += m.Value;
-                                    allTempCount[0] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-5).Day)
-                                {
-                                    allTemp[1] += m.Value;
-                                    allTempCount[1] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-4).Day)
-                                {
-                                    allTemp[2] += m.Value;
-                                    allTempCount[2] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-3).Day)
-                                {
-                                    allTemp[3] += m.Value;
-                                    allTempCount[3] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-2).Day)
-                                {
-                                    allTemp[4] += m.Value;
-                                    allTempCount[4] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-1).Day)
-                                {
-                                    allTemp[5] += m.Value;
-                                    allTempCount[5] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.Day)
-                                {
-                                    allTemp[6] += m.Value;
-                                    allTempCount[6] += 1;
-                                }
-                                break;
-                            // rain amount
-                            case 3:
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-6).Day)
-                                {
-                                    allRain[0] += m.Value;
-                                    allRainCount[0] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-5).Day)
-                                {
-                                    allRain[1] += m.Value;
-                                    allRainCount[1] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-4).Day)
-                                {
-                                    allRain[2] += m.Value;
-                                    allRainCount[2] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-3).Day)
-                                {
-                                    allRain[3] += m.Value;
-                                    allRainCount[3] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-2).Day)
-                                {
-                                    allRain[4] += m.Value;
-                                    allRainCount[4] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(-1).Day)
-                                {
-                                    allRain[5] += m.Value;
-                                    allRainCount[5] += 1;
-                                }
-                                if (m.TimesStamp.Day == DateTime.Now.AddDays(0).Day)
-                                {
-                                    allRain[6] += m.Value;
-                                    allRainCount[6] += 1;
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
-
-            if (allTempCount[0] == 0 || allTemp[0] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[0] / allTempCount[0]);
-
-            if (allTempCount[1] == 0 || allTemp[1] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[1] / allTempCount[1]);
-
-            if (allTempCount[2] == 0 || allTemp[2] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[2] / allTempCount[2]);
-
-            if (allTempCount[3] == 0 || allTemp[3] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[3] / allTempCount[3]);
-
-            if (allTempCount[4] == 0 || allTemp[4] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[4] / allTempCount[4]);
-
-            if (allTempCount[5] == 0 || allTemp[5] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[5] / allTempCount[5]);
-
-            if (allTempCount[6] == 0 || allTemp[6] == 0)
-                SeriesCollectionAverageTemperature[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allTemp[6] / allTempCount[6]);
+            var rainValues = await measurementManager.GetDashboardRainValues();
+            foreach (double d in rainValues)
+                SeriesCollectionAverageRain[0].Values.Add(d);
 
 
-            if (allRainCount[0] == 0 || allRain[0] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageTemperature[0].Values.Add(allRain[0] / allRainCount[0]);
 
-            if (allRainCount[1] == 0 || allRain[1] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[1] / allRainCount[1]);
 
-            if (allRainCount[2] == 0 || allRain[2] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[2] / allRainCount[2]);
 
-            if (allRainCount[3] == 0 || allRain[3] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[3] / allRainCount[3]);
 
-            if (allRainCount[4] == 0 || allRain[4] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[4] / allRainCount[4]);
 
-            if (allRainCount[5] == 0 || allRain[5] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[5] / allRainCount[5]);
-
-            if (allRainCount[6] == 0 || allRain[6] == 0)
-                SeriesCollectionAverageRain[0].Values.Add(0d);
-            else
-                SeriesCollectionAverageRain[0].Values.Add(allRain[6] / allRainCount[6]);
         }
 
         public void CleanUp()

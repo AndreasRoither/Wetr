@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
@@ -27,6 +28,31 @@ namespace Wetr.BusinessLogic
             if (stationId < 0) return null;
             return await measurementDao.FindByStationIdAsync(stationId);
         }
+
+       
+        public async Task<double[]> GetDashbardTemperatures()
+        {
+            return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Temperature, 7);
+        }
+
+        public async Task<double[]> GetDashboardRainValues()
+        {
+            return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Rain, 7);
+        }
+
+
+        public async Task<long> GetNumberOfMeasurements()
+        {
+            return await measurementDao.GetTotalNumberOfMeasurementsAsync();
+        }
+
+        public async Task<long> GetNumberOfMeasurementsOfWeek()
+        {
+            return await measurementDao.GetNumberOfMeasurementsFromTheLastXDaysAsync(7);
+        }
+
+
+
 
         #endregion functions
     }

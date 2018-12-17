@@ -44,6 +44,26 @@ namespace Common.Dal.Ado
             return items;
         }
 
+        public async Task<double> ScalarAsync<T>(string sql, params Parameter[] parameters)
+        {
+
+            // Create Connection to DB
+            using (DbConnection connection = this.connectionFactory.CreateConnection())
+            {
+                // Create Commend/Query
+                using (DbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = sql;
+                    AddParameters(command, parameters);
+
+                    object result = await command.ExecuteScalarAsync();
+                    return (long)result;
+                }
+            }
+
+            throw new Exception("Failed to execute Scalar-Query!");
+        }
+
         private void AddParameters(DbCommand command, Parameter[] parameters)
         {
             foreach (var parameter in parameters)

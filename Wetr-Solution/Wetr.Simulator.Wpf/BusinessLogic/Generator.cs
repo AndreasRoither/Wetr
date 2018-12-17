@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wetr.Dal.Factory;
+using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Model;
 
@@ -10,6 +12,8 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
 {
     public class Generator
     {
+
+        private static IMeasurementDao measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
 
         private static Dictionary<int, int> unitmapping = new Dictionary<int, int>()
         {
@@ -110,6 +114,7 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                             p.GeneratedData.Add(s, new List<Measurement>());
 
                         p.GeneratedData[s].Add(m);
+                        bool res = measurementDao.InsertAsync(m).Result;
                         Console.WriteLine(m);
 
                     }

@@ -39,7 +39,12 @@ namespace Wetr.BusinessLogic
             if (!CheckStation(newStation)) return false;
             return await stationDao.InsertAsync(newStation);
         }
-       
+
+        public async Task<long> GetNumberOfStations()
+        {
+            return await stationDao.GetTotalNumberOfStationsAsync();
+        }
+
         private bool CheckStation(Station station)
         {
             if (string.IsNullOrEmpty(station.Name)) return false;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wetr.Domain;
 
@@ -11,5 +12,12 @@ namespace Wetr.Dal.Interface
         Task<IEnumerable<Measurement>> FindByMeasurementTypeIdAsync(int measurementTypeId);
 
         Task<IEnumerable<Measurement>> FindByUnitIdAsync(int unitId);
+
+        Task<double[]> GetDayAverageOfLastXDaysAsync(int type, int numDays);
+
+        Task<long> GetTotalNumberOfMeasurementsAsync();
+
+        Task<long> GetNumberOfMeasurementsFromTheLastXDaysAsync(int days);
+
     }
 }

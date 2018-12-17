@@ -31,6 +31,12 @@ namespace Wetr.Dal.Ado
             };
         }
 
+        private static double MapToDouble(IDataRecord row)
+        {
+            return (double)row["value"];
+            
+        }
+
         public async Task<bool> DeleteAsync(int measurementId)
         {
             return await this.template.ExecuteAsync(
@@ -109,6 +115,36 @@ namespace Wetr.Dal.Ado
 
             return result;
         }
+
+        public async Task<double[]> GetDayAverageOfLastXDaysAsync(int type, int numDays)
+        {
+            // SELECT AVG(value) "value" FROM measurement GROUP BY DATE(timestamp)
+            var result = await this.template.QueryAsync(
+               "select AVG(value) as value from measurement where measurementTypeId = @type and timestamp >= @from and timestamp <= @to GROUP BY DATE(timestamp)",
+               MapToDouble,
+               new Parameter("@type", type),
+               new Parameter("@from", DateTime.Now.AddDays(-numDays)),
+               new Parameter("@to", DateTime.Now));
+
+            return result.ToArray();
+        }
+        
+
+        public async Task<long> GetTotalNumberOfMeasurementsAsync()
+        {
+            double result = await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement");
+            return (long) result;
+        }
+
+        public async Task<long> GetNumberOfMeasurementsFromTheLastXDaysAsync(int days)
+        {
+            double result = await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement WHERE timestamp <= @to and timestamp >= @from",
+                new Parameter("from", DateTime.Now.AddDays(-days)),
+                new Parameter("to", DateTime.Now)
+                );
+            return (long)result;
+        }
+
 
     }
 }

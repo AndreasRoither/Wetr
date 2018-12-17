@@ -11,5 +11,7 @@ namespace Wetr.Dal.Interface
         Task<IEnumerable<Station>> FindByStationTypeIdAsync(int stationTypeId);
 
         Task<IEnumerable<Station>> FindByAddressIdAsync(int addressId);
+
+        Task<long> GetTotalNumberOfStationsAsync();
     }
 }
