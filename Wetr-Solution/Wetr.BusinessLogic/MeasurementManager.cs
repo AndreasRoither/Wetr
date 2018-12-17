@@ -12,7 +12,7 @@ namespace Wetr.BusinessLogic
 
         public MeasurementManager(string databaseName)
         {
-            measurementDao = AdoFactory.Instance.GetMeasurementDao();
+            measurementDao = AdoFactory.Instance.GetMeasurementDao(databaseName);
         }
 
         #region functions

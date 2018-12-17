@@ -17,24 +17,22 @@ namespace Wetr.BusinessLogic
 
         #region functions
 
-        public async Task<bool> UserCredentialValidation(string email, string password)
+        public async Task<User> UserCredentialValidation(string email, string password)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) return false;
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) return null;
 
             User user = await userDao.FindByEmailAsync(email);
 
-            if (user == null) return false;
+            if (user == null) return null;
 
             // will cause invalid salt version exception if not hashed with BCrypt
-            return BCrypt.Net.BCrypt.Verify(password, user.Password);
+            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                user.Password = string.Empty;
+                return user;
+            }
 
-            // hash and save a password
-            //string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-
-            // check a password
-            //bool validPassword = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-
-            // BCrypt.Net.BCrypt.HashPassword(password);
+            return null;
         }
 
         public async Task<bool> RegisterUser(User user)

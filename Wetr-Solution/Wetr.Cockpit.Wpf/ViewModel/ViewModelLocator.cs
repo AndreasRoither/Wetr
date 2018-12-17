@@ -42,6 +42,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<WeatherAnalysisViewModel>();
             SimpleIoc.Default.Register<DashboardViewModel>();
+            SimpleIoc.Default.Register<WeatherStationManagementViewModel>();
         }
 
         /// <summary>
@@ -97,6 +98,20 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<DashboardViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Dashboard property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public WeatherStationManagementViewModel WeatherStationManagement
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<WeatherStationManagementViewModel>();
             }
         }
 

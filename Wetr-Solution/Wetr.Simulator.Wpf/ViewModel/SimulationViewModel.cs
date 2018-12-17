@@ -5,12 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Timers;
-using Wetr.Dal.Factory;
-using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;
-using Wetr.Simulator.Wpf.BusinessLogic;
 using LiveCharts;
 using LiveCharts.Wpf;
 

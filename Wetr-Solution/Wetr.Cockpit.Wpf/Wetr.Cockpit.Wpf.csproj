@@ -96,6 +96,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WeatherAnalysisViewModel.cs" />
+    <Compile Include="ViewModel\WeatherStationManagementViewModel.cs" />
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +214,10 @@
     <ProjectReference Include="..\Wetr.Dal.Ado\Wetr.Dal.Ado.csproj">
       <Project>{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}</Project>
       <Name>Wetr.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.Domain\Wetr.Domain.csproj">
+      <Project>{4EBE8EC8-9C9B-4709-A595-115298EA87F7}</Project>
+      <Name>Wetr.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

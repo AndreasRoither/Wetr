@@ -9,6 +9,7 @@ using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Views;
 using Wetr.Dal.Ado;
+using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
@@ -20,6 +21,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     public class LoginViewModel : ViewModelBase, IWetrViewModelBase
     {
         #region variables
+        public User loggedInUser { get; set; }
+
         private UserManager userManager;
 
         public RelayCommand<object> LoginCommand { get; private set; }
@@ -71,10 +74,17 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         // https://stackoverflow.com/questions/15390727/passwordbox-and-mvvm/15391318#15391318
         public async void ExecuteLoginCommand(object obj)
         {
-            PasswordBox pwBox = obj as PasswordBox;
-            bool result = await userManager.UserCredentialValidation(email, pwBox.Password);
+            User user = new User();
+            user.UserId = 1;
+            loggedInUser = user;
 
-            if (!result)
+            MainWindow.SetContentControl(new MainContentView());
+
+            /*
+            PasswordBox pwBox = obj as PasswordBox;
+            loggedInUser = await userManager.UserCredentialValidation(email, pwBox.Password);
+
+            if (loggedInUser == null)
             {
                 LoginMessage = "Login failed!";
             }
@@ -82,7 +92,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             {
                 LoginMessage = string.Empty;
                 MainWindow.SetContentControl(new MainContentView());
-            }
+            }*/
         }        
 
         public void CleanUp()

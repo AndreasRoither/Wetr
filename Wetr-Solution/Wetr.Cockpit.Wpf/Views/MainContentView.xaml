@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+ 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -110,17 +111,17 @@
                 <Controls:HamburgerMenuItemCollection>
                     <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_home_black_48dp.png" Label="Home">
                         <Controls:HamburgerMenuGlyphItem.Tag>
-                            <views:DashboardView/>
+                            <views:DashboardView DataContext="{Binding Dashboard, Source={StaticResource Locator}}"/>
                         </Controls:HamburgerMenuGlyphItem.Tag>
                     </Controls:HamburgerMenuGlyphItem>
                     <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_graphic_eq_black_48dp.png" Label="Analysis">
                         <Controls:HamburgerMenuGlyphItem.Tag>
-                            <views:WeatherAnalysisView/>
+                            <views:WeatherAnalysisView DataContext="{Binding WeatherAnalysis, Source={StaticResource Locator}}"/>
                         </Controls:HamburgerMenuGlyphItem.Tag>
                     </Controls:HamburgerMenuGlyphItem>
                     <Controls:HamburgerMenuGlyphItem Glyph="/Assets/Icons/baseline_person_pin_black_48dp.png" Label="Stations">
                         <Controls:HamburgerMenuGlyphItem.Tag>
-                            <views:WeatherStationManagementView/>
+                            <views:WeatherStationManagementView DataContext="{Binding WeatherStationManagement, Source={StaticResource Locator}}"/>
                         </Controls:HamburgerMenuGlyphItem.Tag>
                     </Controls:HamburgerMenuGlyphItem>
                 </Controls:HamburgerMenuItemCollection>

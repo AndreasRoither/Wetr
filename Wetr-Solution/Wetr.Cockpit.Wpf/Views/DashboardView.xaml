@@ -5,9 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding DashboardViewLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <UserControl.Resources>
         <Style x:Key="HoverGrid" TargetType="{x:Type Grid}">
@@ -18,7 +25,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
@@ -52,7 +59,7 @@
                     <Grid Grid.Column="1">
                         <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Text="Stations" FontSize="15"></TextBlock>
-                            <TextBlock Text="150" FontSize="15"></TextBlock>
+                            <TextBlock Text="{Binding StationCount}" FontSize="15"></TextBlock>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -76,8 +83,8 @@
 
                     <Grid Grid.Column="1">
                         <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Measurements" FontSize="15"></TextBlock>
-                            <TextBlock Text="150" FontSize="15"></TextBlock>
+                            <TextBlock FontSize="15">Measurement<LineBreak/>Count</TextBlock>
+                            <TextBlock Text="{Binding MeasurementCount}" FontSize="15"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -101,8 +108,8 @@
 
                     <Grid Grid.Column="1">
                         <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock FontSize="15">Daily <LineBreak/> Measurements</TextBlock>
-                            <TextBlock Text="150" FontSize="15"></TextBlock>
+                            <TextBlock FontSize="15">Weekly <LineBreak/> Measurements</TextBlock>
+                            <TextBlock Text="{Binding WeeklyMeasurementCount}" FontSize="15"></TextBlock>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -110,53 +117,38 @@
         </Grid>
         <Grid Grid.Row="2">
             <Controls:FlipView x:Name="FlipViewTest"
-                                Foreground="{DynamicResource WhiteBrush}"
                                 Margin="10,5,10,5"
                                 IsBannerEnabled="False">
                 <Controls:FlipView.Items>
                     <Grid Background="#ededed">
                         <DockPanel Margin="40,0,40,5">
-                            <TextBlock DockPanel.Dock="Top" Text="Minimum Temperature" HorizontalAlignment="Center" FontSize="25" Background="#e5e5e5" Foreground="Black"/>
-                            <lvc:CartesianChart DockPanel.Dock="Bottom" Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled}" >
+                            <TextBlock DockPanel.Dock="Top" Text="Weekly Average Temperature" HorizontalAlignment="Center" FontSize="25" Background="#e5e5e5" Foreground="Black"/>
+                            <lvc:CartesianChart DockPanel.Dock="Bottom" Grid.Column="0" Series="{Binding SeriesCollectionAverageTemperature}" LegendLocation="Right">
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Value" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
+                                    <lvc:Axis Title="Weekday" Labels="{Binding Labels}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
                         </DockPanel>
                     </Grid>
                     <Grid Background="#ededed">
                         <DockPanel Margin="40,0,40,5">
-                            <TextBlock DockPanel.Dock="Top" Text="Average Temperature" HorizontalAlignment="Center" FontSize="25" Background="#e5e5e5" Foreground="Black"/>
-                            <lvc:CartesianChart DockPanel.Dock="Bottom" Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled}" >
+                            <TextBlock DockPanel.Dock="Top" Text="Weekly Average Rain Amount" HorizontalAlignment="Center" FontSize="25" Background="#e5e5e5" Foreground="Black"/>
+
+                            <lvc:CartesianChart DockPanel.Dock="Bottom" Grid.Column="0" Series="{Binding SeriesCollectionAverageRain}" LegendLocation="Right">
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Value" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-                            </lvc:CartesianChart>
-                        </DockPanel>
-                    </Grid>
-                    <Grid Background="#ededed">
-                        <DockPanel Margin="40,0,40,5">
-                            <TextBlock DockPanel.Dock="Top" Text="Maximum Temperature" HorizontalAlignment="Center" FontSize="25" Background="#e5e5e5" Foreground="Black"/>
-                            <lvc:CartesianChart DockPanel.Dock="Bottom" Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="Right" IsEnabled="{Binding Path=GraphEnabled}" >
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Value" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
+                                    <lvc:Axis Title="Weekday" Labels="{Binding Labels}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
                         </DockPanel>
                     </Grid>
                 </Controls:FlipView.Items>
             </Controls:FlipView>
-
         </Grid>
     </Grid>
-
 </UserControl>

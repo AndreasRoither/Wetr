@@ -76,7 +76,7 @@ namespace Wetr.Dal.Ado
         public async Task<IEnumerable<Station>> FindByUserIdAsync(int userId)
         {
             var result = await this.template.QueryAsync(
-                "select * from station where stationTypeId = @userId",
+                "select * from station where userId = @userId",
                 MapRow,
                 new Parameter("@userId", userId));
 
