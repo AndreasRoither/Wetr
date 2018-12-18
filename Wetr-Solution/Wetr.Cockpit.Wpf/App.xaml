@@ -21,6 +21,9 @@
 
                 <!-- theme resource -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                
+                <!-- ToastNotifications -->
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--Global View Model Locator-->
             <vm:ViewModelLocator x:Key="Locator"
