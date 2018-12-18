@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
+using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -17,6 +18,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         private StationManager stationManager;
         private AddressManager addressManager;
         private LoginViewModel loginViewModel = ServiceLocator.Current.GetInstance<LoginViewModel>();
+        private NotifierManager notifierManager = new NotifierManager();
 
         /* Stations */
         private List<Station> stations;
@@ -371,7 +373,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            base.Cleanup();
+            notifierManager.Dispose();
         }
     }
 }

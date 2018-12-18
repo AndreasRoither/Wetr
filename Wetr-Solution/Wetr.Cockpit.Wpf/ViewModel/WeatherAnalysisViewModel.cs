@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wetr.Cockpit.Wpf.Interface;
+using Wetr.Cockpit.Wpf.Utility;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
@@ -15,11 +16,14 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
     public class WeatherAnalysisViewModel : ViewModelBase, IWetrViewModelBase
     {
+        private NotifierManager notifierManager = new NotifierManager();
+
         public WeatherAnalysisViewModel() { }
 
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            base.Cleanup();
+            notifierManager.Dispose();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
+using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -26,6 +27,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         private MeasurementManager measurementManager;
 
         private LoginViewModel loginViewModel = ServiceLocator.Current.GetInstance<LoginViewModel>();
+        private NotifierManager notifierManager = new NotifierManager();
 
         public Collection<Station> userStations { get; set; }
 
@@ -162,7 +164,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public async Task LoadDashboardValues()
         {
-
+            
             StationCount = (int) await stationManager.GetNumberOfStations();
             MeasurementCount = (int) await measurementManager.GetNumberOfMeasurementsAsync();
             WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeekAsync();
@@ -175,17 +177,12 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             foreach (double d in rainValues)
                 SeriesCollectionAverageRain[0].Values.Add(d);
 
-
-
-
-
-
-
         }
 
         public void CleanUp()
         {
             base.Cleanup();
+            notifierManager.Dispose();
         }
     }
 }

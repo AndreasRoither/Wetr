@@ -38,25 +38,10 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
-            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<WeatherAnalysisViewModel>();
             SimpleIoc.Default.Register<DashboardViewModel>();
             SimpleIoc.Default.Register<WeatherStationManagementViewModel>();
-        }
-
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
         }
 
         /// <summary>
@@ -120,6 +105,10 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+            ServiceLocator.Current.GetInstance<LoginViewModel>().CleanUp();
+            ServiceLocator.Current.GetInstance<WeatherAnalysisViewModel>().CleanUp();
+            ServiceLocator.Current.GetInstance<DashboardViewModel>().CleanUp();
+            ServiceLocator.Current.GetInstance<WeatherStationManagementViewModel>().CleanUp();
         }
     }
 }

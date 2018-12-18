@@ -5,8 +5,10 @@ using System;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Windows.Controls;
+using ToastNotifications.Core;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
+using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Cockpit.Wpf.Views;
 using Wetr.Dal.Ado;
 using Wetr.Domain;
@@ -24,6 +26,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public User loggedInUser { get; set; }
 
         private UserManager userManager;
+        private NotifierManager notifierManager = new NotifierManager();
 
         public RelayCommand<object> LoginCommand { get; private set; }
 
@@ -76,9 +79,11 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
             User user = new User();
             user.UserId = 1;
+            user.FirstName = "Teddy";
             loggedInUser = user;
 
             MainWindow.SetContentControl(new MainContentView());
+            notifierManager.ShowSuccess($"Welcome {loggedInUser.FirstName}");
 
             /*
             PasswordBox pwBox = obj as PasswordBox;
@@ -87,17 +92,20 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             if (loggedInUser == null)
             {
                 LoginMessage = "Login failed!";
+                notifierManager.ShowError($"Login failed!");
             }
             else
             {
                 LoginMessage = string.Empty;
+                notifierManager.ShowSuccess($"Welcome {loggedInUser.FirstName}");
                 MainWindow.SetContentControl(new MainContentView());
             }*/
-        }        
+        }
 
         public void CleanUp()
         {
             base.Cleanup();
+            notifierManager.Dispose();
         }
 
         #endregion functions

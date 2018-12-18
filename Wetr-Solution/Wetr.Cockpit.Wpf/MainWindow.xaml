@@ -9,8 +9,7 @@
         mc:Ignorable="d ignore"
         Height="650"
         Width="850"
-        Title="Wetr Cockpit"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        Title="Wetr Cockpit">
 
     <Grid x:Name="LayoutRoot">
         <ContentControl x:Name="ContentControl"/>
