@@ -11,6 +11,10 @@ namespace Wetr.BusnessLogic.Interface
     {
         Task<IEnumerable<Station>> GetAllStations();
 
+        Task<IEnumerable<StationType>> GetStationTypes();
+
+        Task<StationType> GetStationTypesForStationTypeId(int stationTypeId);
+
         Task<IEnumerable<Station>> GetStationsForUser(int userId);
 
         Task<bool> UpdateStation(Station updatedStation);

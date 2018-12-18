@@ -1,4 +1,5 @@
 ﻿using Common.Dal.Ado;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Wetr.Dal.Ado
                 AddressId = (int)row["addressId"],
                 CommunityId = (int)row["communityId"],
                 Location = (string)row["location"],
-                Zip = (string)row["zip"]
+                Zip = (string)(row["zip"] is DBNull ? "" : row["zip"])
             };
         }
 
@@ -64,10 +65,9 @@ namespace Wetr.Dal.Ado
         public async Task<bool> UpdateAsync(Address address)
         {
             return await this.template.ExecuteAsync(
-                @"update address set location = @location, zip = @zip, communityId = @communityId where addressId = @addressId",
+                @"update address set location = @location, communityId = @communityId where addressId = @addressId",
                 new Parameter("@addressId", address.AddressId),
                 new Parameter("@location", address.Location),
-                new Parameter("@zip", address.Zip),
                 new Parameter("@communityId", address.CommunityId)) == 1;
         }
 
@@ -79,6 +79,14 @@ namespace Wetr.Dal.Ado
                new Parameter("@communityId", communityId));
 
             return result;
+        }
+
+        public async Task<long> GetNextId()
+        {
+            object id = await template.ScalarAsync<int>("SELECT `auto_increment` value FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'address'");
+
+            
+            return Convert.ToInt64(id); 
         }
 
     }

@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `address` ;
 CREATE TABLE IF NOT EXISTS `address` (
   `addressId` INT NOT NULL AUTO_INCREMENT,
   `location` VARCHAR(512) NOT NULL,
-  `zip` VARCHAR(16) NOT NULL,
+  `zip` VARCHAR(16),
   `communityId` INT NOT NULL,
   PRIMARY KEY (`addressId`),
   INDEX `fk_address_community1_idx` (`communityId` ASC),

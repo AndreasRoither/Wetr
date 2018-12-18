@@ -11,10 +11,12 @@ namespace Wetr.BusinessLogic
     public class StationManager : IStationManager
     {
         IStationDao stationDao;
+        IStationTypeDao stationTypeDao;
 
         public StationManager(string databaseName)
         {
             stationDao = AdoFactory.Instance.GetStationDao(databaseName);
+            stationTypeDao = AdoFactory.Instance.GetStationTypeDao(databaseName);
         }
 
         #region functions
@@ -31,7 +33,9 @@ namespace Wetr.BusinessLogic
 
         public async Task<bool> UpdateStation(Station updatedStation)
         {
-            if (!CheckStation(updatedStation)) return false;
+            if (!CheckStation(updatedStation))
+                return false;
+
             return await stationDao.UpdateAsync(updatedStation);
         }
 
@@ -56,6 +60,16 @@ namespace Wetr.BusinessLogic
             if (station.Longitude > 180) return false;
             if (station.UserId < 0) return false;
             return true;
+        }
+
+        public async Task<IEnumerable<StationType>> GetStationTypes()
+        {
+            return await stationTypeDao.FindAllAsync();
+        }
+
+        public async Task<StationType> GetStationTypesForStationTypeId(int stationTypeId)
+        {
+            return await stationTypeDao.FindByIdAsync(stationTypeId);
         }
 
         #endregion functions

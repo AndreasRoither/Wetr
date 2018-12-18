@@ -44,7 +44,7 @@ namespace Common.Dal.Ado
             return items;
         }
 
-        public async Task<double> ScalarAsync<T>(string sql, params Parameter[] parameters)
+        public async Task<object> ScalarAsync<T>(string sql, params Parameter[] parameters)
         {
 
             // Create Connection to DB
@@ -57,7 +57,7 @@ namespace Common.Dal.Ado
                     AddParameters(command, parameters);
 
                     object result = await command.ExecuteScalarAsync();
-                    return (long)result;
+                    return result;
                 }
             }
 

@@ -26,6 +26,36 @@ namespace Wetr.BusinessLogic
 
         #region functions
 
+        public async Task<Country> GetCountryForAddressId(int addressId)
+        {
+            Address a = await addressDao.FindByIdAsync(addressId);
+            Community c = await communityDao.FindByIdAsync(a.CommunityId);
+            District d = await districtDao.FindByIdAsync(c.DistrictId);
+            Province p = await provinceDao.FindByIdAsync(d.ProvinceId);
+            return await countryDao.FindByIdAsync(p.CountryId);
+        }
+
+        public async Task<Province> GetProvinceForAddressId(int addressId)
+        {
+            Address a = await addressDao.FindByIdAsync(addressId);
+            Community c = await communityDao.FindByIdAsync(a.CommunityId);
+            District d = await districtDao.FindByIdAsync(c.DistrictId);
+            return await provinceDao.FindByIdAsync(d.ProvinceId);
+        }
+
+        public async Task<District> GetDistrictForAddressId(int addressId)
+        {
+            Address a = await addressDao.FindByIdAsync(addressId);
+            Community c = await communityDao.FindByIdAsync(a.CommunityId);
+            return await districtDao.FindByIdAsync(c.DistrictId);
+        }
+
+        public async Task<Community> GetCommunityForAddressId(int addressId)
+        {
+            Address a = await addressDao.FindByIdAsync(addressId);
+            return await communityDao.FindByIdAsync(a.CommunityId);
+        }
+
         public async Task<IEnumerable<Country>> GetAllCountries()
         {
             return await countryDao.FindAllAsync();
@@ -51,19 +81,39 @@ namespace Wetr.BusinessLogic
             return await addressDao.FindAllAsync();
         }
 
-        public async Task<bool> AddNewAddress(Address address)
+        public async Task<long> AddNewAddress(Address address)
         {
-            if (!CheckAddress(address)) return false;
-            return await addressDao.InsertAsync(address);
+            if (!CheckAddress(address))
+                return -1;
+            if (!await addressDao.InsertAsync(address))
+                return -1;
+            return await addressDao.GetNextId() - 1;
+
         }
 
         public bool CheckAddress(Address address)
         {
-            if (string.IsNullOrEmpty(address.Zip)) return false;
             if (string.IsNullOrEmpty(address.Location)) return false;
             if (address.AddressId < 0) return false;
             if (address.CommunityId < 0) return false;
             return true;
+        }
+
+        public async Task<string> GetAddressStringByAddressId(int addressId)
+        {
+            Address a = await addressDao.FindByIdAsync(addressId);
+            return a.Location;
+        }
+
+        public async Task<Address> GetAddressForId(int addressId)
+        {
+            return await addressDao.FindByIdAsync(addressId);
+        }
+
+        public async Task<bool> UpdateAddress(Address updatedAddress)
+        {
+            if (!CheckAddress(updatedAddress)) return false;
+            return await addressDao.UpdateAsync(updatedAddress);
         }
 
         #endregion functions

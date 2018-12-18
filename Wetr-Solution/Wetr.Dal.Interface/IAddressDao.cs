@@ -7,5 +7,7 @@ namespace Wetr.Dal.Interface
     public interface IAddressDao : IDaoBase<Address>
     {
         Task<IEnumerable<Address>> FindByCommunityIdAsync(int communityId);
+
+        Task<long> GetNextId();
     }
 }

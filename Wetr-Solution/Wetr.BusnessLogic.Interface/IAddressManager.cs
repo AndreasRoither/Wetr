@@ -9,6 +9,20 @@ namespace Wetr.BusnessLogic.Interface
 {
     public interface IAddressManager
     {
+        Task<String> GetAddressStringByAddressId(int addressId);
+
+        Task<Country> GetCountryForAddressId(int addressId);
+
+        Task<Province> GetProvinceForAddressId(int addressId);
+
+        Task<District> GetDistrictForAddressId(int addressId);
+
+        Task<Community> GetCommunityForAddressId(int addressId);
+
+        Task<bool> UpdateAddress(Address updatedAddress);
+
+        Task<Address> GetAddressForId(int addressId);
+
         Task<IEnumerable<Country>> GetAllCountries();
 
         Task<IEnumerable<Province>> GetAllProvinces();
@@ -19,7 +33,7 @@ namespace Wetr.BusnessLogic.Interface
 
         Task<IEnumerable<Address>> GetAllAddresses();
 
-        Task<bool> AddNewAddress(Address address);
+        Task<long> AddNewAddress(Address address);
 
         bool CheckAddress(Address address);
     }

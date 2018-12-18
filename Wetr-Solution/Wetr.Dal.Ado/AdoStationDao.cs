@@ -85,7 +85,7 @@ namespace Wetr.Dal.Ado
 
         public async Task<long> GetTotalNumberOfStationsAsync()
         {
-            double result = await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM station");
+            double result = (long) await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM station");
             return (long)result;
         }
 

@@ -132,13 +132,13 @@ namespace Wetr.Dal.Ado
 
         public async Task<long> GetTotalNumberOfMeasurementsAsync()
         {
-            double result = await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement");
+            double result = (long) await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement");
             return (long) result;
         }
 
         public async Task<long> GetNumberOfMeasurementsFromTheLastXDaysAsync(int days)
         {
-            double result = await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement WHERE timestamp <= @to and timestamp >= @from",
+            double result = (long) await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement WHERE timestamp <= @to and timestamp >= @from",
                 new Parameter("from", DateTime.Now.AddDays(-days)),
                 new Parameter("to", DateTime.Now)
                 );
