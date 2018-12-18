@@ -44,6 +44,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
                 UpdateDropdowns();
                 UpdateFields();
+                DeleteStation.RaiseCanExecuteChanged();
 
             }
         }
@@ -246,6 +247,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public RelayCommand AddNewStation { get; private set; }
         public RelayCommand SaveStation { get; private set; }
+        public RelayCommand DeleteStation { get; private set; }
 
 
         public WeatherStationManagementViewModel()
@@ -266,6 +268,34 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 CanExecuteSaveStation
             );
 
+            DeleteStation = new RelayCommand(
+                ExecuteDeleteStation,
+                CanExecuteDeleteStation
+            );
+
+        }
+
+        private bool CanExecuteDeleteStation()
+        {
+            if (this.SelectedStation == null)
+                return false;
+            bool result = stationManager.HasMeasurements(this.SelectedStation).Result;
+            return result;
+        }
+
+        private async void ExecuteDeleteStation()
+        {
+
+            bool result = await stationManager.DeleteStation(this.selectedStation);
+            if (!result)
+            {
+                Console.WriteLine("Unable to delete station!");
+            }
+
+            LoadStations();
+            this.SelectedStation = this.Stations.First();
+            RaisePropertyChanged(nameof(SelectedStation));
+            RaisePropertyChanged(nameof(Stations));
         }
 
         private bool CanExecuteSaveStation()

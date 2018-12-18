@@ -21,7 +21,7 @@
         <Grid Grid.Row="0" MaxHeight="55">
             <ComboBox Margin="10" ItemsSource="{Binding Path=Stations}" SelectedItem="{Binding Path=SelectedStation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
         </Grid>
-        
+
         <Grid Grid.Row="1">
             <TextBlock Text="Location" FontSize="20" Margin="10,5,0,5"/>
         </Grid>
@@ -80,7 +80,10 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Please fill in all necessary boxes" Margin="10,0,0,0" FontSize="20"></TextBlock>
-            <Button Grid.Column="5" Margin="15,35,15,35" Content="Save" Command="{Binding SaveStation}"></Button>
+            <Button Grid.Column="4" Margin="15,35,15,35" Content="Save" Command="{Binding SaveStation}"></Button>
+
+            <Button Grid.Column="1" Margin="20,35,10,35" Content="Delete" Command="{Binding DeleteStation}"></Button>
+
         </Grid>
     </Grid>
 </UserControl>

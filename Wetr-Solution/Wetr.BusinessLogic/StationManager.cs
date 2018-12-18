@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wetr.BusnessLogic.Interface;
 using Wetr.Dal.Factory;
@@ -12,11 +13,13 @@ namespace Wetr.BusinessLogic
     {
         IStationDao stationDao;
         IStationTypeDao stationTypeDao;
+        IMeasurementDao measurementDao;
 
         public StationManager(string databaseName)
         {
             stationDao = AdoFactory.Instance.GetStationDao(databaseName);
             stationTypeDao = AdoFactory.Instance.GetStationTypeDao(databaseName);
+            measurementDao = AdoFactory.Instance.GetMeasurementDao(databaseName);
         }
 
         #region functions
@@ -37,6 +40,16 @@ namespace Wetr.BusinessLogic
                 return false;
 
             return await stationDao.UpdateAsync(updatedStation);
+        }
+
+        public async Task<bool> DeleteStation(Station station)
+        {
+            return await stationDao.DeleteAsync(station.StationId);
+        }
+
+        public async Task<bool> HasMeasurements(Station station)
+        {
+            return (await measurementDao.FindByStationIdAsync(station.StationId)).Count() == 0;
         }
 
         public async Task<bool> AddStation(Station newStation)
