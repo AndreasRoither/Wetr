@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wetr.BusnessLogic.Interface;
+using Wetr.BusinessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -11,27 +11,55 @@ namespace Wetr.BusinessLogic
 {
     public class StationManager : IStationManager
     {
-        IStationDao stationDao;
-        IStationTypeDao stationTypeDao;
-        IMeasurementDao measurementDao;
+        private readonly string databaseName;
+        private IStationDao stationDao;
+        private IStationTypeDao stationTypeDao;
+        private IMeasurementDao measurementDao;
 
         public StationManager(string databaseName)
         {
-            stationDao = AdoFactory.Instance.GetStationDao(databaseName);
-            stationTypeDao = AdoFactory.Instance.GetStationTypeDao(databaseName);
-            measurementDao = AdoFactory.Instance.GetMeasurementDao(databaseName);
+            this.databaseName = databaseName;
+            Init();
+        }
+
+        private void Init()
+        {
+            try
+            {
+                stationDao = AdoFactory.Instance.GetStationDao(this.databaseName);
+                stationTypeDao = AdoFactory.Instance.GetStationTypeDao(this.databaseName);
+                measurementDao = AdoFactory.Instance.GetMeasurementDao(this.databaseName);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         #region functions
 
         public async Task<IEnumerable<Station>> GetAllStations()
         {
-            return await stationDao.FindAllAsync();
+            try
+            {
+                return await stationDao.FindAllAsync();
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<IEnumerable<Station>> GetStationsForUser(int userId)
         {
-            return await stationDao.FindByUserIdAsync(userId);
+            try
+            {
+                return await stationDao.FindByUserIdAsync(userId);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<bool> UpdateStation(Station updatedStation)
@@ -39,28 +67,87 @@ namespace Wetr.BusinessLogic
             if (!CheckStation(updatedStation))
                 return false;
 
-            return await stationDao.UpdateAsync(updatedStation);
+            try
+            {
+                return await stationDao.UpdateAsync(updatedStation);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<bool> DeleteStation(Station station)
         {
-            return await stationDao.DeleteAsync(station.StationId);
+            try
+            {
+                return await stationDao.DeleteAsync(station.StationId);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<bool> HasMeasurements(Station station)
         {
-            return (await measurementDao.FindByStationIdAsync(station.StationId)).Count() == 0;
+            try
+            {
+                return (await measurementDao.FindByStationIdAsync(station.StationId)).Count() == 0;
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<bool> AddStation(Station newStation)
         {
-            if (!CheckStation(newStation)) return false;
-            return await stationDao.InsertAsync(newStation);
+            try
+            {
+                if (!CheckStation(newStation)) return false;
+                return await stationDao.InsertAsync(newStation);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<long> GetNumberOfStations()
         {
-            return await stationDao.GetTotalNumberOfStationsAsync();
+            try
+            {
+                return await stationDao.GetTotalNumberOfStationsAsync();
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
+        }
+
+        public async Task<IEnumerable<StationType>> GetStationTypes()
+        {
+            try
+            {
+                return await stationTypeDao.FindAllAsync();
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
+        }
+
+        public async Task<StationType> GetStationTypesForStationTypeId(int stationTypeId)
+        {
+            try
+            {
+                return await stationTypeDao.FindByIdAsync(stationTypeId);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public bool CheckStation(Station station)
@@ -73,16 +160,6 @@ namespace Wetr.BusinessLogic
             if (station.Longitude > 180) return false;
             if (station.UserId < 0) return false;
             return true;
-        }
-
-        public async Task<IEnumerable<StationType>> GetStationTypes()
-        {
-            return await stationTypeDao.FindAllAsync();
-        }
-
-        public async Task<StationType> GetStationTypesForStationTypeId(int stationTypeId)
-        {
-            return await stationTypeDao.FindByIdAsync(stationTypeId);
         }
 
         #endregion functions

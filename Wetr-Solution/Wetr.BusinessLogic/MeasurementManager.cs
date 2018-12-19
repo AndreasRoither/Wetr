@@ -1,59 +1,111 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wetr.BusinessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
-using Wetr.BusinessLogic.Interface;
 
 namespace Wetr.BusinessLogic
 {
     public class MeasurementManager : IMeasurementManager
     {
-        IMeasurementDao measurementDao;
+        private readonly string databaseName;
+        private IMeasurementDao measurementDao;
 
         public MeasurementManager(string databaseName)
         {
-            measurementDao = AdoFactory.Instance.GetMeasurementDao(databaseName);
+            this.databaseName = databaseName;
+            Init();
+        }
+
+        private void Init()
+        {
+            try
+            {
+                measurementDao = AdoFactory.Instance.GetMeasurementDao(this.databaseName);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         #region functions
 
         public async Task<IEnumerable<Measurement>> GetAllMeasurementsAsync()
         {
-            return await measurementDao.FindAllAsync();
+            try
+            {
+                return await measurementDao.FindAllAsync();
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<IEnumerable<Measurement>> GetAllMeasurementsForStationAsync(int stationId)
         {
             if (stationId < 0) return null;
-            return await measurementDao.FindByStationIdAsync(stationId);
+
+            try
+            {
+                return await measurementDao.FindByStationIdAsync(stationId);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
-       
         public async Task<double[]> GetDashbardTemperaturesAsync()
         {
-            return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Temperature, 7);
+            try
+            {
+                return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Temperature, 7);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<double[]> GetDashboardRainValuesAsync()
         {
-            return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Rain, 7);
+            try
+            {
+                return await measurementDao.GetDayAverageOfLastXDaysAsync((int)EMeasurementType.Rain, 7);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
-
 
         public async Task<long> GetNumberOfMeasurementsAsync()
         {
-            return await measurementDao.GetTotalNumberOfMeasurementsAsync();
+            try
+            {
+                return await measurementDao.GetTotalNumberOfMeasurementsAsync();
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task<long> GetNumberOfMeasurementsOfWeekAsync()
         {
-            return await measurementDao.GetNumberOfMeasurementsFromTheLastXDaysAsync(7);
+            try
+            {
+                return await measurementDao.GetNumberOfMeasurementsFromTheLastXDaysAsync(7);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
-
-
-
 
         #endregion functions
     }

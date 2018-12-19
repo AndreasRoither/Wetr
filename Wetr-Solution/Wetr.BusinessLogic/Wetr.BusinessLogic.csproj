@@ -48,14 +48,19 @@
     <Compile Include="AddressManager.cs" />
     <Compile Include="ManagerLocator.cs" />
     <Compile Include="MeasurementManager.cs" />
+    <Compile Include="BusinessSqlException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StationManager.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wetr.BusnessLogic.Interface\Wetr.BusnessLogic.Interface.csproj">
+    <ProjectReference Include="..\Common.Dal.Ado\Common.Dal.Ado.csproj">
+      <Project>{7832F4BA-D688-4D52-A3F3-9CECE5E0F2DA}</Project>
+      <Name>Common.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.BusnessLogic.Interface\Wetr.BusinessLogic.Interface.csproj">
       <Project>{cf86eba2-6745-4dfd-81e9-70983dae30b1}</Project>
-      <Name>Wetr.BusnessLogic.Interface</Name>
+      <Name>Wetr.BusinessLogic.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wetr.Dal.Factory\Wetr.Dal.Factory.csproj">
       <Project>{C30D5B0E-44BD-467D-A584-410A827B0C25}</Project>

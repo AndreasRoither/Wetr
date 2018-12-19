@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace Common.Dal.Ado
 {
@@ -40,7 +42,16 @@ namespace Common.Dal.Ado
         {
             var connection = dbProviderFactory.CreateConnection();
             connection.ConnectionString = this.ConnectionString;
-            connection.Open();
+
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                throw new MySqlException("Could not connect to database", ex.InnerException);
+            }
+            
             return connection;
         }
     }

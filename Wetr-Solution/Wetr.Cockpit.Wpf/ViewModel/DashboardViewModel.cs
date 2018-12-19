@@ -5,7 +5,6 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
@@ -21,7 +20,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
     public class DashboardViewModel : ViewModelBase, IWetrViewModelBase
     {
-        #region variabls
+        #region variables
 
         private StationManager stationManager;
         private MeasurementManager measurementManager;
@@ -73,7 +72,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
         }
 
-        #endregion variabls
+        #endregion variables
 
         #region commands
 
@@ -108,7 +107,15 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         private async void ExecuteDashboardViewLoadedCommand()
         {
-            await Task.Run(LoadDashboardValues);
+            try
+            {
+                await Task.Run(LoadDashboardValues);
+            }
+            catch(BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
+            
         }
 
         #endregion commands
@@ -164,9 +171,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public async Task LoadDashboardValues()
         {
-            
-            StationCount = (int) await stationManager.GetNumberOfStations();
-            MeasurementCount = (int) await measurementManager.GetNumberOfMeasurementsAsync();
+            StationCount = (int)await stationManager.GetNumberOfStations();
+            MeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsAsync();
             WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeekAsync();
 
             var temperatureValues = await measurementManager.GetDashbardTemperaturesAsync();
@@ -176,7 +182,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             var rainValues = await measurementManager.GetDashboardRainValuesAsync();
             foreach (double d in rainValues)
                 SeriesCollectionAverageRain[0].Values.Add(d);
-
         }
 
         public void CleanUp()

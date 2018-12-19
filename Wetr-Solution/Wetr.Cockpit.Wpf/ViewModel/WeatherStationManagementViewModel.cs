@@ -4,7 +4,6 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
@@ -12,8 +11,14 @@ using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
 {
+    /// <summary>
+    /// ViewModel for the WeatherStationManagementView
+    /// </summary>
+    /// <seealso cref="Wetr.Cockpit.Wpf.Views.WeatherStationManagementView"/>
+    /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
     public class WeatherStationManagementViewModel : ViewModelBase, IWetrViewModelBase
     {
+        #region variables
 
         private StationManager stationManager;
         private AddressManager addressManager;
@@ -22,6 +27,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         /* Stations */
         private List<Station> stations;
+
         public List<Station> Stations
         {
             get { return stations; }
@@ -32,6 +38,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private Station selectedStation;
+
         public Station SelectedStation
         {
             get { return selectedStation; }
@@ -45,39 +52,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 UpdateDropdowns();
                 UpdateFields();
                 DeleteStation.RaiseCanExecuteChanged();
-
             }
-        }
-
-        private async void UpdateFields()
-        {
-            this.Longitude = SelectedStation.Longitude;
-            this.Latitude = SelectedStation.Latitude;
-            this.StationName = SelectedStation.Name;
-            this.AddressString = await addressManager.GetAddressStringByAddressId(SelectedStation.AddressId);
-
-            RaisePropertyChanged(nameof(Longitude));
-            RaisePropertyChanged(nameof(Latitude));
-            RaisePropertyChanged(nameof(StationName));
-            RaisePropertyChanged(nameof(AddressString));
-
-
-        }
-
-        private async void UpdateDropdowns()
-        {
-            this.SelectedCountry = await this.addressManager.GetCountryForAddressId(selectedStation.AddressId);
-            this.SelectedProvince = await this.addressManager.GetProvinceForAddressId(selectedStation.AddressId);
-            this.SelectedDistrict = await this.addressManager.GetDistrictForAddressId(selectedStation.AddressId);
-            this.SelectedCommunity = await this.addressManager.GetCommunityForAddressId(selectedStation.AddressId);
-            this.SelectedStationType = await this.stationManager.GetStationTypesForStationTypeId(selectedStation.StationTypeId);
-
-            RaisePropertyChanged(nameof(SelectedCountry));
-            RaisePropertyChanged(nameof(SelectedCommunity));
-            RaisePropertyChanged(nameof(SelectedProvince));
-            RaisePropertyChanged(nameof(SelectedDistrict));
-            RaisePropertyChanged(nameof(SelectedStationType));
-
         }
 
         /* Address */
@@ -86,7 +61,9 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public String AddressString
         {
             get { return addressString; }
-            set { addressString = value;
+            set
+            {
+                addressString = value;
                 Set(ref addressString, value);
             }
         }
@@ -129,11 +106,10 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 Set(ref stationName, value);
             }
         }
-    
-
 
         /* Countries */
         private List<Country> countries;
+
         public List<Country> Countries
         {
             get { return countries; }
@@ -145,16 +121,20 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private Country selectedCountry;
+
         public Country SelectedCountry
         {
             get { return selectedCountry; }
-            set { selectedCountry = value;
+            set
+            {
+                selectedCountry = value;
                 Set(ref selectedCountry, value);
             }
         }
 
         /* Provinces */
         private List<Province> provinces;
+
         public List<Province> Provinces
         {
             get { return provinces; }
@@ -166,6 +146,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private Province selectedProvince;
+
         public Province SelectedProvince
         {
             get { return selectedProvince; }
@@ -178,6 +159,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         /* District */
         private List<District> districts;
+
         public List<District> Districts
         {
             get { return districts; }
@@ -189,6 +171,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private District selectedDistrict;
+
         public District SelectedDistrict
         {
             get { return selectedDistrict; }
@@ -201,6 +184,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         /* Community */
         private List<Community> communities;
+
         public List<Community> Communities
         {
             get { return communities; }
@@ -212,6 +196,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private Community selectedCommunity;
+
         public Community SelectedCommunity
         {
             get { return selectedCommunity; }
@@ -224,6 +209,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         /* StationType */
         private List<StationType> stationTypes;
+
         public List<StationType> StationTypes
         {
             get { return stationTypes; }
@@ -235,6 +221,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         }
 
         private StationType selectedStationType;
+
         public StationType SelectedStationType
         {
             get { return selectedStationType; }
@@ -245,10 +232,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
         }
 
-        public RelayCommand AddNewStation { get; private set; }
-        public RelayCommand SaveStation { get; private set; }
-        public RelayCommand DeleteStation { get; private set; }
-
+        #endregion variables
 
         public WeatherStationManagementViewModel()
         {
@@ -272,24 +256,49 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 ExecuteDeleteStation,
                 CanExecuteDeleteStation
             );
-
         }
+
+        #region commands
+
+        public RelayCommand AddNewStation { get; private set; }
+        public RelayCommand SaveStation { get; private set; }
+        public RelayCommand DeleteStation { get; private set; }
 
         private bool CanExecuteDeleteStation()
         {
             if (this.SelectedStation == null)
                 return false;
-            bool result = stationManager.HasMeasurements(this.SelectedStation).Result;
-            return result;
+
+            try
+            {
+                return stationManager.HasMeasurements(this.SelectedStation).Result;
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return false;
+            }
         }
 
         private async void ExecuteDeleteStation()
         {
+            bool result = false;
+            try
+            {
+                result = await stationManager.DeleteStation(this.selectedStation);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
 
-            bool result = await stationManager.DeleteStation(this.selectedStation);
             if (!result)
             {
-                Console.WriteLine("Unable to delete station!");
+                notifierManager.ShowError("Could not delete Station");
+            }
+            else
+            {
+                notifierManager.ShowSuccess("Station deleted");
             }
 
             LoadStations();
@@ -314,24 +323,41 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             stationToEdit.AddressId = this.selectedStation.AddressId;
             stationToEdit.UserId = this.selectedStation.UserId;
 
-            Address a = await addressManager.GetAddressForId(stationToEdit.AddressId);
-            a.CommunityId = this.selectedCommunity.CommunityId;
-            a.Location = this.addressString;
+            bool result = false;
 
-            bool result = await addressManager.UpdateAddress(a);
-            if (!result)
+            try
             {
-                //TODO: Error message;
-                Console.WriteLine("Failed to update address!");
+                Address a = await addressManager.GetAddressForId(stationToEdit.AddressId);
+                a.CommunityId = this.selectedCommunity.CommunityId;
+                a.Location = this.addressString;
+                result = await addressManager.UpdateAddress(a);
             }
-            // TODO Update Address
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
 
-
-            result = await stationManager.UpdateStation(stationToEdit);
             if (!result)
             {
-                //TODO: Error message;
-                Console.WriteLine("Failed to update station!");
+                notifierManager.ShowError("Failed to update Station!");
+            }
+            else
+            {
+                notifierManager.ShowSuccess("Update successful");
+            }
+
+            try
+            {
+                result = await stationManager.UpdateStation(stationToEdit);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
+
+            if (!result)
+            {
+                notifierManager.ShowError("Failed to update Station!");
             }
 
             /* Reload station data */
@@ -340,7 +366,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             this.SelectedStation = this.Stations.Where(s => s.StationId == stationToEdit.StationId).Single();
             RaisePropertyChanged(nameof(SelectedStation));
             RaisePropertyChanged(nameof(Stations));
-            
         }
 
         private bool CanExecuteAddNewStation()
@@ -362,43 +387,131 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             a.CommunityId = this.selectedCommunity.CommunityId;
             a.Location = this.addressString;
 
-            int newId = unchecked((int)await addressManager.AddNewAddress(a));
+            int newId = -1;
+            try
+            {
+                newId = unchecked((int)await addressManager.AddNewAddress(a));
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return;
+            }
+
             if (newId == -1)
             {
-                //TODO: Error message;
-                Console.WriteLine("Failed to add address!");
+                notifierManager.ShowSuccess("Failed to create address");
+            }
+            else
+            {
+                notifierManager.ShowSuccess("Address creation successful");
             }
 
             newStation.AddressId = newId;
 
-            bool result = await stationManager.AddStation(newStation);
+            bool result = false;
+            try
+            {
+                result = await stationManager.AddStation(newStation);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return;
+            }
+
             if (!result)
             {
-                //TODO: Error message;
-                Console.WriteLine("Failed to add station!");
+                notifierManager.ShowError("Failed to create station");
+            }
+            else
+            {
+                notifierManager.ShowSuccess("Station creation successful");
             }
 
             /* Reload station data */
-
             LoadStations();
             this.SelectedStation = this.Stations.Last();
             RaisePropertyChanged(nameof(SelectedStation));
             RaisePropertyChanged(nameof(Stations));
         }
 
+        #endregion commands
+
+        #region functions
+
+        private async void UpdateFields()
+        {
+            this.Longitude = SelectedStation.Longitude;
+            this.Latitude = SelectedStation.Latitude;
+            this.StationName = SelectedStation.Name;
+
+            try
+            {
+                this.AddressString = await addressManager.GetAddressStringByAddressId(SelectedStation.AddressId);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return;
+            }
+
+            RaisePropertyChanged(nameof(Longitude));
+            RaisePropertyChanged(nameof(Latitude));
+            RaisePropertyChanged(nameof(StationName));
+            RaisePropertyChanged(nameof(AddressString));
+        }
+
+        private async void UpdateDropdowns()
+        {
+            try
+            {
+                this.SelectedCountry = await this.addressManager.GetCountryForAddressId(selectedStation.AddressId);
+                this.SelectedProvince = await this.addressManager.GetProvinceForAddressId(selectedStation.AddressId);
+                this.SelectedDistrict = await this.addressManager.GetDistrictForAddressId(selectedStation.AddressId);
+                this.SelectedCommunity = await this.addressManager.GetCommunityForAddressId(selectedStation.AddressId);
+                this.SelectedStationType = await this.stationManager.GetStationTypesForStationTypeId(selectedStation.StationTypeId);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return;
+            }
+
+            RaisePropertyChanged(nameof(SelectedCountry));
+            RaisePropertyChanged(nameof(SelectedCommunity));
+            RaisePropertyChanged(nameof(SelectedProvince));
+            RaisePropertyChanged(nameof(SelectedDistrict));
+            RaisePropertyChanged(nameof(SelectedStationType));
+        }
+
         private async void LoadStations()
         {
-            this.Stations = (await stationManager.GetStationsForUser(loginViewModel.loggedInUser.UserId)).ToList();
+            try
+            {
+                this.Stations = (await stationManager.GetStationsForUser(loginViewModel.loggedInUser.UserId)).ToList();
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
+            
         }
 
         private async void InitDropdowns()
         {
-            this.Countries = (await addressManager.GetAllCountries()).ToList();
-            this.Provinces = (await addressManager.GetAllProvinces()).ToList();
-            this.Districts = (await addressManager.GetAllDistricts()).ToList();
-            this.Communities = (await addressManager.GetAllCommunities()).ToList();
-            this.StationTypes = (await stationManager.GetStationTypes()).ToList();
-
+            try
+            {
+                this.Countries = (await addressManager.GetAllCountries()).ToList();
+                this.Provinces = (await addressManager.GetAllProvinces()).ToList();
+                this.Districts = (await addressManager.GetAllDistricts()).ToList();
+                this.Communities = (await addressManager.GetAllCommunities()).ToList();
+                this.StationTypes = (await stationManager.GetStationTypes()).ToList();
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            }
         }
 
         public void CleanUp()
@@ -406,5 +519,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             base.Cleanup();
             notifierManager.Dispose();
         }
+
+        #endregion functions
     }
 }

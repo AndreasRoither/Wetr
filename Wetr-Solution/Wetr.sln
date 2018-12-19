@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Test.Simulator", "Wetr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.BusinessLogic", "Wetr.BusinessLogic\Wetr.BusinessLogic.csproj", "{29EDB67E-049C-4AD1-BB23-22604836536E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.BusnessLogic.Interface", "Wetr.BusnessLogic.Interface\Wetr.BusnessLogic.Interface.csproj", "{CF86EBA2-6745-4DFD-81E9-70983DAE30B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.BusinessLogic.Interface", "Wetr.BusnessLogic.Interface\Wetr.BusinessLogic.Interface.csproj", "{CF86EBA2-6745-4DFD-81E9-70983DAE30B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

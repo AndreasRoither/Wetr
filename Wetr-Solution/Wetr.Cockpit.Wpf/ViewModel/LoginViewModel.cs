@@ -1,16 +1,9 @@
-﻿using Common.Dal.Ado;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Configuration;
-using System.Security.Cryptography;
-using System.Windows.Controls;
-using ToastNotifications.Core;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Cockpit.Wpf.Views;
-using Wetr.Dal.Ado;
 using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -23,6 +16,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     public class LoginViewModel : ViewModelBase, IWetrViewModelBase
     {
         #region variables
+
         public User loggedInUser { get; set; }
 
         private UserManager userManager;
@@ -35,7 +29,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public string LoginMessage
         {
             get { return loginMessage; }
-            set {
+            set
+            {
                 if (loginMessage != value)
                     Set(ref loginMessage, value);
             }
@@ -46,7 +41,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         public string Email
         {
             get { return email; }
-            set {
+            set
+            {
                 if (email != value)
                     Set(ref email, value);
             }
@@ -87,7 +83,16 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             /*
             PasswordBox pwBox = obj as PasswordBox;
-            loggedInUser = await userManager.UserCredentialValidation(email, pwBox.Password);
+
+            try
+            {
+                loggedInUser = await userManager.UserCredentialValidation(email, pwBox.Password);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+                return;
+            }
 
             if (loggedInUser == null)
             {
@@ -99,7 +104,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 LoginMessage = string.Empty;
                 notifierManager.ShowSuccess($"Welcome {loggedInUser.FirstName}");
                 MainWindow.SetContentControl(new MainContentView());
-            }*/
+            }
+            */
         }
 
         public void CleanUp()

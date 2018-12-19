@@ -1,6 +1,6 @@
-﻿
+﻿using System;
 using System.Threading.Tasks;
-using Wetr.BusnessLogic.Interface;
+using Wetr.BusinessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
@@ -9,11 +9,25 @@ namespace Wetr.BusinessLogic
 {
     public class UserManager : IUserManager
     {
-        IUserDao userDao;
+        private readonly string databaseName;
+        private IUserDao userDao;
 
         public UserManager(string databaseName)
         {
-            userDao = AdoFactory.Instance.GetUserDao(databaseName);
+            this.databaseName = databaseName;
+            Init();
+        }
+
+        private void Init()
+        {
+            try
+            {
+                userDao = AdoFactory.Instance.GetUserDao(this.databaseName);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         #region functions
@@ -21,8 +35,15 @@ namespace Wetr.BusinessLogic
         public async Task<User> UserCredentialValidation(string email, string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) return null;
-
-            User user = await userDao.FindByEmailAsync(email);
+            User user = null;
+            try
+            {
+                user = await userDao.FindByEmailAsync(email);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
 
             if (user == null) return null;
 
@@ -39,7 +60,15 @@ namespace Wetr.BusinessLogic
         public async Task<bool> RegisterUser(User user)
         {
             if (!CheckUser(user)) return false;
-            return await userDao.InsertAsync(user);
+
+            try
+            {
+                return await userDao.InsertAsync(user);
+            }
+            catch (Common.Dal.Ado.MySqlException ex)
+            {
+                throw new BusinessSqlException(ex.Message, ex.InnerException);
+            }
         }
 
         public bool CheckUser(User user)
