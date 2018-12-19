@@ -93,7 +93,10 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// </summary>
         public static void Cleanup()
         {
-            
+            ServiceLocator.Current.GetInstance<PresetCreationViewModel>().Cleanup();
+            ServiceLocator.Current.GetInstance<PresetsAssignmentViewModel>().Cleanup();
+            ServiceLocator.Current.GetInstance<SimulationViewModel>().Cleanup();
+            ServiceLocator.Current.GetInstance<StationSelectionViewModel>().Cleanup();
         }
     }
 }

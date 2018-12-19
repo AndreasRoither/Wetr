@@ -8,6 +8,7 @@ using System.Windows.Data;
 using Wetr.BusinessLogic;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
+using Wetr.Simulator.Wpf.Utility;
 
 namespace Wetr.Simulator.Wpf.ViewModel
 {
@@ -21,6 +22,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         #region variables
 
         private StationManager stationManager;
+        private NotifierManager notifierManager = new NotifierManager();
 
         private String availableStationsFilter;
 
@@ -167,11 +169,19 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <see cref="Wetr.BusinessLogic.StationManager"/>
         private async void ExecuteViewLoaded()
         {
-            var stations = await Task.Run(() => stationManager.GetAllStations());
-
-            foreach (Station s in stations)
+            try
             {
-                availableStations.Add(s);
+                var stations = await Task.Run(() => stationManager.GetAllStations());
+
+                foreach (Station s in stations)
+                {
+                    availableStations.Add(s);
+                }
+            }
+            
+            catch (BusinessSqlException ex)
+            {
+                //notifierManager.ShowError(ex.Message);
             }
         }
 
@@ -259,6 +269,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public void CleanUp()
         {
             base.Cleanup();
+            notifierManager.Dispose();
         }
     }
 }
