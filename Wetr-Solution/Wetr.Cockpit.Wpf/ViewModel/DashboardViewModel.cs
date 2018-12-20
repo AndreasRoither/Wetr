@@ -7,7 +7,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Wetr.BusinessLogic;
-using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
 
@@ -17,8 +16,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// DashboardViewModel for the DashboardView
     /// </summary>
     /// <seealso cref="Wetr.Cockpit.Wpf.Views.DashboardView"/>
-    /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
-    public class DashboardViewModel : ViewModelBase, IWetrViewModelBase
+    public class DashboardViewModel : ViewModelBase
     {
         #region variables
 
@@ -184,7 +182,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 SeriesCollectionAverageRain[0].Values.Add(d);
         }
 
-        public void CleanUp()
+        public override void Cleanup()
         {
             base.Cleanup();
             notifierManager.Dispose();

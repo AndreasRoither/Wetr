@@ -12,6 +12,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Wetr.Cockpit.Wpf.Model;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -105,10 +106,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         /// </summary>
         public static void Cleanup()
         {
-            ServiceLocator.Current.GetInstance<LoginViewModel>().CleanUp();
-            ServiceLocator.Current.GetInstance<WeatherAnalysisViewModel>().CleanUp();
-            ServiceLocator.Current.GetInstance<DashboardViewModel>().CleanUp();
-            ServiceLocator.Current.GetInstance<WeatherStationManagementViewModel>().CleanUp();
         }
     }
 }

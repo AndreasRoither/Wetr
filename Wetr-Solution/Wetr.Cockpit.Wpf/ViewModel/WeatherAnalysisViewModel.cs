@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -13,14 +12,13 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// ViewModel for WeatherAnalysisView
     /// </summary>
     /// <seealso cref="Wetr.Cockpit.Wpf.Views.WeatherAnalysisView"/>
-    /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
-    public class WeatherAnalysisViewModel : ViewModelBase, IWetrViewModelBase
+    public class WeatherAnalysisViewModel : ViewModelBase
     {
         private NotifierManager notifierManager = new NotifierManager();
 
         public WeatherAnalysisViewModel() { }
 
-        public void CleanUp()
+        public override void Cleanup()
         {
             base.Cleanup();
             notifierManager.Dispose();

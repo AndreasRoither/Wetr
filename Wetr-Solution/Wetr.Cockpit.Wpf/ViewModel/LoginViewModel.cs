@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Wetr.BusinessLogic;
-using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Cockpit.Wpf.Views;
 using Wetr.Domain;
@@ -12,8 +11,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// ViewModel for the LoginView
     /// </summary>
     /// <seealso cref="Wetr.Cockpit.Wpf.Views.LoginView"/>
-    /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
-    public class LoginViewModel : ViewModelBase, IWetrViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         #region variables
 
@@ -108,7 +106,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             */
         }
 
-        public void CleanUp()
+        public override void Cleanup()
         {
             base.Cleanup();
             notifierManager.Dispose();

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Wetr.BusinessLogic;
-using Wetr.Cockpit.Wpf.Interface;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
 
@@ -15,8 +14,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
     /// ViewModel for the WeatherStationManagementView
     /// </summary>
     /// <seealso cref="Wetr.Cockpit.Wpf.Views.WeatherStationManagementView"/>
-    /// <seealso cref="Wetr.Cockpit.Wpf.Interface.IWetrViewModelBase"/>
-    public class WeatherStationManagementViewModel : ViewModelBase, IWetrViewModelBase
+    public class WeatherStationManagementViewModel : ViewModelBase
     {
         #region variables
 
@@ -495,7 +493,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             {
                 notifierManager.ShowError(ex.Message);
             }
-            
         }
 
         private async void InitDropdowns()
@@ -514,7 +511,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
         }
 
-        public void CleanUp()
+        public override void Cleanup()
         {
             base.Cleanup();
             notifierManager.Dispose();
