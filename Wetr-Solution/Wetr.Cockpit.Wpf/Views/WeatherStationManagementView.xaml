@@ -7,12 +7,13 @@
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              xmlns:partials="clr-namespace:Wetr.Cockpit.Wpf.Views.partials"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="820">
+             d:DesignHeight="550" d:DesignWidth="820"
+             DataContext="{Binding WeatherStationManagement, Source={StaticResource Locator}}">
     <Grid>
         <Controls:MetroAnimatedTabControl Margin="15,15,15,15">
             <TabItem Header="Station bearbeiten" Background="#f4f4f4">
                 <Grid Background="#f4f4f4">
-                    <partials:WeatherStation_Edit></partials:WeatherStation_Edit>
+                    <partials:WeatherStation_Edit/>
                 </Grid>
             </TabItem>
             <TabItem Header="Station hinzufügen" Background="#f4f4f4">

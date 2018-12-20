@@ -5,16 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding DashboardViewLoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding Dashboard, Source={StaticResource Locator}}">
 
     <UserControl.Resources>
         <Style x:Key="HoverGrid" TargetType="{x:Type Grid}">

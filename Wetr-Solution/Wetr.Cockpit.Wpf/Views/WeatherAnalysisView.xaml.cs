@@ -1,6 +1,6 @@
 ﻿
 using System.Windows.Controls;
-
+using Wetr.Cockpit.Wpf.ViewModel;
 
 namespace Wetr.Cockpit.Wpf.Views
 {

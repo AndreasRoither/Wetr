@@ -76,7 +76,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         public RelayCommand StationClickCommand { get; private set; }
         public RelayCommand MeasurementClickCommand { get; private set; }
-        public RelayCommand DashboardViewLoadedCommand { get; private set; }
 
         private bool CanExecuteStationClickCommand()
         {
@@ -96,24 +95,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         private void ExecuteMeasurementClickCommand()
         {
-        }
-
-        private bool CanExecuteDashboardViewLoadedCommand()
-        {
-            return true;
-        }
-
-        private async void ExecuteDashboardViewLoadedCommand()
-        {
-            try
-            {
-                await Task.Run(LoadDashboardValues);
-            }
-            catch(BusinessSqlException ex)
-            {
-                notifierManager.ShowError(ex.Message);
-            }
-            
         }
 
         #endregion commands
@@ -161,25 +142,29 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             MeasurementClickCommand = new RelayCommand(
                 ExecuteMeasurementClickCommand,
                 CanExecuteMeasurementClickCommand);
-
-            DashboardViewLoadedCommand = new RelayCommand(
-                ExecuteDashboardViewLoadedCommand,
-                CanExecuteDashboardViewLoadedCommand);
         }
 
         public async Task LoadDashboardValues()
         {
-            StationCount = (int)await stationManager.GetNumberOfStations();
-            MeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsAsync();
-            WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeekAsync();
+            try
+            {
+                StationCount = (int)await stationManager.GetNumberOfStations();
+                MeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsAsync();
+                WeeklyMeasurementCount = (int)await measurementManager.GetNumberOfMeasurementsOfWeekAsync();
 
-            var temperatureValues = await measurementManager.GetDashbardTemperaturesAsync();
-            foreach (double d in temperatureValues)
-                SeriesCollectionAverageTemperature[0].Values.Add(d);
+                var temperatureValues = await measurementManager.GetDashbardTemperaturesAsync();
+                foreach (double d in temperatureValues)
+                    SeriesCollectionAverageTemperature[0].Values.Add(d);
 
-            var rainValues = await measurementManager.GetDashboardRainValuesAsync();
-            foreach (double d in rainValues)
-                SeriesCollectionAverageRain[0].Values.Add(d);
+                var rainValues = await measurementManager.GetDashboardRainValuesAsync();
+
+                foreach (double d in rainValues)
+                    SeriesCollectionAverageRain[0].Values.Add(d);
+            }
+            catch (BusinessSqlException ex)
+            {
+                notifierManager.ShowError(ex.Message);
+            } 
         }
 
         public override void Cleanup()

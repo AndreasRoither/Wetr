@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
@@ -61,7 +62,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return addressString; }
             set
             {
-                addressString = value;
                 Set(ref addressString, value);
             }
         }
@@ -74,7 +74,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return longitude; }
             set
             {
-                longitude = value;
                 Set(ref longitude, value);
             }
         }
@@ -87,7 +86,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return latitude; }
             set
             {
-                latitude = value;
                 Set(ref latitude, value);
             }
         }
@@ -100,7 +98,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return stationName; }
             set
             {
-                stationName = value;
                 Set(ref stationName, value);
             }
         }
@@ -113,7 +110,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return countries; }
             set
             {
-                countries = value;
                 Set(ref countries, value);
             }
         }
@@ -125,7 +121,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return selectedCountry; }
             set
             {
-                selectedCountry = value;
                 Set(ref selectedCountry, value);
             }
         }
@@ -138,7 +133,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return provinces; }
             set
             {
-                provinces = value;
                 Set(ref provinces, value);
             }
         }
@@ -150,7 +144,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return selectedProvince; }
             set
             {
-                selectedProvince = value;
                 Set(ref selectedProvince, value);
             }
         }
@@ -163,7 +156,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return districts; }
             set
             {
-                districts = value;
                 Set(ref districts, value);
             }
         }
@@ -175,7 +167,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return selectedDistrict; }
             set
             {
-                selectedDistrict = value;
                 Set(ref selectedDistrict, value);
             }
         }
@@ -188,7 +179,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return communities; }
             set
             {
-                communities = value;
                 Set(ref communities, value);
             }
         }
@@ -200,7 +190,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return selectedCommunity; }
             set
             {
-                selectedCommunity = value;
                 Set(ref selectedCommunity, value);
             }
         }
@@ -213,7 +202,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return stationTypes; }
             set
             {
-                stationTypes = value;
                 Set(ref stationTypes, value);
             }
         }
@@ -225,7 +213,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             get { return selectedStationType; }
             set
             {
-                selectedStationType = value;
                 Set(ref selectedStationType, value);
             }
         }
@@ -236,9 +223,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
             this.stationManager = ManagerLocator.GetStationManagerInstance;
             this.addressManager = ManagerLocator.GetAddressManagerInstance;
-
-            InitDropdowns();
-            LoadStations();
 
             AddNewStation = new RelayCommand(
                 ExecuteAddNewStation,
@@ -299,7 +283,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 notifierManager.ShowSuccess("Station deleted");
             }
 
-            LoadStations();
+            await LoadStations();
             this.SelectedStation = this.Stations.First();
             RaisePropertyChanged(nameof(SelectedStation));
             RaisePropertyChanged(nameof(Stations));
@@ -360,7 +344,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             /* Reload station data */
 
-            LoadStations();
+            await LoadStations();
             this.SelectedStation = this.Stations.Where(s => s.StationId == stationToEdit.StationId).Single();
             RaisePropertyChanged(nameof(SelectedStation));
             RaisePropertyChanged(nameof(Stations));
@@ -428,7 +412,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
 
             /* Reload station data */
-            LoadStations();
+            await LoadStations();
             this.SelectedStation = this.Stations.Last();
             RaisePropertyChanged(nameof(SelectedStation));
             RaisePropertyChanged(nameof(Stations));
@@ -460,7 +444,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             RaisePropertyChanged(nameof(AddressString));
         }
 
-        private async void UpdateDropdowns()
+        public async void UpdateDropdowns()
         {
             try
             {
@@ -483,7 +467,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             RaisePropertyChanged(nameof(SelectedStationType));
         }
 
-        private async void LoadStations()
+        public async Task LoadStations()
         {
             try
             {
@@ -495,7 +479,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
         }
 
-        private async void InitDropdowns()
+        public async Task InitDropdowns()
         {
             try
             {

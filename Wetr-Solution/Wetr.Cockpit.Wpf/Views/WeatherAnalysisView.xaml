@@ -6,7 +6,8 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Cockpit.Wpf.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="820">
+             d:DesignHeight="550" d:DesignWidth="820"
+             DataContext="{Binding WeatherAnalysis, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -42,19 +43,24 @@
                     <RowDefinition Height="0.8*" MaxHeight="50"/>
                     <RowDefinition Height="0.8*" MaxHeight="50"/>
                     <RowDefinition Height="0.8*" MaxHeight="50"/>
-                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="0.8*" MaxHeight="50"/>
+                    <RowDefinition Height="0.1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Coordinate Based" FontSize="20" Margin="10,5,5,5"/>
 
-                <TextBox Grid.Row="1" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Longitude"/>
-                <TextBox Grid.Row="2" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Latitude"/>
-                <TextBox Grid.Row="3" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Radius"/>
+                <TextBox Grid.Row="1" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Longitude"
+                         Text="{Binding Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="2" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Latitude"
+                         Text="{Binding Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="3" Margin="10,10,10,10" Controls:TextBoxHelper.Watermark="Radius"
+                         Text="{Binding Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Row="4" Text="Location Based" FontSize="20" Margin="10"/>
 
-                <ComboBox Grid.Row="5" Margin="10,10,10,10"/>
-                <ComboBox Grid.Row="6" Margin="10,10,10,10"/>
-                <ComboBox Grid.Row="7" Margin="10,10,10,10"/>
+                <ComboBox Grid.Row="5" Margin="10,10,10,10" ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"/>
+                <ComboBox Grid.Row="6" Margin="10,10,10,10" ItemsSource="{Binding Provinces}" SelectedItem="{Binding SelectedCountry}"/>
+                <ComboBox Grid.Row="7" Margin="10,10,10,10" ItemsSource="{Binding Districts}" SelectedItem="{Binding SelectedDistrict}"/>
+                <ComboBox Grid.Row="8" Margin="10,10,10,10" ItemsSource="{Binding Communities}" SelectedItem="{Binding SelectedCommunity}"/>
             </Grid>
             
             <Grid Grid.Column="1">
@@ -65,9 +71,15 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Station Filter" FontSize="20" Margin="10,5,5,5"/>
-                <TextBox Grid.Row="1" Margin="5" Controls:TextBoxHelper.Watermark="Search"/>
-                <ListView Grid.Row="2" Margin="10">
-                    
+                <TextBox Grid.Row="1" Margin="5" Controls:TextBoxHelper.Watermark="Search" Text="{Binding Path=AvailableStationsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ListView Grid.Row="2" Margin="10" ItemsSource="{Binding AvailableStations}" SelectedItem="{Binding SelectedStationAvailable, Mode=TwoWay}" SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </Grid>
 
@@ -82,8 +94,8 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="2" Margin="5,10,5,10" Content="->" FontSize="15"/>
-                <Button Grid.Row="3" Margin="5,10,5,10" Content="&lt;-" FontSize="15"/>
+                <Button Grid.Row="2" Margin="5,10,5,10" Content="->" FontSize="15" Command="{Binding AddCommand}"/>
+                <Button Grid.Row="3" Margin="5,10,5,10" Content="&lt;-" FontSize="15" Command="{Binding RemoveCommand}"/>
             </Grid>
             
             <Grid Grid.Column="3">
@@ -94,9 +106,15 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Station Filter" FontSize="20" Margin="10,5,5,5"/>
-                <TextBox Grid.Row="1" Margin="5" Controls:TextBoxHelper.Watermark="Search"/>
-                <ListView Grid.Row="2" Margin="10">
-
+                <TextBox Grid.Row="1" Margin="5" Controls:TextBoxHelper.Watermark="Search" Text="{Binding Path=SelectedStationsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ListView Grid.Row="2" Margin="10" ItemsSource="{Binding SelectedStations}" SelectedItem="{Binding SelectedStationAggregate, Mode=TwoWay}" SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
 
             </Grid>
