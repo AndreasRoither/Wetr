@@ -30,13 +30,20 @@ namespace Common.Dal.Ado
                     command.CommandText = sql;
                     AddParameters(command, parameters);
 
-                    // Read reveived data
-                    using (IDataReader reader = await command.ExecuteReaderAsync())
+                    try
                     {
-                        while (reader.Read())
+                        // Read reveived data
+                        using (IDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            items.Add(rowMapper(reader));
+                            while (reader.Read())
+                            {
+                                items.Add(rowMapper(reader));
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new MySqlException("Database not set up or missing table", ex.InnerException);
                     }
                 }
             }
@@ -54,9 +61,18 @@ namespace Common.Dal.Ado
                 using (DbCommand command = connection.CreateCommand())
                 {
                     command.CommandText = sql;
-                    AddParameters(command, parameters);
-
-                    object result = await command.ExecuteScalarAsync();
+                    AddParameters(command, parameters
+                        );
+                    object result = null;
+                    try
+                    {
+                        result = await command.ExecuteScalarAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new MySqlException("Database not set up or missing table", ex.InnerException);
+                    }
+                    
                     return result;
                 }
             }
@@ -83,7 +99,14 @@ namespace Common.Dal.Ado
                 command.CommandText = sql;
                 this.AddParameters(command, parameters);
 
-                return await command.ExecuteNonQueryAsync();
+                try
+                {
+                    return await command.ExecuteNonQueryAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new MySqlException("Database not set up or missing table", ex.InnerException);
+                }
             }
         }
     }
