@@ -1,16 +1,17 @@
 \section{Visual Studio Projektmappe}
 
-Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welch in folgene Unterprojekte gegliedert ist:
+Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welche in folgene Unterprojekte gegliedert ist:
 \begin{itemize}
-    \item \textbf{Common.Dal.Ado}: Hier befinden sich Hilfsklassen, die den Umgang mit ADO.NET leichter gstalten.
-    \item \textbf{Wetr.Domain}: Dieses Projekt beinhaltet die Domainobjekte, welche als einfache Datenbehälter genutzt werden.
-    \item \textbf{Wetr.Dal.Interface}: In diesem Paket befinden sich die Interfaces für die Datenzugriffschricht für jedes Domainobjekt bzw. Tabelle.
-    \item \textbf{Wetr.Dal.Ado}: Die ADO.NET Implementierung der Datenzugriffsschicht Interfaces.
-    \item \textbf{Wetr.Dal.Factory} Beinhaltet Factories um die Instanziierung der benötigen komkreten Klassen zu abstrahieren.
-    \item \textbf{Wetr.Test.Dal} Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
+    \item \textbf{Common.Dal.Ado}:\newline Hier befinden sich Hilfsklassen, die den Umgang mit ADO.NET leichter gstalten.
+    \item \textbf{Wetr.Domain}:\newline Dieses Projekt beinhaltet die Domainobjekte, welche als einfache Datenbehälter genutzt werden.
+    \item \textbf{Wetr.BusinessLogic}:\newline Die Business Logik für \textit{Wetr.Simulator.Wpf} und \textit{Wetr.Cockpit.Wpf}. Beinhaltet die Anbindung an die benötigten \textit{ADO.NET} Implementierungen.
+    \item \textbf{Wetr.Dal.Interface}:\newline In diesem Paket befinden sich die Interfaces für die Datenzugriffschricht für jedes Domainobjekt bzw. Tabelle.
+    \item \textbf{Wetr.Dal.Ado}:\newline Die ADO.NET Implementierung der Datenzugriffsschicht Interfaces.
+    \item \textbf{Wetr.Dal.Factory}:\newline Beinhaltet Factories um die Instanziierung der benötigen komkreten Klassen zu abstrahieren.
+    \item \textbf{Wetr.Test.Dal}:\newline Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
     \item \textbf{Wetr.Generator}: Zuständig für das Generieren von Messdaten für die einzelnen Stationen.
-    \item \textbf{Wetr.Cockpit.Wpf}: Cockpit Programm, verwendet WPF, MVVM Light Toolkit\footnote{http://www.mvvmlight.net/}, MahAppsMetro\footnote{https://mahapps.com/} und LiveCharts\footnote{https://lvcharts.net/} um Usern die Möglichkeit zu geben Messtationen anzuzeigen bzw ändern zu können.
-    \item \textbf{Wetr.Simulator.Wpf}: Simulator Programm, verwendet ebenfalls WPF, MVVM Light Framework, MahAppsMetro und LiveCharts. Hier können Messwerte für Stationen generiert werden.
+    \item \textbf{Wetr.Cockpit.Wpf}:\newline Cockpit Programm, verwendet WPF, MVVM Light Toolkit\footnote{http://www.mvvmlight.net/}, MahAppsMetro\footnote{https://mahapps.com/} und LiveCharts\footnote{https://lvcharts.net/} um Usern die Möglichkeit zu geben Messtationen anzuzeigen bzw ändern zu können.
+    \item \textbf{Wetr.Simulator.Wpf}:\newline Simulator Programm, verwendet ebenfalls WPF, MVVM Light Framework, MahAppsMetro und LiveCharts. Hier können Messwerte für Stationen generiert werden.
 \end{itemize}
 
 \newpage
@@ -19,9 +20,21 @@ Das \textit{Common.Dal.Ado} Projekt verwendet die Klassen \textit{AdoTemplate}, 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.45\textwidth]{pictures/Common_Dal_Ado_ClassDiagramm.png}
+\includegraphics[width=.6\textwidth]{pictures/Common_Dal_Ado_ClassDiagramm.png}
 \caption{Common.Dal.Ado UML Diagramm}
 \label{fig:common.dal.ado}
+\end{figure}
+\raggedright
+
+\newpage
+\subsection{Wetr.BusinessLogic}
+Das \textit{Wetr.BusinessLogic} Projekt verwendet die \textit{Wetr.Dal.Factory} um die benötigten \textit{DAOs} zu erstellen. Die Business Logik stellt einen \textit{ManagerLocator} zu Verfügung der Instanzen der einzelnen Manager liefern kann. Jeder Manager stellt Funktionen zur Verfügung mit der Abfragen auf die Datenbank durchgeführt werden können.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/BusinessLogic.png}
+\caption{Wetr.BusinessLogic UML Diagramm}
+\label{fig:Wetr.BusinessLogic}
 \end{figure}
 \raggedright
 
@@ -31,7 +44,7 @@ Im \textit{Wetr.Dal.Interface} Projekt wird für jede Klasse in  \textit{Wetr.Do
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{pictures/Wetr_Dal_Interface.png}
+\includegraphics[width=\textwidth]{pictures/Wetr_Dal_Interface.png}
 \caption{Wetr.Dal.Interface UML Diagramm}
 \label{fig:Wetr.Dal.Interface}
 \end{figure}
@@ -54,7 +67,7 @@ Im \textit{Wetr.Dal.Factory} Projekt wird eine Klasse \textit{AdoFactory} bereit
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.45\textwidth]{pictures/Wetr_Dal_Factory.png}
+\includegraphics[width=.6\textwidth]{pictures/Wetr_Dal_Factory.png}
 \caption{Wetr.Dal.Factory UML Diagramm}
 \label{fig:Wetr.Dal.Factory}
 \end{figure}
@@ -66,7 +79,7 @@ Das \textit{Wetr.Domain} Projekt enthält alle Behälterklassen für alle \texti
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{pictures/Wetr_Domain.png}
+\includegraphics[width=.9\textwidth]{pictures/Wetr_Domain.png}
 \caption{Wetr.Domain UML Diagramm}
 \label{fig:Wetr.Domain}
 \end{figure}
@@ -74,11 +87,11 @@ Das \textit{Wetr.Domain} Projekt enthält alle Behälterklassen für alle \texti
 
 \newpage
 \subsection{Wetr.Test.Dal}
-Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao} Objekt getestet. Alle Tests wurden von der Klassen DaoBaseTest abgeleitet, welche Test für Dao-Methoden forcieren, welche in allen Daos implementiert wurden. 
+Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao} Objekt getestet. Alle Tests wurden von der Klassen DaoBaseTest abgeleitet, welche Test für Dao-Methoden forcieren, welche in allen \textit{DAOs} implementiert wurden. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{pictures/Wetr_Test_Dal.png}
+\includegraphics[width=0.85\textwidth]{pictures/Wetr_Test_Dal.png}
 \caption{Wetr.Domain UML Diagramm}
 \label{fig:Wetr.Test.Dal}
 \end{figure}
@@ -125,16 +138,58 @@ Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip erstellt.\texti
 Das Hauptprogramm (nach dem Login) ist in drei verschiedenen Tabs eingeteilt: \newline\textit{Home}, \textit{Analysis} und \textit{Stations}.
 \newline
 \newline
+\textbf{Login}\newline
+Beim Login wird in der Datenbank abgefragt ob der User mit der Email und dem Passwort in der Datenbank vorhanden ist. Das Passwort wird mithilfe von BCrypt.Net\footnote{https://www.nuget.org/packages/BCrypt.Net/} auf Gültigkeit überprüft.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_1.png}
+\caption{Login View}
+\label{fig:Wetr.Cockpit.Wpf.LoginView}
+\end{figure}
+\raggedright
+
+\newpage
 \textbf{Home}\newline
-Eine kleine Übersicht über die Stationen des Users. Hier werden nützliche Werte für den User angezeigt (zb. Stationene Anzahl).
-\newline
-\newline
+Eine kleine Übersicht über die Stationen des Users. Hier werden nützliche Werte für den User angezeigt (zb. Stationen Anzahl).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_2.png}
+\caption{Home View}
+\label{fig:Wetr.Cockpit.Wpf.HomeView}
+\end{figure}
+\raggedright
+
 \textbf{Analysis}\newline
 Hier wird die Aggregation der Messwerte der Stationen ermöglicht. Einzelne Stationen und verschiedene Messwertarten können zum Aggregieren ausgewählt werden.
-\newline
-\newline
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_3.png}
+\caption{Analysis View}
+\label{fig:Wetr.Cockpit.Wpf.Analysis}
+\end{figure}
+\raggedright
+
 \textbf{Stations}\newline
 Im Tab Stations wird dem User die Möglichkeit geboten seine Stationen zu ändern oder neue Stationen hinzuzufügen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_4.png}
+\caption{Stations Edit View}
+\label{fig:Wetr.Cockpit.Wpf.Station.Edit}
+\end{figure}
+\raggedright
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_5.png}
+\caption{Stations Add View}
+\label{fig:Wetr.Cockpit.Wpf.Station.Add}
+\end{figure}
+\raggedright
 
 \newpage
 \subsection{Wetr.Simulator.Wpf}
@@ -147,19 +202,20 @@ In diesem Bereich werden die Stationen ausgewählt die für die nachfolgenden Sc
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_1_StationSelection.png}
+\includegraphics[width=.7\textwidth]{pictures/Simulator/Simulator_1_StationSelection.png}
 \caption{Station selection}
 \label{fig:Wetr.Simulator.Wpf.StationSelection}
 \end{figure}
 \raggedright
 
+\newpage
 \textbf{Preset creation}\newline
 Ein \textit{Preset} ist eine Berechnungseinstellung. Für diese Einstellung können Daten wie Messart, Start und Enddatum, Minimum und Maximum der Berechnung, Berechnungsart (zb. Linear) und die Regelmäßigkeit der Berechnung eingestellt werden. 
 Grundsätzlich können mehrere \textit{Presets} erstellt werden. Diese werden durch den vergebenen Namen identifiziert.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_2_PresetCreation.png}
+\includegraphics[width=.7\textwidth]{pictures/Simulator/Simulator_2_PresetCreation.png}
 \caption{Preset creation}
 \label{fig:Wetr.Simulator.Wpf.PresetCreation}
 \end{figure}
@@ -170,7 +226,7 @@ Nachdem ein \textit{Preset} erstellt wurde kann diesem eine \textit{Station} zug
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_3_PresetAssignment.png}
+\includegraphics[width=.7\textwidth]{pictures/Simulator/Simulator_3_PresetAssignment.png}
 \caption{Preset assignment}
 \label{fig:Wetr.Simulator.Wpf.PresetAssignment}
 \end{figure}
@@ -182,7 +238,7 @@ Falls die Geschwindigkeit einer Simulation zu langsam ist kann diese mit dem Sch
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.6\textwidth]{pictures/Simulator/Simulator_4_Simulation.png}
+\includegraphics[width=.7\textwidth]{pictures/Simulator/Simulator_4_Simulation.png}
 \caption{Simulation}
 \label{fig:Wetr.Simulator.Wpf.Simulation}
 \end{figure}
