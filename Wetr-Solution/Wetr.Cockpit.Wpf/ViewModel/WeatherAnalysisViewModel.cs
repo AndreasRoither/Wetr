@@ -76,6 +76,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 if (availableStationsFilter != value)
                 {
                     Set(ref availableStationsFilter, value);
+                    this.AvailableStations.Refresh();
                 }
             }
         }
@@ -90,6 +91,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 if (selectedStationsFilter != value)
                 {
                     Set(ref selectedStationsFilter, value);
+                    this.SelectedStations.Refresh();
                 }
             }
         }
