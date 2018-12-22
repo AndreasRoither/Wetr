@@ -93,9 +93,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Extension\EnumerationExtension.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\GroupingType.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\ReduceType.cs" />
+    <Compile Include="Model\TargetType.cs" />
     <Compile Include="Utility\NotifierManager.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -215,6 +219,10 @@
     <ProjectReference Include="..\Wetr.BusinessLogic\Wetr.BusinessLogic.csproj">
       <Project>{29EDB67E-049C-4AD1-BB23-22604836536E}</Project>
       <Name>Wetr.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.BusnessLogic.Interface\Wetr.BusinessLogic.Interface.csproj">
+      <Project>{CF86EBA2-6745-4DFD-81E9-70983DAE30B1}</Project>
+      <Name>Wetr.BusinessLogic.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wetr.Dal.Ado\Wetr.Dal.Ado.csproj">
       <Project>{3DC15779-95A8-4FBF-8E1B-E0D02D8C4EF5}</Project>

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Wetr.BusinessLogic;
+using Wetr.BusinessLogic.Interface;
+using Wetr.Cockpit.Wpf.Model;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Domain;
 
@@ -26,6 +28,19 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         private NotifierManager notifierManager = new NotifierManager();
         private StationManager stationManager;
         private AddressManager addressManager;
+        private MeasurementManager measurementManager;
+
+        /* Enums */
+        public ReduceType SelectedReduceType { get; set; }
+        public TargetType SelectedTargetType { get; set; }
+        public GroupingType SelectedGroupingType { get; set; }
+
+        /* Date */
+        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7);
+        public DateTime EndDate { get; set; } = DateTime.Now;
+
+        /* Command */
+        public RelayCommand ApplyAnalysis { get; set; }
 
         /* Stations */
         private CollectionViewSource availableStationsCollection;
@@ -252,6 +267,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             stationManager = ManagerLocator.GetStationManagerInstance;
             addressManager = ManagerLocator.GetAddressManagerInstance;
+            measurementManager = ManagerLocator.GetMeasurementManagerInstance;
 
             AddCommand = new RelayCommand(
                 ExecuteAddCommand,
@@ -260,6 +276,92 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             RemoveCommand = new RelayCommand(
                 ExecuteRemoveCommand,
                 CanExecuteRemoveCommand);
+
+            ApplyAnalysis = new RelayCommand(
+                ExecuteApplyAnalysis,
+                CanExecuteAnalysis
+                );
+        }
+
+        private bool CanExecuteAnalysis()
+        {
+            return true;
+        }
+
+        private async void ExecuteApplyAnalysis()
+        {
+            Console.WriteLine("Applying");
+
+           
+
+            Console.WriteLine("Start/End: " + StartDate + "/" + EndDate);
+            Console.WriteLine("Type/Group/Reduce: " + SelectedTargetType + "/" + SelectedGroupingType+ "/" + SelectedReduceType);
+
+            int measurementTypeId = 0;
+            switch (this.SelectedTargetType)
+            {
+                case TargetType.Air_Preassure:
+                    measurementTypeId = 2; break;
+                case TargetType.Humidity:
+                    measurementTypeId = 4;break;
+                case TargetType.Rain:
+                    measurementTypeId = 3; break;
+                case TargetType.Temperature:
+                    measurementTypeId = 1; break;
+                case TargetType.Wind:
+                    measurementTypeId = 5; break;
+                case TargetType.Wind_direction:
+                    measurementTypeId = 6; break;
+            }
+
+            int reductionTypeId = 0;
+            switch (this.SelectedReduceType)
+            {
+                case ReduceType.Average: reductionTypeId = 0; break;
+                case ReduceType.Minimum: reductionTypeId = 1; break;
+                case ReduceType.Maximum: reductionTypeId = 2; break;
+            }
+
+            int groupingTypeId = 0;
+            switch (this.SelectedGroupingType)
+            {
+                case GroupingType.Day:
+                    groupingTypeId = 0; break;
+                case GroupingType.Week:
+                    groupingTypeId = 1; break;
+                case GroupingType.Month:
+                    groupingTypeId = 2; break;
+                case GroupingType.Year:
+                    groupingTypeId = 3; break;
+            }
+
+            double[] result = null;
+
+            if (Longitude != 0 && Latitude != 0 && Radius != 0)
+            {
+                notifierManager.ShowInformation("Fetching results based on the selected community...");
+                result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), Latitude, Longitude, Radius);
+
+            }
+            else
+            {
+                if (SelectedCommunity != null)
+                {
+                    notifierManager.ShowInformation("Fetching results based on coordinates...");
+                    result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), this.SelectedCommunity);
+                }
+                else
+                {
+                    notifierManager.ShowError("Please select a community or enter coordinated to filter the location!");
+                    return;
+                }
+            }
+
+            foreach(double d in result)
+            {
+                Console.WriteLine(d);
+            }
+
         }
 
         #region functions

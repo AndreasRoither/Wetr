@@ -34,7 +34,7 @@ namespace Wetr.Dal.Ado
         private static double MapToDouble(IDataRecord row)
         {
             return (double)row["value"];
-            
+
         }
 
         public async Task<bool> DeleteAsync(int measurementId)
@@ -128,23 +128,125 @@ namespace Wetr.Dal.Ado
 
             return result.ToArray();
         }
-        
+
 
         public async Task<long> GetTotalNumberOfMeasurementsAsync()
         {
-            double result = (long) await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement");
-            return (long) result;
+            double result = (long)await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement");
+            return (long)result;
         }
 
         public async Task<long> GetNumberOfMeasurementsFromTheLastXDaysAsync(int days)
         {
-            double result = (long) await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement WHERE timestamp <= @to and timestamp >= @from",
+            double result = (long)await this.template.ScalarAsync<double>("SELECT COUNT(*) FROM measurement WHERE timestamp <= @to and timestamp >= @from",
                 new Parameter("from", DateTime.Now.AddDays(-days)),
                 new Parameter("to", DateTime.Now)
                 );
             return (long)result;
         }
 
+        private string GetReductionString(int reductionTypeId)
+        {
+            string reductionString = "";
+            switch (reductionTypeId)
+            {
+                case 0:
+                    reductionString = "AVG(value)"; break;
+                case 1:
+                    reductionString = "MIN(value)"; break;
+                case 2:
+                    reductionString = "MAX(value)"; break;
+            }
+            return reductionString;
+        }
+
+        private string GetGroupingString(int groupingTypeId)
+        {
+            string groupingString = "";
+            switch (groupingTypeId)
+            {
+                case 0:
+                    // Day
+                    groupingString = "DATE(timestamp)"; break;
+                case 1:
+                    // Week
+                    groupingString = "WEEK(timestamp)"; break;
+                case 2:
+                    // Month
+                    groupingString = "MONTH(timestamp)"; break;
+                case 3:
+                    // Year
+                    groupingString = "YEAR(timestamp)"; break;
+            }
+
+            return groupingString;
+        }
+
+        private string GetStationFilter(List<Station> stations)
+        {
+            string stationFilter = "";
+            if (stations.Count > 0)
+            {
+                stationFilter += "stationId IN (" + stations[0].StationId;
+                for (int i = 1; i < stations.Count(); ++i)
+                {
+                    stationFilter += "," + stations[i].StationId;
+                }
+                stationFilter += ") and ";
+            }
+
+            return stationFilter;
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, Community community)
+        {
+
+            string reductionString = GetReductionString(reductionTypeId);
+            string groupingString = GetGroupingString(groupingTypeId);
+            string stationFilter = GetStationFilter(stations);
+
+
+            string sql = "select " + reductionString + " as value from measurement " +
+                "INNER JOIN station using (stationId) " +
+                "INNER JOIN address USING(addressId) where communityId = @communityId and measurementTypeId = @type and " + stationFilter + " timestamp >= @from and timestamp <= @to GROUP BY " + groupingString;
+
+            var result = await this.template.QueryAsync(
+                  sql,
+                  MapToDouble,
+                  new Parameter("@type", measurementTypeId),
+                  new Parameter("@from", start),
+                  new Parameter("@communityId", community.CommunityId),
+                  new Parameter("@to", end));
+
+
+            return result.ToArray();
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, decimal lat, decimal lon, int radius)
+        {
+            string reductionString = GetReductionString(reductionTypeId);
+            string groupingString = GetGroupingString(groupingTypeId);
+            string stationFilter = GetStationFilter(stations);
+
+
+            string sql = "select " + reductionString + " as value from measurement " +
+                "INNER JOIN station using (stationId) " +
+                "where ( 6371 *  acos( cos( radians( @lat ) ) * cos( radians( latitude ) ) *  cos( radians( longitude ) - radians( @lon ) ) +  sin( radians( @lat ) ) *  sin( radians( latitude ) ) ) <= @rad ) and measurementTypeId = @type and " + stationFilter + " timestamp >= @from and timestamp <= @to GROUP BY " + groupingString;
+
+            var result = await this.template.QueryAsync(
+                  sql,
+                  MapToDouble,
+                  new Parameter("@type", measurementTypeId),
+                  new Parameter("@from", start),
+                  new Parameter("@lat", lat),
+                  new Parameter("@lon", lon),
+                  new Parameter("@rad", radius),
+
+                  new Parameter("@to", end));
+
+
+            return result.ToArray();
+        }
 
     }
 }
