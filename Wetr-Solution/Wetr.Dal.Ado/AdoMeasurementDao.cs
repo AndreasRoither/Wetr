@@ -156,6 +156,8 @@ namespace Wetr.Dal.Ado
                     reductionString = "MIN(value)"; break;
                 case 2:
                     reductionString = "MAX(value)"; break;
+                case 3:
+                    reductionString = "SUM(value)"; break;
             }
             return reductionString;
         }
@@ -177,6 +179,9 @@ namespace Wetr.Dal.Ado
                 case 3:
                     // Year
                     groupingString = "YEAR(timestamp)"; break;
+                case 4:
+                    // Hour
+                    groupingString = "HOUR(timestamp)"; break;
             }
 
             return groupingString;

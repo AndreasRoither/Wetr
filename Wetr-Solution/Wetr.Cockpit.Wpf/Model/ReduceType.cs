@@ -8,6 +8,6 @@ namespace Wetr.Cockpit.Wpf.Model
 {
     public enum ReduceType
     {
-        Average, Minimum, Maximum
+        Average, Minimum, Maximum, Sum
     }
 }

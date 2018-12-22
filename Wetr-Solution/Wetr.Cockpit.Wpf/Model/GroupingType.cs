@@ -8,6 +8,6 @@ namespace Wetr.Cockpit.Wpf.Model
 {
     public enum GroupingType
     {
-        Day, Week, Month, Year
+        Day, Week, Month, Year, Hour
     }
 }

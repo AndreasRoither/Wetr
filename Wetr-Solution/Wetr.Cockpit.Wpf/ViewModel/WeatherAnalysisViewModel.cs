@@ -323,6 +323,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 case ReduceType.Average: reductionTypeId = 0; break;
                 case ReduceType.Minimum: reductionTypeId = 1; break;
                 case ReduceType.Maximum: reductionTypeId = 2; break;
+                case ReduceType.Sum: reductionTypeId = 3; break;
+
             }
 
             int groupingTypeId = 0;
@@ -336,6 +338,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                     groupingTypeId = 2; break;
                 case GroupingType.Year:
                     groupingTypeId = 3; break;
+                case GroupingType.Hour:
+                    groupingTypeId = 4; break;
             }
 
             double[] result = null;
