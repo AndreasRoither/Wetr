@@ -1,4 +1,5 @@
 ﻿using System;
+using Wetr.BusinessLogic.Interface;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 
@@ -56,16 +57,22 @@ namespace Wetr.BusinessLogic
                     if (measurementManager == null)
                     {
                         IMeasurementDao measurementDao;
+                        IStationDao stationDao;
+                        IAddressManager addressManager;
+
                         try
                         {
                             measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
+                            stationDao = AdoFactory.Instance.GetStationDao("wetr");
+                            addressManager = GetAddressManagerInstance;
+
                         }
                         catch (Exception ex)
                         {
                             throw new BusinessSqlException(ex.Message, ex.InnerException);
                         }
 
-                        measurementManager = new MeasurementManager(measurementDao);
+                        measurementManager = new MeasurementManager(measurementDao, stationDao, addressManager);
                     }
                     return measurementManager;
                 }
