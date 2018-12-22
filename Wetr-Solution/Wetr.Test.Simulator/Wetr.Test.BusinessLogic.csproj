@@ -62,8 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressManagerTests.cs" />
     <Compile Include="GeneratorTests.cs" />
+    <Compile Include="MeasurementManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StationManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
