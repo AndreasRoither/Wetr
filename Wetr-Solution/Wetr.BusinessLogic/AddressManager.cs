@@ -140,17 +140,7 @@ namespace Wetr.BusinessLogic
             }
         }
 
-        public async Task<IEnumerable<Address>> GetAllAddresses()
-        {
-            try
-            {
-                return await addressDao.FindAllAsync();
-            }
-            catch (Common.Dal.Ado.MySqlException ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
+       
 
         public async Task<long> AddNewAddress(Address address)
         {

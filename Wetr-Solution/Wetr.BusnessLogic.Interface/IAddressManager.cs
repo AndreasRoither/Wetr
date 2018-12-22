@@ -29,8 +29,6 @@ namespace Wetr.BusinessLogic.Interface
 
         Task<IEnumerable<Community>> GetAllCommunities();
 
-        Task<IEnumerable<Address>> GetAllAddresses();
-
         Task<long> AddNewAddress(Address address);
 
         bool CheckAddress(Address address);
