@@ -253,7 +253,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             try
             {
-                return stationManager.HasMeasurements(this.SelectedStation).Result;
+                return !stationManager.HasMeasurements(this.SelectedStation).Result;
             }
             catch (BusinessSqlException ex)
             {

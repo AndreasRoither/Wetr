@@ -80,7 +80,7 @@ namespace Wetr.BusinessLogic
         {
             try
             {
-                return (await measurementDao.FindByStationIdAsync(station.StationId)).Count() == 0;
+                return (await measurementDao.FindByStationIdAsync(station.StationId)).Count() != 0;
             }
             catch (Common.Dal.Ado.MySqlException ex)
             {
