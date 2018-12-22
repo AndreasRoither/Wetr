@@ -101,11 +101,15 @@
     <Compile Include="Model\ReduceType.cs" />
     <Compile Include="Model\TargetType.cs" />
     <Compile Include="Utility\NotifierManager.cs" />
+    <Compile Include="ViewModel\AggregateViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WeatherAnalysisViewModel.cs" />
     <Compile Include="ViewModel\WeatherStationManagementViewModel.cs" />
+    <Compile Include="Views\AggregateView.xaml.cs">
+      <DependentUpon>AggregateView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -139,6 +143,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AggregateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

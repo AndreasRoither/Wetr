@@ -1,17 +1,20 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using Wetr.BusinessLogic;
 using Wetr.BusinessLogic.Interface;
 using Wetr.Cockpit.Wpf.Model;
 using Wetr.Cockpit.Wpf.Utility;
+using Wetr.Cockpit.Wpf.Views;
 using Wetr.Domain;
 
 namespace Wetr.Cockpit.Wpf.ViewModel
@@ -290,9 +293,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
         private async void ExecuteApplyAnalysis()
         {
+            string LiveChartTitle = "";
             Console.WriteLine("Applying");
-
-
 
             Console.WriteLine("Start/End: " + StartDate + "/" + EndDate);
             Console.WriteLine("Type/Group/Reduce: " + SelectedTargetType + "/" + SelectedGroupingType + "/" + SelectedReduceType);
@@ -301,17 +303,17 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             switch (this.SelectedTargetType)
             {
                 case TargetType.Air_Preassure:
-                    measurementTypeId = 2; break;
+                    measurementTypeId = 2; LiveChartTitle = "Air Pressure"; break;
                 case TargetType.Humidity:
-                    measurementTypeId = 4; break;
+                    measurementTypeId = 4; LiveChartTitle = "Humidity"; break;
                 case TargetType.Rain:
-                    measurementTypeId = 3; break;
+                    measurementTypeId = 3; LiveChartTitle = "Rain"; break;
                 case TargetType.Temperature:
-                    measurementTypeId = 1; break;
+                    measurementTypeId = 1; LiveChartTitle = "Temperature"; break;
                 case TargetType.Wind:
-                    measurementTypeId = 5; break;
+                    measurementTypeId = 5; LiveChartTitle = "Wind"; break;
                 case TargetType.Wind_direction:
-                    measurementTypeId = 6; break;
+                    measurementTypeId = 6; LiveChartTitle = "Wind Direction"; break;
             }
 
             int reductionTypeId = 0;
@@ -351,10 +353,26 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 }
                 else
                 {
-                    notifierManager.ShowError("Please select a community or enter coordinated to filter the location!");
+                    notifierManager.ShowError("Please select a community or enter coordinates to filter the location!");
                     return;
                 }
             }
+
+            AggregateViewModel aggregateViewModel = new AggregateViewModel();
+
+            aggregateViewModel.AddToCollection(LiveChartTitle, 1, result);
+
+            MetroWindow aggregateWindow = new MetroWindow
+            {
+                Title = LiveChartTitle + " Chart Window"
+            };
+            AggregateView aggregateView = new AggregateView
+            {
+                DataContext = aggregateViewModel
+            };
+            aggregateWindow.Content = aggregateView;
+
+            aggregateWindow.Show();
 
             foreach (double d in result)
             {

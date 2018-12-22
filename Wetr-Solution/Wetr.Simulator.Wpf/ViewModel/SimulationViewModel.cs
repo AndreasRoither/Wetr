@@ -29,8 +29,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
         private readonly Wetr.BusinessLogic.Generator generator;
 
-
-
         public SeriesCollection SeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
