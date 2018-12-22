@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Simulator.Wpf", "Wetr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Cockpit.Wpf", "Wetr.Cockpit.Wpf\Wetr.Cockpit.Wpf.csproj", "{A4500B14-7DDF-4A79-8219-27F30C5A04A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Test.Simulator", "Wetr.Test.Simulator\Wetr.Test.Simulator.csproj", "{7A82A232-E353-4A98-82B7-73FAD88B9F66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Test.BusinessLogic", "Wetr.Test.Simulator\Wetr.Test.BusinessLogic.csproj", "{7A82A232-E353-4A98-82B7-73FAD88B9F66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.BusinessLogic", "Wetr.BusinessLogic\Wetr.BusinessLogic.csproj", "{29EDB67E-049C-4AD1-BB23-22604836536E}"
 EndProject

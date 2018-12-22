@@ -1,4 +1,8 @@
-﻿namespace Wetr.BusinessLogic
+﻿using System;
+using Wetr.Dal.Factory;
+using Wetr.Dal.Interface;
+
+namespace Wetr.BusinessLogic
 {
     public static class ManagerLocator
     {
@@ -17,7 +21,26 @@
                 {
                     if (addressManager == null)
                     {
-                        addressManager = new AddressManager(databaseName);
+                        ICountryDao countryDao;
+                        IProvinceDao provinceDao;
+                        IDistrictDao districtDao;
+                        ICommunityDao communityDao;
+                        IAddressDao addressDao;
+
+                        try
+                        {
+                            countryDao = AdoFactory.Instance.GetCountryDao("wetr");
+                            provinceDao = AdoFactory.Instance.GetProvinceDao("wetr");
+                            districtDao = AdoFactory.Instance.GetDistrictDao("wetr");
+                            communityDao = AdoFactory.Instance.GetCommunityDao("wetr");
+                            addressDao = AdoFactory.Instance.GetAddressDao("wetr");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BusinessSqlException(ex.Message, ex.InnerException);
+                        }
+
+                        addressManager = new AddressManager(countryDao, provinceDao, districtDao, communityDao, addressDao);
                     }
                     return addressManager;
                 }
@@ -32,7 +55,17 @@
                 {
                     if (measurementManager == null)
                     {
-                        measurementManager = new MeasurementManager(databaseName);
+                        IMeasurementDao measurementDao;
+                        try
+                        {
+                            measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BusinessSqlException(ex.Message, ex.InnerException);
+                        }
+
+                        measurementManager = new MeasurementManager(measurementDao);
                     }
                     return measurementManager;
                 }
@@ -47,7 +80,22 @@
                 {
                     if (stationManager == null)
                     {
-                        stationManager = new StationManager(databaseName);
+                        IStationDao stationDao;
+                        IStationTypeDao stationTypeDao;
+                        IMeasurementDao measurementDao;
+
+                        try
+                        {
+                            stationDao = AdoFactory.Instance.GetStationDao("wetr");
+                            stationTypeDao = AdoFactory.Instance.GetStationTypeDao("wetr");
+                            measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BusinessSqlException(ex.Message, ex.InnerException);
+                        }
+
+                        stationManager = new StationManager(stationDao, stationTypeDao, measurementDao);
                     }
                     return stationManager;
                 }
@@ -62,7 +110,16 @@
                 {
                     if (userManager == null)
                     {
-                        userManager = new UserManager(databaseName);
+                        IUserDao userDao;
+                        try
+                        {
+                            userDao = AdoFactory.Instance.GetUserDao("wetr");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BusinessSqlException(ex.Message, ex.InnerException);
+                        }
+                        userManager = new UserManager(userDao);
                     }
                     return userManager;
                 }

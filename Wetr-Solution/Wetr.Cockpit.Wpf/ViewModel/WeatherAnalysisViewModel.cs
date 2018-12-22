@@ -292,10 +292,10 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
             Console.WriteLine("Applying");
 
-           
+
 
             Console.WriteLine("Start/End: " + StartDate + "/" + EndDate);
-            Console.WriteLine("Type/Group/Reduce: " + SelectedTargetType + "/" + SelectedGroupingType+ "/" + SelectedReduceType);
+            Console.WriteLine("Type/Group/Reduce: " + SelectedTargetType + "/" + SelectedGroupingType + "/" + SelectedReduceType);
 
             int measurementTypeId = 0;
             switch (this.SelectedTargetType)
@@ -303,7 +303,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 case TargetType.Air_Preassure:
                     measurementTypeId = 2; break;
                 case TargetType.Humidity:
-                    measurementTypeId = 4;break;
+                    measurementTypeId = 4; break;
                 case TargetType.Rain:
                     measurementTypeId = 3; break;
                 case TargetType.Temperature:
@@ -339,15 +339,14 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             if (Longitude != 0 && Latitude != 0 && Radius != 0)
             {
-                notifierManager.ShowInformation("Fetching results based on the selected community...");
+                notifierManager.ShowInformation("Fetching results based on coordinates...");
                 result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), Latitude, Longitude, Radius);
-
             }
             else
             {
                 if (SelectedCommunity != null)
                 {
-                    notifierManager.ShowInformation("Fetching results based on coordinates...");
+                    notifierManager.ShowInformation("Fetching results based on the selected community...");
                     result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), this.SelectedCommunity);
                 }
                 else
@@ -357,7 +356,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 }
             }
 
-            foreach(double d in result)
+            foreach (double d in result)
             {
                 Console.WriteLine(d);
             }

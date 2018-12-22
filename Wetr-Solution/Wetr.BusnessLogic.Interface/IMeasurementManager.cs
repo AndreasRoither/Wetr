@@ -7,9 +7,6 @@ namespace Wetr.BusinessLogic.Interface
 {
     public interface IMeasurementManager
     {
-        Task<IEnumerable<Measurement>> GetAllMeasurementsAsync();
-
-        Task<IEnumerable<Measurement>> GetAllMeasurementsForStationAsync(int stationId);
 
         Task<double[]> GetDashbardTemperaturesAsync();
 

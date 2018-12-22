@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressManager.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="ManagerLocator.cs" />
     <Compile Include="MeasurementManager.cs" />
     <Compile Include="BusinessSqlException.cs" />
+    <Compile Include="Preset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StationManager.cs" />
     <Compile Include="UserManager.cs" />

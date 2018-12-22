@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Wetr.Domain;
 
-namespace Wetr.Simulator.Wpf.Model
+namespace Wetr.BusinessLogic
 {
     /// <summary>
     /// Enum: Types of distribution

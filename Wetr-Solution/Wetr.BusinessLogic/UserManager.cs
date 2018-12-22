@@ -9,26 +9,13 @@ namespace Wetr.BusinessLogic
 {
     public class UserManager : IUserManager
     {
-        private readonly string databaseName;
         private IUserDao userDao;
 
-        public UserManager(string databaseName)
+        public UserManager(IUserDao userDao)
         {
-            this.databaseName = databaseName;
-            Init();
+            this.userDao = userDao;
         }
 
-        private void Init()
-        {
-            try
-            {
-                userDao = AdoFactory.Instance.GetUserDao(this.databaseName);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
 
         #region functions
 
@@ -57,19 +44,6 @@ namespace Wetr.BusinessLogic
             return null;
         }
 
-        public async Task<bool> RegisterUser(User user)
-        {
-            if (!CheckUser(user)) return false;
-
-            try
-            {
-                return await userDao.InsertAsync(user);
-            }
-            catch (Common.Dal.Ado.MySqlException ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
 
         public bool CheckUser(User user)
         {

@@ -88,14 +88,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BusinessLogic\Generator.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Extension\EnumerationExtension.cs" />
     <Compile Include="Interface\IWetrViewModelBase.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Model\Preset.cs" />
     <Compile Include="Utility\NotifierManager.cs" />
     <Compile Include="ViewModel\PresetCreationViewModel.cs" />
     <Compile Include="ViewModel\PresetsAssignmentViewModel.cs" />

@@ -7,8 +7,6 @@ namespace Wetr.BusinessLogic.Interface
     {
         Task<User> UserCredentialValidation(string email, string password);
 
-        Task<bool> RegisterUser(User user);
-
         bool CheckUser(User user);
     }
 }

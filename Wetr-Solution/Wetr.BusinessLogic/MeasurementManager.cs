@@ -10,55 +10,18 @@ namespace Wetr.BusinessLogic
 {
     public class MeasurementManager : IMeasurementManager
     {
-        private readonly string databaseName;
         private IMeasurementDao measurementDao;
-
-        public MeasurementManager(string databaseName)
+        public MeasurementManager(IMeasurementDao measurementDao)
         {
-            this.databaseName = databaseName;
-            Init();
-        }
+            this.measurementDao = measurementDao;
 
-        private void Init()
-        {
-            try
-            {
-                measurementDao = AdoFactory.Instance.GetMeasurementDao(this.databaseName);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
+      
         }
 
         #region functions
 
-        public async Task<IEnumerable<Measurement>> GetAllMeasurementsAsync()
-        {
-            try
-            {
-                return await measurementDao.FindAllAsync();
-            }
-            catch (Common.Dal.Ado.MySqlException ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
 
-        public async Task<IEnumerable<Measurement>> GetAllMeasurementsForStationAsync(int stationId)
-        {
-            if (stationId < 0) return null;
-
-            try
-            {
-                return await measurementDao.FindByStationIdAsync(stationId);
-            }
-            catch (Common.Dal.Ado.MySqlException ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
-
+      
         public async Task<double[]> GetDashbardTemperaturesAsync()
         {
             try

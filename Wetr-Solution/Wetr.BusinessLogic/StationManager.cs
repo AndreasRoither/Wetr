@@ -11,31 +11,18 @@ namespace Wetr.BusinessLogic
 {
     public class StationManager : IStationManager
     {
-        private readonly string databaseName;
         private IStationDao stationDao;
         private IStationTypeDao stationTypeDao;
         private IMeasurementDao measurementDao;
 
-        public StationManager(string databaseName)
+        public StationManager(IStationDao stationDao, IStationTypeDao stationTypeDao, IMeasurementDao measurementDao)
         {
-            this.databaseName = databaseName;
-            Init();
+            this.stationDao = stationDao;
+            this.stationTypeDao = stationTypeDao;
+            this.measurementDao = measurementDao;
         }
 
-        private void Init()
-        {
-            try
-            {
-                stationDao = AdoFactory.Instance.GetStationDao(this.databaseName);
-                stationTypeDao = AdoFactory.Instance.GetStationTypeDao(this.databaseName);
-                measurementDao = AdoFactory.Instance.GetMeasurementDao(this.databaseName);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
-
+  
         #region functions
 
         public async Task<IEnumerable<Station>> GetAllStations()

@@ -10,34 +10,27 @@ namespace Wetr.BusinessLogic
 {
     public class AddressManager : IAddressManager
     {
-        private readonly string databaseName;
         private ICountryDao countryDao = null;
         private IProvinceDao provinceDao = null;
         private IDistrictDao districtDao = null;
         private ICommunityDao communityDao = null;
         private IAddressDao addressDao = null;
 
-        public AddressManager(string databaseName)
+        public AddressManager(ICountryDao countryDao,
+            IProvinceDao provinceDao,
+            IDistrictDao districtDao,
+            ICommunityDao communityDao,
+            IAddressDao addressDao
+            )
         {
-            this.databaseName = databaseName;
-            Init();
+            this.countryDao = countryDao;
+            this.communityDao = communityDao;
+            this.provinceDao = provinceDao;
+            this.districtDao = districtDao;
+            this.addressDao = addressDao;
         }
 
-        private void Init()
-        {
-            try
-            {
-                countryDao = AdoFactory.Instance.GetCountryDao(this.databaseName);
-                provinceDao = AdoFactory.Instance.GetProvinceDao(this.databaseName);
-                districtDao = AdoFactory.Instance.GetDistrictDao(this.databaseName);
-                communityDao = AdoFactory.Instance.GetCommunityDao(this.databaseName);
-                addressDao = AdoFactory.Instance.GetAddressDao(this.databaseName);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessSqlException(ex.Message, ex.InnerException);
-            }
-        }
+     
 
         #region functions
 

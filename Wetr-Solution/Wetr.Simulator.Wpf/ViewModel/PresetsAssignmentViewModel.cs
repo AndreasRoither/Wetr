@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using Wetr.BusinessLogic;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;

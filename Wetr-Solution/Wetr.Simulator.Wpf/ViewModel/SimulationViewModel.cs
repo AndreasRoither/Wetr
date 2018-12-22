@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Timers;
+using Wetr.BusinessLogic;
+using Wetr.Dal.Factory;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
 using Wetr.Simulator.Wpf.Model;
@@ -25,6 +27,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
         private int MaxChartValues = 60;
         private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
+        private readonly Wetr.BusinessLogic.Generator generator;
+
+
 
         public SeriesCollection SeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
@@ -139,6 +144,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public SimulationViewModel()
         {
+
+            this.generator = new BusinessLogic.Generator(AdoFactory.Instance.GetMeasurementDao());
+
             SeriesCollection = new SeriesCollection();
             Labels = new ObservableCollection<string>();
             MaxSliderValue = 60;
@@ -256,6 +264,9 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
+
+
+
         /// <summary>
         /// Stops the simulation
         /// </summary>
@@ -274,6 +285,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
+
         /// <summary>
         /// Called when second Timer.Elapsed
         /// </summary>
@@ -281,7 +293,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <param name="e"></param>
         public void SecondTick(object sender, EventArgs e)
         {
-            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Second);
+           this.generator.Generate(this.Presets, Frequency.Second);
             if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Second)
                 UpdateChart();
         }
@@ -293,7 +305,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <param name="e"></param>
         public void MinuteTick(object sender, EventArgs e)
         {
-            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Minute);
+            this.generator.Generate(this.Presets, Frequency.Minute);
             if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Minute)
                 UpdateChart();
         }
@@ -305,7 +317,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <param name="e"></param>
         public void HourTick(object sender, EventArgs e)
         {
-            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Hour);
+            this.generator.Generate(this.Presets, Frequency.Hour);
             if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Hour)
                 UpdateChart();
         }
@@ -317,7 +329,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <param name="e"></param>
         public void DayTick(object sender, EventArgs e)
         {
-            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Day);
+            this.generator.Generate(this.Presets, Frequency.Day);
             if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Day)
                 UpdateChart();
         }
@@ -329,7 +341,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         /// <param name="e"></param>
         public void WeekTick(object sender, EventArgs e)
         {
-            Wetr.Simulator.Wpf.BusinessLogic.Generator.Generate(this.Presets, Frequency.Week);
+            this.generator.Generate(this.Presets, Frequency.Week);
             if (SelectedPreset != null && SelectedPreset.Frequency == Frequency.Week)
                 UpdateChart();
         }

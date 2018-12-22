@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
-using Wetr.Simulator.Wpf.Model;
 
-namespace Wetr.Simulator.Wpf.BusinessLogic
+namespace Wetr.BusinessLogic
 {
     /// <summary>
     ///
     /// </summary>
     public class Generator
     {
-        private static IMeasurementDao measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
+        private IMeasurementDao measurementDao;
+
+        public Generator(IMeasurementDao measurementDao)
+        {
+            this.measurementDao = measurementDao;
+        }
 
         private static Dictionary<int, int> unitmapping = new Dictionary<int, int>()
         {
@@ -54,7 +58,7 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
         }
 
-        private static double GetRealisticTempNumber(Preset p)
+        private  double GetRealisticTempNumber(Preset p)
         {
             int hour = p.CurrentDate.Hour;
 
@@ -64,7 +68,7 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
             return Map(hour, 12, 23, (float)p.MaxValue, (float)p.MinValue);
         }
 
-        public static void Generate(IEnumerable<Preset> presets, Frequency frequency)
+        public  void Generate(IEnumerable<Preset> presets, Frequency frequency)
         {
             foreach (Preset p in presets)
             {
@@ -113,7 +117,7 @@ namespace Wetr.Simulator.Wpf.BusinessLogic
                             p.GeneratedData.Add(s, new List<Measurement>());
 
                         p.GeneratedData[s].Add(m);
-                        bool res = measurementDao.InsertAsync(m).Result;
+                        bool? res = measurementDao?.InsertAsync(m).Result;
                         Console.WriteLine(m);
                     }
 
