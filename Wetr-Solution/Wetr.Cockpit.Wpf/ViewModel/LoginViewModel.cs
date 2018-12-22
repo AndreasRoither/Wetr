@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows.Controls;
 using Wetr.BusinessLogic;
 using Wetr.Cockpit.Wpf.Utility;
 using Wetr.Cockpit.Wpf.Views;
@@ -71,6 +72,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         // https://stackoverflow.com/questions/15390727/passwordbox-and-mvvm/15391318#15391318
         public async void ExecuteLoginCommand(object obj)
         {
+            /* for test cases
             User user = new User();
             user.UserId = 1;
             user.FirstName = "Teddy";
@@ -78,8 +80,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             MainWindow.SetContentControl(new MainContentView());
             notifierManager.ShowSuccess($"Welcome {loggedInUser.FirstName}");
-
-            /*
+            */
+            
             PasswordBox pwBox = obj as PasswordBox;
 
             try
@@ -94,7 +96,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
 
             if (loggedInUser == null)
             {
-                LoginMessage = "Login failed!";
+                //LoginMessage = "Login failed!";
                 notifierManager.ShowError($"Login failed!");
             }
             else
@@ -103,7 +105,6 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 notifierManager.ShowSuccess($"Welcome {loggedInUser.FirstName}");
                 MainWindow.SetContentControl(new MainContentView());
             }
-            */
         }
 
         public override void Cleanup()
