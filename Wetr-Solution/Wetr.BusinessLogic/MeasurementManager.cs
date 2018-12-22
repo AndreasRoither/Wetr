@@ -45,7 +45,7 @@ namespace Wetr.BusinessLogic
 
             SetupTwitter();
 
-            /* Twitter Testing  */
+            /* Twitter Testing  
 
             Measurement m = new Measurement()
             {
@@ -58,6 +58,8 @@ namespace Wetr.BusinessLogic
             };
 
             bool res = AddMeasurement(m).Result;
+
+            */
 
         }
 
