@@ -5,13 +5,15 @@ Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welche in
     \item \textbf{Common.Dal.Ado}:\newline Hier befinden sich Hilfsklassen, die den Umgang mit ADO.NET leichter gstalten.
     \item \textbf{Wetr.Domain}:\newline Dieses Projekt beinhaltet die Domainobjekte, welche als einfache Datenbehälter genutzt werden.
     \item \textbf{Wetr.BusinessLogic}:\newline Die Business Logik für \textit{Wetr.Simulator.Wpf} und \textit{Wetr.Cockpit.Wpf}. Beinhaltet die Anbindung an die benötigten \textit{ADO.NET} Implementierungen.
+    \item \textbf{Wetr.BusinessLogic.Interface}:\newline Hier werden die Interfaces der einzelnen Manager definiert.
     \item \textbf{Wetr.Dal.Interface}:\newline In diesem Paket befinden sich die Interfaces für die Datenzugriffschricht für jedes Domainobjekt bzw. Tabelle.
     \item \textbf{Wetr.Dal.Ado}:\newline Die ADO.NET Implementierung der Datenzugriffsschicht Interfaces.
     \item \textbf{Wetr.Dal.Factory}:\newline Beinhaltet Factories um die Instanziierung der benötigen komkreten Klassen zu abstrahieren.
-    \item \textbf{Wetr.Test.Dal}:\newline Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
     \item \textbf{Wetr.Generator}: Zuständig für das Generieren von Messdaten für die einzelnen Stationen.
-    \item \textbf{Wetr.Cockpit.Wpf}:\newline Cockpit Programm, verwendet WPF, MVVM Light Toolkit\footnote{http://www.mvvmlight.net/}, MahAppsMetro\footnote{https://mahapps.com/} und LiveCharts\footnote{https://lvcharts.net/} um Usern die Möglichkeit zu geben Messtationen anzuzeigen bzw ändern zu können.
+    \item \textbf{Wetr.Cockpit.Wpf}:\newline Cockpit Programm, verwendet WPF, MVVM Light Toolkit\footnote{http://www.mvvmlight.net}, MahAppsMetro\footnote{https://mahapps.com} und LiveCharts\footnote{https://lvcharts.net} um Usern die Möglichkeit zu geben Messtationen anzuzeigen bzw ändern zu können.
     \item \textbf{Wetr.Simulator.Wpf}:\newline Simulator Programm, verwendet ebenfalls WPF, MVVM Light Framework, MahAppsMetro und LiveCharts. Hier können Messwerte für Stationen generiert werden.
+    \item \textbf{Wetr.Test.Dal}:\newline Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
+    \item \textbf{Wetr.Test.BusinessLogic}:\newline Dieses Projekt beinhaltet Unit-Tests für die BusinessLogic.
 \end{itemize}
 
 \newpage
@@ -20,9 +22,21 @@ Das \textit{Common.Dal.Ado} Projekt verwendet die Klassen \textit{AdoTemplate}, 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.6\textwidth]{pictures/Common_Dal_Ado_ClassDiagramm.png}
+\includegraphics[width=.8\textwidth]{pictures/Common_Dal_Ado_ClassDiagramm.png}
 \caption{Common.Dal.Ado UML Diagramm}
 \label{fig:common.dal.ado}
+\end{figure}
+\raggedright
+
+\newpage
+\subsection{Wetr.BusinessLogic.Interface}
+Das \textit{Wetr.BusinessLogic.Interface} Projekt definiert die Schnittstellen für die Manager in dem \textit{Wetr.BusinessLogic} Projekt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/BusinessLogic_Interface.png}
+\caption{Wetr.BusinessLogic.Interface UML Diagramm}
+\label{fig:Wetr.BusinessLogic}
 \end{figure}
 \raggedright
 
@@ -56,12 +70,13 @@ Mit den Klassen im \textit{Wetr.Dal.Ado} Projekt kann eine Verbindung zur Datenb
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{pictures/Wetr_Dal_Ado.png}
+\includegraphics[width=\textwidth]{pictures/Wetr_Dal_Ado.png}
 \caption{Wetr.Dal.Ado UML Diagramm}
 \label{fig:Wetr.Dal.Ado}
 \end{figure}
 \raggedright
 
+\newpage
 \subsection{Wetr.Dal.Factory}
 Im \textit{Wetr.Dal.Factory} Projekt wird eine Klasse \textit{AdoFactory} bereitgestellt mit deren Hilfe ein \textit{Dao} Objekt erstellt werden kann.
 
@@ -91,8 +106,8 @@ Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{pictures/Wetr_Test_Dal.png}
-\caption{Wetr.Domain UML Diagramm}
+\includegraphics[width=\textwidth]{pictures/Wetr_Test_Dal.png}
+\caption{Wetr.Test.Dal UML Diagramm}
 \label{fig:Wetr.Test.Dal}
 \end{figure}
 \raggedright
@@ -106,10 +121,29 @@ Beim \textit{Wetr.Test.Dal} Projekt werden alle Funktionen von jedem \textit{Dao
 \raggedright
 
 \newpage
+\subsection{Wetr.Test.BusinessLogic}
+Beim \textit{Wetr.Test.BusinessLogic} Projekt werden alle Funktionen der einzelnen Manager des \textit{Wetr.BusinessLogic} Projekts getestet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/Wetr_Test_BusinessLogic.png}
+\caption{Wetr.Test.BusinessLogic UML Diagramm}
+\label{fig:Wetr.Test.Dal}
+\end{figure}
+\raggedright
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/bl_tests.png}
+\caption{Beweis, dass die BusinessLogic UnitTests durchlaufen.}
+\end{figure}
+\raggedright
+
+\newpage
 \subsection{Wetr.Generator}
 \label{sec:generator}
 
-Der Generator generiert pro \textit{MeasurementType} eine eigene Datei, in der sich die generierten Messdaten befinden. Pro Typ werden nicht genau gleich viele Messdaten generiert, somit ergibt sich eine Summe von etwa 1.2 Millionen Messdaten. Das Format der erzeugten Dateien ist so gestaltet, damit es mit einem speziellen SQL Befehl mittels Bulk-Insert\footnote{https://stackoverflow.com/questions/14330314/bulk-insert-in-mysql} sehr schnell in die Datenbank aufgenommen werden kann. Die generierten Daten haben einen Zeitstempel, der sich innerhalb von einem Jahr bewegt.~\\~\\ %WTF LaTeX?
+Der Generator generiert pro \textit{MeasurementType} eine eigene Datei, in der sich die generierten Messdaten befinden. Pro Typ werden nicht genau gleich viele Messdaten generiert, somit ergibt sich eine Summe von etwa 1.2 Millionen Messdaten. Das Format der erzeugten Dateien ist so gestaltet, damit es mit einem speziellen SQL Befehl mittels Bulk-Insert\footnote{https://dev.mysql.com/doc/refman/8.0/en/load-data.html} sehr schnell in die Datenbank aufgenommen werden kann. Die generierten Daten haben einen Zeitstempel, der sich innerhalb von einem Jahr bewegt.~\\~\\ %WTF LaTeX?
 
 \textbf{Temperatur}\\
 Es wird jede Stunde ein Messwert generiert, der je nach Jahreszeit die Temperatur nach natürlichem Verlauf, sprich zur Mittagszeit ist es am wärmste und in der Nacht am kältesten, gestaltet. Die Werte beinhalten eine zufällige Abweichung von $\pm 1.25$. Der Minimal- bzw. Maximalwert wird pro Jahreszeit nach klimatabelle.info festgelegt.~\\~\\ %WTF LaTeX?
@@ -127,19 +161,22 @@ Jede Stunde wird ein Luftdruckwert generiert, der zufällig zwischen $900$ und $
 Die Windrichtung ändert sich in dieser einfachen Simulation jede Stunde und kann von $0$ bis $360$ Grad betragen.~\\~\\ %WTF LaTeX?
 
 \textbf{Windstärke}\\
-Die Generierung der Windstärke ist in der aktuellen Ausbaustufe sehr primitiv gehalten und ändert sich stündlich zufällig von $0$ und $20\ km/h$
+Die Generierung der Windstärke ist in der aktuellen Ausbaustufe sehr primitiv gehalten und ändert sich stündlich zufällig von $0$ und $20\ km/h$.
 
 
 \newpage
 \subsection{Wetr.Cockpit.Wpf}
-Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip erstellt.\textit{Views} und \textit{ViewModels} werden verwendet und mithilfe von \textit{DataBinding} werden vom \textit{ViewModel} Daten bei der \textit{View} angezeigt. Nach dem erfolgreichen Login bietet das Cockpit Usern die Möglichkeit Messtationen zu editieren bzw hinzuzufügen. Im weiteren ist es dem User auch möglich die Messwerte seiner Stationen zu aggregieren.
+Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip\footnote{https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm} erstellt.\textit{Views} und \textit{ViewModels} werden verwendet und mithilfe von \textit{DataBinding} wird vom \textit{ViewModel} Daten bei der \textit{View} angezeigt. Nach dem erfolgreichen Login bietet das Cockpit Usern die Möglichkeit Messtationen zu editieren bzw hinzuzufügen. Im weiteren ist es dem User auch möglich die Messwerte seiner Stationen zu aggregieren.
 \newline
 \newline
 Das Hauptprogramm (nach dem Login) ist in drei verschiedenen Tabs eingeteilt: \newline\textit{Home}, \textit{Analysis} und \textit{Stations}.
 \newline
 \newline
 \textbf{Login}\newline
-Beim Login wird in der Datenbank abgefragt ob der User mit der Email und dem Passwort in der Datenbank vorhanden ist. Das Passwort wird mithilfe von BCrypt.Net\footnote{https://www.nuget.org/packages/BCrypt.Net/} auf Gültigkeit überprüft.
+Beim Login wird in der Datenbank abgefragt ob der User mit der Email und dem Passwort in der Datenbank vorhanden ist. Das Passwort wird mithilfe von BCrypt.Net\footnote{https://www.nuget.org/packages/BCrypt.Net} auf Gültigkeit überprüft. \newline\newline
+Ein Standard Benutzer:\newline
+\textbf{Email}: test@test.com\newline
+\textbf{Passwort}: 1234
 
 \begin{figure}[H]
 \centering
@@ -169,6 +206,14 @@ Hier wird die Aggregation der Messwerte der Stationen ermöglicht. Einzelne Stat
 \includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_3.png}
 \caption{Analysis View}
 \label{fig:Wetr.Cockpit.Wpf.Analysis}
+\end{figure}
+\raggedright
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{pictures/Cockpit/Cockpit_3_1.png}
+\caption{Analysis View Aggregate Window}
+\label{fig:Wetr.Cockpit.Wpf.Analysis2}
 \end{figure}
 \raggedright
 
