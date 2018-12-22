@@ -82,9 +82,33 @@
                 
                 <TextBlock Grid.Row="4" Text="Location Based" FontSize="20" Margin="10"/>
 
-                <ComboBox Grid.Row="6" Margin="10,10,10,10" ItemsSource="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}"/>
-                <ComboBox Grid.Row="7" Margin="10,10,10,10" ItemsSource="{Binding Districts}" SelectedItem="{Binding SelectedDistrict}"/>
-                <ComboBox Grid.Row="8" Margin="10,10,10,10" ItemsSource="{Binding Communities}" SelectedItem="{Binding SelectedCommunity}"/>
+                <ComboBox Grid.Row="6" Margin="10,10,10,10" ItemsSource="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Grid.Row="7" Margin="10,10,10,10" ItemsSource="{Binding Districts}" SelectedItem="{Binding SelectedDistrict}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Grid.Row="8" Margin="10,10,10,10" ItemsSource="{Binding Communities}" SelectedItem="{Binding SelectedCommunity}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
             
             <Grid Grid.Column="1">
