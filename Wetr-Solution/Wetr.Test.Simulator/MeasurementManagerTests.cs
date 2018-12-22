@@ -42,6 +42,29 @@ namespace Wetr.Test.Simulator
         }
 
         [TestMethod]
+        public void TestAddMeasurement()
+        {
+            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Loose);
+            Task<bool> result = new Task<bool>(() => true);
+            result.RunSynchronously();
+
+            Measurement me = new Measurement()
+            {
+                MeasurementId = 3,
+                MeasurementTypeId = 3,
+                TimesStamp = DateTime.Now,
+                UnitId = 1,
+                Value = 3.4d,
+                StationId = 3,
+            };
+
+            dao.Setup(d => d.InsertAsync(It.IsAny<Measurement>())).Returns(result);
+            MeasurementManager m = new MeasurementManager(dao.Object);
+            var res = m.AddMeasurement(me).Result;
+            dao.Verify(d => d.InsertAsync(me), Times.Once);
+        }
+
+        [TestMethod]
         public void TestGetNumberOfMeasurementsAsync()
         {
             Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
