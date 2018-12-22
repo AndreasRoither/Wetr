@@ -75,6 +75,21 @@ namespace Wetr.BusinessLogic
             }
         }
 
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations)
+        {
+            return await measurementDao.GetQueryResult(start, end, measurementTypeId, reductionTypeId, groupingTypeId, stations);
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, District disctrict)
+        {
+            return await measurementDao.GetQueryResult(start, end, measurementTypeId, reductionTypeId, groupingTypeId, stations, disctrict);
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, Province province)
+        {
+            return await measurementDao.GetQueryResult(start, end, measurementTypeId, reductionTypeId, groupingTypeId, stations, province);
+        }
+
         public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, Community community)
         {
             return await measurementDao.GetQueryResult(start, end, measurementTypeId, reductionTypeId, groupingTypeId,  stations, community);

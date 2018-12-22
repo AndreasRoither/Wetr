@@ -107,7 +107,7 @@ namespace Wetr.Test.Simulator
                 )).Returns(result);
 
             MeasurementManager m = new MeasurementManager(dao.Object);
-            double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null, null).Result;
+            double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null, new Community()).Result;
             Assert.AreEqual(result.Result, res);
         }
 
@@ -135,5 +135,69 @@ namespace Wetr.Test.Simulator
             double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null, 0,0,0).Result;
             Assert.AreEqual(result.Result, res);
         }
+
+
+        [TestMethod]
+        public void TestGetQueryResultDistrict()
+        {
+            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
+            Task<double[]> result = new Task<double[]>(() => new double[] { 2.3, 4.33 });
+            result.RunSynchronously();
+            dao.Setup(d => d.GetQueryResult(
+                It.IsAny<DateTime>(),
+                It.IsAny<DateTime>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<List<Station>>(),
+                It.IsAny<District>()
+                )).Returns(result);
+
+            MeasurementManager m = new MeasurementManager(dao.Object);
+            double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null, new District()).Result;
+            Assert.AreEqual(result.Result, res);
+        }
+
+        [TestMethod]
+        public void TestGetQueryResultProvince()
+        {
+            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
+            Task<double[]> result = new Task<double[]>(() => new double[] { 2.3, 4.33 });
+            result.RunSynchronously();
+            dao.Setup(d => d.GetQueryResult(
+                It.IsAny<DateTime>(),
+                It.IsAny<DateTime>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<List<Station>>(),
+                It.IsAny<Province>()
+                )).Returns(result);
+
+            MeasurementManager m = new MeasurementManager(dao.Object);
+            double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null, new Province()).Result;
+            Assert.AreEqual(result.Result, res);
+        }
+
+        [TestMethod]
+        public void TestGetQueryResult()
+        {
+            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
+            Task<double[]> result = new Task<double[]>(() => new double[] { 2.3, 4.33 });
+            result.RunSynchronously();
+            dao.Setup(d => d.GetQueryResult(
+                It.IsAny<DateTime>(),
+                It.IsAny<DateTime>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<List<Station>>()
+                )).Returns(result);
+
+            MeasurementManager m = new MeasurementManager(dao.Object);
+            double[] res = m.GetQueryResult(DateTime.Now, DateTime.Now, 0, 0, 0, null).Result;
+            Assert.AreEqual(result.Result, res);
+        }
+
     }
 }

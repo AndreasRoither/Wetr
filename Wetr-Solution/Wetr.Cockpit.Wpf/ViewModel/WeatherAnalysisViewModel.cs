@@ -284,6 +284,7 @@ namespace Wetr.Cockpit.Wpf.ViewModel
                 ExecuteApplyAnalysis,
                 CanExecuteAnalysis
                 );
+
         }
 
         private bool CanExecuteAnalysis()
@@ -346,14 +347,31 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             }
             else
             {
-                if (SelectedCommunity != null)
+                if (SelectedCommunity != null && SelectedCommunity.CommunityId != -1)
                 {
                     notifierManager.ShowInformation("Fetching results based on the selected community...");
                     result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), this.SelectedCommunity);
+                }else if (SelectedDistrict != null &&  SelectedDistrict.DistrictId != -1)
+                {
+                    notifierManager.ShowInformation("Fetching results based on the selected district...");
+                    result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), this.SelectedDistrict);
+                }
+                else if (SelectedProvince != null && SelectedProvince.ProvinceId != -1)
+                {
+                    if(SelectedProvince.ProvinceId == -2)
+                    {
+                        notifierManager.ShowInformation("Fetching results based on every region...");
+                        result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList());
+                    }
+                    else
+                    {
+                        notifierManager.ShowInformation("Fetching results based on the selected province...");
+                        result = await measurementManager.GetQueryResult(StartDate, EndDate, measurementTypeId, reductionTypeId, groupingTypeId, this.selectedStations.ToList(), this.SelectedProvince);
+                    }
                 }
                 else
                 {
-                    notifierManager.ShowError("Please select a community or enter coordinates to filter the location!");
+                    notifierManager.ShowError("Please select a region or enter coordinates to filter the location!");
                     return;
                 }
             }
@@ -418,11 +436,21 @@ namespace Wetr.Cockpit.Wpf.ViewModel
             {
                 this.availableStations = new ObservableCollection<Station>((await stationManager.GetAllStations()).ToList());
                 availableStationsCollection.Source = this.availableStations;
+
                 this.Countries = (await addressManager.GetAllCountries()).ToList();
                 this.Provinces = (await addressManager.GetAllProvinces()).ToList();
                 this.Districts = (await addressManager.GetAllDistricts()).ToList();
                 this.Communities = (await addressManager.GetAllCommunities()).ToList();
                 this.StationTypes = (await stationManager.GetStationTypes()).ToList();
+
+                this.Countries.Insert(0, new Country() { CountryId = -1, Name = "Use Parent" });
+
+                this.Provinces.Insert(0, new Province() { ProvinceId = -2, Name = "Every Province" });
+                this.Provinces.Insert(0, new Province() { ProvinceId = -1, Name = "None" });
+
+                this.Districts.Insert(0, new District() { DistrictId = -1, Name = "None" });
+                this.Communities.Insert(0, new Community() { CommunityId = -1, Name = "None" });
+
                 RaisePropertyChanged(nameof(AvailableStations));
             }
             catch (BusinessSqlException ex)

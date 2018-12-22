@@ -222,6 +222,80 @@ namespace Wetr.Dal.Ado
             return result.ToArray();
         }
 
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, District district)
+        {
+
+            string reductionString = GetReductionString(reductionTypeId);
+            string groupingString = GetGroupingString(groupingTypeId);
+            string stationFilter = GetStationFilter(stations);
+
+
+            string sql = "select " + reductionString + " as value from measurement " +
+                "INNER JOIN station using (stationId) " +
+                "INNER JOIN address USING(addressId) " +
+                "INNER JOIN community using (communityId) where districtId = @districtId and measurementTypeId = @type and " + stationFilter + " timestamp >= @from and timestamp <= @to GROUP BY " + groupingString;
+
+            var result = await this.template.QueryAsync(
+                  sql,
+                  MapToDouble,
+                  new Parameter("@type", measurementTypeId),
+                  new Parameter("@from", start),
+                  new Parameter("@districtId", district.DistrictId),
+                  new Parameter("@to", end));
+
+
+            return result.ToArray();
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, Province province)
+        {
+
+            string reductionString = GetReductionString(reductionTypeId);
+            string groupingString = GetGroupingString(groupingTypeId);
+            string stationFilter = GetStationFilter(stations);
+
+
+            string sql = "select " + reductionString + " as value from measurement " +
+                "INNER JOIN station using (stationId) " +
+                "INNER JOIN address USING(addressId) " +
+                "INNER JOIN community using (communityId) " +
+                "INNER JOIN district using (districtId) where provinceId = @provinceId and measurementTypeId = @type and " + stationFilter + " timestamp >= @from and timestamp <= @to GROUP BY " + groupingString;
+
+            var result = await this.template.QueryAsync(
+                  sql,
+                  MapToDouble,
+                  new Parameter("@type", measurementTypeId),
+                  new Parameter("@from", start),
+                  new Parameter("@provinceId", province.ProvinceId),
+                  new Parameter("@to", end));
+
+
+            return result.ToArray();
+        }
+
+        public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations)
+        {
+
+            string reductionString = GetReductionString(reductionTypeId);
+            string groupingString = GetGroupingString(groupingTypeId);
+            string stationFilter = GetStationFilter(stations);
+
+
+            string sql = "select " + reductionString + " as value from measurement " +
+                "INNER JOIN station using (stationId) WHERE measurementTypeId = @type and " + stationFilter + " timestamp >= @from and timestamp <= @to GROUP BY " + groupingString;
+
+            var result = await this.template.QueryAsync(
+                  sql,
+                  MapToDouble,
+                  new Parameter("@type", measurementTypeId),
+                  new Parameter("@from", start),
+                  new Parameter("@to", end));
+
+
+            return result.ToArray();
+        }
+
+
         public async Task<double[]> GetQueryResult(DateTime start, DateTime end, int measurementTypeId, int reductionTypeId, int groupingTypeId, List<Station> stations, decimal lat, decimal lon, int radius)
         {
             string reductionString = GetReductionString(reductionTypeId);
