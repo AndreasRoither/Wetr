@@ -18,10 +18,15 @@ namespace Wetr.BusinessLogic
       
         }
 
+        public async Task<bool> AddMeasurement(Measurement m)
+        {
+            return await measurementDao.InsertAsync(m);
+        }
+
         #region functions
 
 
-      
+
         public async Task<double[]> GetDashbardTemperaturesAsync()
         {
             try
