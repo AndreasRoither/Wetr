@@ -145,7 +145,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         public SimulationViewModel()
         {
 
-            this.generator = new BusinessLogic.Generator(AdoFactory.Instance.GetMeasurementDao());
+            this.generator = new BusinessLogic.Generator(AdoFactory.Instance.GetMeasurementDao("wetr"));
 
             SeriesCollection = new SeriesCollection();
             Labels = new ObservableCollection<string>();

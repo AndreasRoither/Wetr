@@ -6,7 +6,7 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:Wetr.Simulator.Wpf.Views"
              xmlns:ext="clr-namespace:Wetr.Simulator.Wpf.Extension"
-             xmlns:mdl="clr-namespace:Wetr.Simulator.Wpf.Model"
+             xmlns:mdl="clr-namespace:Wetr.BusinessLogic;assembly=Wetr.BusinessLogic"
              mc:Ignorable="d"
              Height="490"
              Width="752"
