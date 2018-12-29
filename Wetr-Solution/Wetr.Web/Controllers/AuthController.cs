@@ -5,8 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using Wetr.Dal.Factory;
+using Wetr.Dal.Interface;
+using Wetr.Domain;
+using Wetr.Web.BL;
 using Wetr.Web.Requests;
 using Wetr.Web.Responses;
 
@@ -25,13 +30,13 @@ namespace Wetr.Web.Controllers
         [SwaggerRequestExample(typeof(LoginRequest), typeof(LoginRequestExample))]
 
         /* Responses */
-        [SwaggerResponse(HttpStatusCode.OK, "Successful login.", typeof(LoginResponse))]
-        [SwaggerResponseExample(HttpStatusCode.OK, typeof(LoginResponseExample))]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful login.", typeof(TokenResponse))]
+        [SwaggerResponseExample(HttpStatusCode.OK, typeof(TokenResponseExample))]
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
 
-        public IHttpActionResult Login(LoginRequest request)
+        public async Task<IHttpActionResult> Login(LoginRequest request)
         {
             /* Check if model is valid */
             if (!ModelState.IsValid)
@@ -39,10 +44,18 @@ namespace Wetr.Web.Controllers
                 return Content(HttpStatusCode.BadRequest, new object());
             }
 
-            return Ok(new LoginResponse()
+            /* Validate credentials agains database */
+            IUserDao userDao = AdoFactory.Instance.GetUserDao("wetr");
+            User user = await userDao.FindByEmailAsync(request.Email);
+
+            /* If the user is not found or the password is invalid */
+            if(user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
             {
-                Token = "foeuwihgfi8ophewopug"
-            });
+                return Content(HttpStatusCode.Unauthorized, new object());
+            }
+
+            return Ok(JwtHelper.Instance.Generate(1));
+
         }
 
         #endregion

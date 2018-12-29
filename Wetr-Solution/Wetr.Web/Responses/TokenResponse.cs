@@ -9,8 +9,9 @@ using System.Web.Http;
 
 namespace Wetr.Web.Responses
 {
-    public class LoginResponse
+    public class TokenResponse
     {
         public string Token { get; set; }
+
     }
 }
