@@ -3,6 +3,7 @@ using WebActivatorEx;
 using Wetr.Web;
 using Swashbuckle.Application;
 using Swashbuckle.Examples;
+using Wetr.Web.BL;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -159,7 +160,7 @@ namespace Wetr.Web
                         // to execute the operation
                         //
                         //c.OperationFilter<AssignOAuth2SecurityRequirements>();
-
+                        c.OperationFilter<AuthHeaderFilter>();
                         // Post-modify the entire Swagger document by wiring up one or more Document filters.
                         // This gives full control to modify the final SwaggerDocument. You should have a good understanding of
                         // the Swagger 2.0 spec. - https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md

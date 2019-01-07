@@ -52,7 +52,16 @@ namespace Wetr.Web.BL
         /* Check if token is still valid */
         public bool IsValid(string token)
         {
-            var jwttoken = this.Handler.ReadJwtToken(token);
+            JwtSecurityToken jwttoken = null;
+            try
+            {
+                jwttoken = this.Handler.ReadJwtToken(token);
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             DateTime expirationDate = DateTime.Parse(jwttoken.Claims.FirstOrDefault(claim => claim.Type == "exp").Value);
             return expirationDate > DateTime.Now;
         }
@@ -61,7 +70,7 @@ namespace Wetr.Web.BL
         public int GetUserId(string token)
         {
 
-            if(!IsValid(token))
+            if (!IsValid(token))
                 throw new ExpiredTokenException();
 
             var jwttoken = this.Handler.ReadJwtToken(token);

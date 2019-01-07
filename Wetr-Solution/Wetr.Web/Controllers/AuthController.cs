@@ -54,7 +54,7 @@ namespace Wetr.Web.Controllers
                 return Content(HttpStatusCode.Unauthorized, new object());
             }
 
-            return Ok(JwtHelper.Instance.Generate(1));
+            return Ok(JwtHelper.Instance.Generate(user.UserId));
 
         }
 

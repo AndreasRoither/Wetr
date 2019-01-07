@@ -115,7 +115,10 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BL\AuthHeaderFilter.cs" />
+    <Compile Include="BL\JWTAttribute.cs" />
     <Compile Include="BL\JwtHelper.cs" />
+    <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
