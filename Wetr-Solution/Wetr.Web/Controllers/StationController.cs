@@ -45,21 +45,38 @@ namespace Wetr.Web.Controllers
         }
 
 
-        [Route("")]
+        [Route("{stationId}")]
         [HttpDelete]
         [JWT]
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
         [SwaggerResponse(HttpStatusCode.OK, "Delete request successful.", null)]
-        [SwaggerResponse(HttpStatusCode.Forbidden, "Only own stations can be deleted or there are already measurements present for this station.", null)]
+        [SwaggerResponse(HttpStatusCode.Forbidden, "Stations to delete cannot have associated measurmenets.", null)]
 
-        public IHttpActionResult DeleteStation(StationDTO station)
+        public async Task<IHttpActionResult> DeleteStation(int stationId)
         {
-            // TODO:
-            // Nonexistent: Bad Request
-            // Not own station or measurements: Forbidden
-            // Else OK
+
+            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            int userId = JwtHelper.Instance.GetUserId(token);
+
+            IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
+            IEnumerable<Station> stations = await stationDao.FindByUserIdAsync(userId);
+
+            if (stations.Where(s => s.StationId == stationId).Count() == 0)
+            {
+                /* No station found so it might have been already deleted. */
+                return Content(HttpStatusCode.OK, new object());
+            }
+
+            IMeasurementDao measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
+            if ((await measurementDao.FindByStationIdAsync(stationId)).Count() > 0)
+            {
+                /* There must not be any measurmenets associated with this station. */
+                return Content(HttpStatusCode.Forbidden, new object());
+            }
+
+            await stationDao.DeleteAsync(stationId);
 
             return Content(HttpStatusCode.OK, new object());
         }
