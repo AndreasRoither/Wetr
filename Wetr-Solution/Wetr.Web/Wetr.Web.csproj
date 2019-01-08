@@ -118,6 +118,7 @@
     <Compile Include="BL\AuthHeaderFilter.cs" />
     <Compile Include="BL\JWTAttribute.cs" />
     <Compile Include="BL\JwtHelper.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="DTOs\StationDTO.cs" />
