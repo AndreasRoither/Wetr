@@ -27,21 +27,11 @@ namespace Wetr.Web.Controllers
         [JWT]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
-        [SwaggerResponse(HttpStatusCode.Created, "Station was created successfully.", typeof(StationDTO))]
-        public IHttpActionResult CreateStation(StationDTO station)
+        [SwaggerResponse(HttpStatusCode.Created, "Station was created successfully.")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, "You do not have permission to add this station.", null)]
+        public async Task<IHttpActionResult> CreateStation(StationDTO station)
         {
-            return Content(HttpStatusCode.NotImplemented, new object());
-        }
 
-        [Route("")]
-        [HttpPut]
-        [JWT]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
-        [SwaggerResponse(HttpStatusCode.Forbidden, "You do not have permission to edit this station.", null)]
-        [SwaggerResponse(HttpStatusCode.OK, "Edit request successful.", typeof(StationDTO))]
-        public IHttpActionResult EditStation(StationDTO station)
-        {
 
             /* Check if model is valid */
             if (!ModelState.IsValid)
@@ -53,8 +43,87 @@ namespace Wetr.Web.Controllers
                 return Content(HttpStatusCode.BadRequest, errors);
             }
 
-            // TODO: Edit Station
-            return Content(HttpStatusCode.NotImplemented, new object());
+            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            int userId = JwtHelper.Instance.GetUserId(token);
+
+            IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
+            IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
+
+            if (userId != station.UserId)
+            {
+                return Content(HttpStatusCode.Forbidden, new object());
+            }
+
+            await addressDao.InsertAsync(new Address()
+            {
+                CommunityId = station.CommunityId,
+                Location = station.Location,
+                Zip = "NO_ZIP"
+            });
+
+            int newAddressId = Convert.ToInt32((await addressDao.GetNextId()) - 1);
+
+            /* Cleanup */
+            station.AddressId = newAddressId;
+            station.StationId = 0;
+            station.UserId = userId;
+
+            await stationDao.InsertAsync(station.ToStation());
+
+            return Content(HttpStatusCode.OK, new object());
+        }
+
+        [Route("")]
+        [HttpPut]
+        [JWT]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
+        [SwaggerResponse(HttpStatusCode.Forbidden, "You do not have permission to edit this station.", null)]
+        [SwaggerResponse(HttpStatusCode.OK, "Edit request successful.", null)]
+        public async Task<IHttpActionResult> EditStationAsync(StationDTO station)
+        {
+
+            /* Check if model is valid */
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.ToDictionary(
+                                                             kvp => kvp.Key,
+                                                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                               );
+                return Content(HttpStatusCode.BadRequest, errors);
+            }
+            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            int userId = JwtHelper.Instance.GetUserId(token);
+
+            IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
+            Station stationToEdit = await stationDao.FindByIdAsync(station.StationId);
+
+            /* If the station doesn't belong to the user */
+            if (stationToEdit.UserId != userId)
+            {
+                return Content(HttpStatusCode.Forbidden, new object());
+            }
+
+            /* Create new address */
+            IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
+
+            await addressDao.UpdateAsync(new Address()
+            {
+                AddressId = stationToEdit.AddressId,
+                CommunityId = station.CommunityId,
+                Location = station.Location,
+                Zip = "NO_ZIP"
+
+            });
+
+            int newAddressId = Convert.ToInt32((await addressDao.GetNextId()) - 1);
+            station.AddressId = newAddressId;
+
+
+            /* Edit Station */
+            await stationDao.UpdateAsync(station.ToStation());
+
+            return Content(HttpStatusCode.OK, new object());
         }
 
 

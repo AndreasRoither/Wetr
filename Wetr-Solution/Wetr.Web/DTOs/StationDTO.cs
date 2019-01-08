@@ -37,14 +37,31 @@ namespace Wetr.Web.DTOs
         [Required]
         public string Name { get; set; }
 
-        [Range(double.MinValue, double.MaxValue, ErrorMessage = "Der Wert muss im double Wertebereich sein.")]
+        [Required]
+        public string Location { get; set; }
+
+        [Range(-90.0,90.0, ErrorMessage = "Kein valider Wert für eine Latitude.")]
         public decimal Latitude { get; set; }
 
-        [Range(double.MinValue, double.MaxValue, ErrorMessage = "Der Wert muss im double Wertebereich sein.")]
+        [Range(-180.0, 180.0, ErrorMessage = "Kein valider Wert für eine Longitude.")]
         public decimal Longitude { get; set; }
 
         public StationDTO()
         {
+        }
+
+        public Station ToStation()
+        {
+            return new Station()
+            {
+                StationId = StationId,
+                AddressId = AddressId,
+                Latitude = Latitude,
+                Longitude = Longitude,
+                Name = Name,
+                StationTypeId = StationTypeId,
+                UserId = UserId
+            };
         }
 
         public StationDTO(Station station)
