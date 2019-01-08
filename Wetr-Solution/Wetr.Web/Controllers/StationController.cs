@@ -37,10 +37,23 @@ namespace Wetr.Web.Controllers
         [HttpPut]
         [JWT]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
+        [SwaggerResponse(HttpStatusCode.Forbidden, "You do not have permission to edit this station.", null)]
         [SwaggerResponse(HttpStatusCode.OK, "Edit request successful.", typeof(StationDTO))]
         public IHttpActionResult EditStation(StationDTO station)
         {
+
+            /* Check if model is valid */
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.ToDictionary(
+                                                             kvp => kvp.Key,
+                                                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                               );
+                return Content(HttpStatusCode.BadRequest, errors);
+            }
+
+            // TODO: Edit Station
             return Content(HttpStatusCode.NotImplemented, new object());
         }
 

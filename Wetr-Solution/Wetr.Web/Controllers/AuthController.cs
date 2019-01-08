@@ -34,14 +34,17 @@ namespace Wetr.Web.Controllers
         [SwaggerResponseExample(HttpStatusCode.OK, typeof(TokenResponseExample))]
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
 
         public async Task<IHttpActionResult> Login(LoginRequest request)
         {
             /* Check if model is valid */
             if (!ModelState.IsValid)
             {
-                return Content(HttpStatusCode.BadRequest, new object());
+                return Content(HttpStatusCode.BadRequest, ModelState.ToDictionary(
+                                                             kvp => kvp.Key,
+                                                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                               ));
             }
 
             /* Validate credentials agains database */
@@ -49,7 +52,7 @@ namespace Wetr.Web.Controllers
             User user = await userDao.FindByEmailAsync(request.Email);
 
             /* If the user is not found or the password is invalid */
-            if(user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
             {
                 return Content(HttpStatusCode.Unauthorized, new object());
             }
