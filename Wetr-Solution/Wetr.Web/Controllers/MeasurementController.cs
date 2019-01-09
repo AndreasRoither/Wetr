@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
@@ -19,6 +20,7 @@ using Wetr.Web.Responses;
 namespace Wetr.Web.Controllers
 {
     [RoutePrefix("v1/measurements")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MeasurementController : ApiController
     {
 
@@ -28,7 +30,7 @@ namespace Wetr.Web.Controllers
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
-        [SwaggerResponse(HttpStatusCode.OK, "Measurement was posted successfully", null)]
+        [SwaggerResponse(HttpStatusCode.OK, "Measurement was posted successfully.", null)]
 
         public async Task<IHttpActionResult> PostMeasurement(MeasurementDTO measurement)
         {

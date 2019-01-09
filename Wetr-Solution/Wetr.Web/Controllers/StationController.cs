@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
@@ -19,6 +20,7 @@ using Wetr.Web.Responses;
 namespace Wetr.Web.Controllers
 {
     [RoutePrefix("v1/stations")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StationController : ApiController
     {
 
@@ -196,6 +198,7 @@ namespace Wetr.Web.Controllers
                 station.DistrictId = (await communitDao.FindByIdAsync(station.CommunityId)).DistrictId;
                 station.ProvinceId = (await districtDao.FindByIdAsync(station.DistrictId)).ProvinceId;
                 station.CountryId = (await provinceDao.FindByIdAsync(station.ProvinceId)).CountryId;
+                station.Location = (await addressDao.FindByIdAsync(station.AddressId)).Location;
 
                 convertedStations.Add(station);
 

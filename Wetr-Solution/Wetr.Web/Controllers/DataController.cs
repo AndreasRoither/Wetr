@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
@@ -18,6 +19,7 @@ using Wetr.Web.Responses;
 namespace Wetr.Web.Controllers
 {
     [RoutePrefix("v1/data")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DataController : ApiController
     {
 
