@@ -28,7 +28,7 @@ namespace Wetr.Web.Controllers
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
-        [SwaggerResponse(HttpStatusCode.OK, "Measurement was posted successful.ly", null)]
+        [SwaggerResponse(HttpStatusCode.OK, "Measurement was posted successfully", null)]
 
         public async Task<IHttpActionResult> PostMeasurement(MeasurementDTO measurement)
         {
