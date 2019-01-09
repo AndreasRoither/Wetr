@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Station } from 'src/app/services/DTOs/station';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'wetr-home',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  stations : Array<Station>
 
-  ngOnInit() {
+  constructor(private api : ApiService) { }
+
+  async ngOnInit() {
+    this.stations = await this.api.getStations()
+    console.log(this.stations)
   }
 
 }

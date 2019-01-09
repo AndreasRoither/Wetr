@@ -1,3 +1,20 @@
-<p>
-  home works!
-</p>
+<h1> My stations </h1>
+
+
+<div class="col-3" *ngFor="let station of stations" style="margin-bottom:15px">	
+  <div class="col-12">
+    {{ station.Name }}
+    <div class="row">
+      <div class="col-6">Location</div>
+      <div class="col-6">{{station.Location}}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">Lat</div>
+      <div class="col-6">{{station.Latitude}}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">Lon</div>
+      <div class="col-6">{{station.Longitude}}</div>
+    </div>
+  </div>
+</div>

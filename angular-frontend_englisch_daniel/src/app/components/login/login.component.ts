@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   async onSubmit () {
     this.loggingIn = true;
-    let response = await this.api.login({email: this.form.get("email").value, password: this.form.get("password").value});
+    let response = await this.api.login({Email: this.form.get("email").value, Password: this.form.get("password").value});
 
     if(response === true){
       this.loginFailed = false;
