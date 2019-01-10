@@ -20,9 +20,11 @@ namespace Wetr.Simulator.Wpf.ViewModel
     public class StationSelectionViewModel : ViewModelBase, IWetrViewModelBase
     {
         #region variables
+        // eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpZCAiOjEsImV4cCI6IjEwLjAxLjIwMTkgMjA6MDg6MDcifQ.vlgBjZ8a_pn0k9H6nd7igaMnpT3SNv_568nTJf0Qq-U
 
         private StationManager stationManager;
         private NotifierManager notifierManager = new NotifierManager();
+        private string apiConnectionString = "http://localhost:5000";
 
         private String availableStationsFilter;
 

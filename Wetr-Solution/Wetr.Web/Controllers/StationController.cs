@@ -185,13 +185,18 @@ namespace Wetr.Web.Controllers
             IProvinceDao provinceDao = AdoFactory.Instance.GetProvinceDao("wetr");
             ICountryDao countryDao = AdoFactory.Instance.GetCountryDao("wetr");
 
-            IEnumerable<Station> myStations = await stationDao.FindByUserIdAsync(userId);
+            IEnumerable<Station> myStations = null;
+
+            if (userId == 1)
+                myStations = await stationDao.FindAllAsync();
+            else
+                myStations = await stationDao.FindByUserIdAsync(userId);
+
             List<StationDTO> convertedStations = new List<StationDTO>();
 
             /* Infer location ids for convenience */
             foreach (var s in myStations)
             {
-
                 StationDTO station = new StationDTO(s);
 
                 station.CommunityId = (await addressDao.FindByIdAsync(station.AddressId)).CommunityId;
@@ -201,7 +206,6 @@ namespace Wetr.Web.Controllers
                 station.Location = (await addressDao.FindByIdAsync(station.AddressId)).Location;
 
                 convertedStations.Add(station);
-
             }
 
             return Content(HttpStatusCode.OK, convertedStations);
