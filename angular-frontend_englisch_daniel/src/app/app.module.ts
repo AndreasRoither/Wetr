@@ -12,6 +12,7 @@ import { MaterialModule } from './modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { EditStationComponent } from './components/edit-station/edit-station.component';
+import { AddStationComponent } from './components/add-station/add-station.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { EditStationComponent } from './components/edit-station/edit-station.com
     LoginComponent,
     HomeComponent,
     EditStationComponent,
+    AddStationComponent,
 
   ],
   imports: [
