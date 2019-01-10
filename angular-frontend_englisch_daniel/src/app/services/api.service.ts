@@ -40,7 +40,7 @@ export class ApiService {
       this.router.navigate(['/login'])
       return;
     }else{
-      this.loadStaticData().then(() => this.staticDataLoaded = true)
+      this.loadStaticData()
     }
 
   }
@@ -53,12 +53,18 @@ export class ApiService {
 
     this.staticDataLoaded = true
 
-      /* Load Data */
-      this.stationTypes = <Array<StationType>> await this.JwtGet(apiString + "/data/stationtypes")
-      this.countries = <Array<Country>> await this.JwtGet(apiString + "/data/countries")
-      this.provinces = <Array<Province>> await this.JwtGet(apiString + "/data/provinces")
-      this.districts = <Array<District>> await this.JwtGet(apiString + "/data/districts")
-      this.communities = <Array<Community>> await this.JwtGet(apiString + "/data/communities")
+    try {
+        /* Load Data */
+        this.stationTypes = <Array<StationType>> await this.JwtGet(apiString + "/data/stationtypes")
+        this.countries = <Array<Country>> await this.JwtGet(apiString + "/data/countries")
+        this.provinces = <Array<Province>> await this.JwtGet(apiString + "/data/provinces")
+        this.districts = <Array<District>> await this.JwtGet(apiString + "/data/districts")
+        this.communities = <Array<Community>> await this.JwtGet(apiString + "/data/communities")
+    } catch (error) {
+      this.router.navigate(['/login'])
+    }
+
+    
 
       console.log("Fetched static data!")
 
@@ -109,13 +115,15 @@ export class ApiService {
     this.token = payload.Token
     localStorage.setItem("token", this.token)
 
+    /* Load data in login */
+    await this.loadStaticData()
 
     return true
     
   }
 
   /***
-   * Auto Authorizing DELETE request
+   * Auto Authorizing PUT request
    */
   private async JwtPut(url:string, body : any){
 
@@ -128,6 +136,29 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", this.token);
     let response = await this.http.put(url,  body, {headers: headers, observe: 'response'}).toPromise();
+
+    if(response.status == 401){
+      this.router.navigate(['/login'])
+    }
+
+    return response
+
+  }
+
+    /***
+   * Auto Authorizing POST request
+   */
+  private async JwtPost(url:string, body : any){
+
+    /* If there is no token, login */
+    if(this.token == null){
+      this.router.navigate(['/login'])
+      throw new Error();
+    }
+
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", this.token);
+    let response = await this.http.post(url,  body, {headers: headers, observe: 'response'}).toPromise();
 
     if(response.status == 401){
       this.router.navigate(['/login'])
@@ -196,7 +227,20 @@ export class ApiService {
 
       return true
 
+  }
 
+
+  public async addStation(station : Station){
+    let response
+    try {
+      response = await this.JwtPost(apiString + "/stations", station)
+
+    } catch (error) {
+      return error.error
+
+    }
+
+      return true
 
   }
 
