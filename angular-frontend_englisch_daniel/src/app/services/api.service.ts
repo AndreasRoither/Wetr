@@ -4,13 +4,30 @@ import { Router } from '@angular/router';
 import { LoginRequest } from './requests/login.request';
 import { TokenResponse } from './responses/token.response';
 import { Station } from './DTOs/station';
+import { StationType } from './DTOs/stationtype';
+import { Country } from './DTOs/country';
+import { District } from './DTOs/district';
+import { Community } from './DTOs/community';
+import { Province } from './DTOs/province';
+
+const apiString : string = "http://localhost:5000/v1"
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class ApiService {
 
   private token : string = null
+  private staticDataLoaded : boolean = false
+
+  /* Static data: */
+  public stationTypes : Array<StationType>
+  public countries : Array<Country>
+  public districts : Array<District>
+  public communities : Array<Community>
+  public provinces : Array<Province>
 
 
   constructor(private http: HttpClient,  private router: Router){
@@ -21,8 +38,53 @@ export class ApiService {
     if(this.token == null){
       console.log("No token found! Requesting login.")
       this.router.navigate(['/login'])
+      return;
     }
 
+  }
+
+  public async loadStaticData(){
+
+    if(this.staticDataLoaded){
+      console.log("Already fetched static data.")
+      return;
+
+    }
+
+    this.staticDataLoaded = true
+
+      /* Load Data */
+      this.stationTypes = <Array<StationType>> await this.JwtGet(apiString + "/data/stationtypes")
+      this.countries = <Array<Country>> await this.JwtGet(apiString + "/data/countries")
+      this.provinces = <Array<Province>> await this.JwtGet(apiString + "/data/provinces")
+      this.districts = <Array<District>> await this.JwtGet(apiString + "/data/districts")
+      this.communities = <Array<Community>> await this.JwtGet(apiString + "/data/communities")
+
+  }
+
+  public revolveStationType(id : number) {
+    this.loadStaticData()
+    return  this.stationTypes.find(t => t.StationTypeId == id).Name
+  }
+
+  public resolveCountry(id : number) {
+    this.loadStaticData()
+    return  this.countries.find(t => t.CountryId == id).Name
+  }
+
+  public resolveProvince(id : number) {
+    this.loadStaticData()
+    return  this.provinces.find(t => t.ProvinceId == id).Name
+  }
+
+  public resolveDistrict(id : number) {
+    this.loadStaticData()
+    return  this.districts.find(t => t.DistrictId == id).Name
+  }
+
+  public resolveCommunity(id : number) {
+    this.loadStaticData()
+    return  this.communities.find(t => t.CommunityId == id).Name
   }
 
 
@@ -31,7 +93,7 @@ export class ApiService {
     let response : HttpResponse<object>
 
     try {
-      response = await this.http.post("http://localhost:5000/v1/auth/",request,{observe: 'response'}).toPromise()
+      response = await this.http.post(apiString + "/auth/",request,{observe: 'response'}).toPromise()
     } catch (error) {
         return false
     }
@@ -39,6 +101,8 @@ export class ApiService {
     let payload = <TokenResponse> response.body
     this.token = payload.Token
     localStorage.setItem("token", this.token)
+
+
     return true
     
   }
@@ -67,11 +131,48 @@ export class ApiService {
 
   }
 
+  /***
+   * Auto Authorizing DELETE request
+   */
+  private async JwtDelete(url:string){
+
+    /* If there is no token, login */
+    if(this.token == null){
+      this.router.navigate(['/login'])
+      throw new Error();
+    }
+
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", this.token);
+    let response = await this.http.delete(url,  {headers: headers, observe: 'response'}).toPromise();
+
+    if(response.status == 401){
+      this.router.navigate(['/login'])
+    }
+
+    return response.status
+
+  }
+
+  public async deleteStation(id :number){
+
+    let status 
+    try {
+      status =  await this.JwtDelete(apiString + "/stations/"+id)
+    } catch (error) {
+      
+    }
+
+    return status == 200
+
+
+  }
+
   public async getStations(){
 
     let response;
     try {
-      response = <Array<Station>>await this.JwtGet("http://localhost:5000/v1/stations")
+      response = <Array<Station>>await this.JwtGet(apiString + "/stations")
     } catch (error) {
       this.router.navigate(['/login'])
       return []

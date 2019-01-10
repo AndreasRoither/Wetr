@@ -1,20 +1,34 @@
-<h1> My stations </h1>
+<h1 class="mb-5">My stations </h1>
+
+<style>
+  div{
+    padding: 0;
+    margin: 0;
+  }
+</style>
 
 
-<div class="col-3" *ngFor="let station of stations" style="margin-bottom:15px">	
-  <div class="col-12">
-    {{ station.Name }}
-    <div class="row">
-      <div class="col-6">Location</div>
-      <div class="col-6">{{station.Location}}</div>
+<div class="wrapper row">
+
+  <!-- Station Card -->
+  <div class="col-3 mb-5 mr-5 p-0" *ngFor="let s of stations" style="border-radius: 0px 0px 0px 0px;
+  -moz-border-radius: 0px 0px 0px 0px;
+  -webkit-border-radius: 0px 0px 0px 0px;
+  border: 1px solid #000000;">
+
+    <div class="col-12" style="text-align: center;color:white;background-color:gray">
+      {{ s.Name }}
     </div>
-    <div class="row">
-      <div class="col-6">Lat</div>
-      <div class="col-6">{{station.Latitude}}</div>
-    </div>
-    <div class="row">
-      <div class="col-6">Lon</div>
-      <div class="col-6">{{station.Longitude}}</div>
+
+
+    <div style="text-align: center;" class="col-12 right"><i>Community:</i> {{ api.resolveCommunity(s.CommunityId) }} </div>
+    
+    <div class="row col-12 centered p-0 m-0">
+      <a class="btn col-6"><i class="fa fa-edit"></i></a>
+      <button (click)="deleteStation(s.StationId)" class="btn col-6"><i class="fa fa-trash"></i></button>
+
     </div>
   </div>
+
+
 </div>
