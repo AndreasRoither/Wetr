@@ -78,6 +78,10 @@
       <Project>{7832F4BA-D688-4D52-A3F3-9CECE5E0F2DA}</Project>
       <Name>Common.Dal.Ado</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wetr.ApiManager\Wetr.ApiManager.csproj">
+      <Project>{771c75e0-ce85-4394-88f1-a0905680d184}</Project>
+      <Name>Wetr.ApiManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

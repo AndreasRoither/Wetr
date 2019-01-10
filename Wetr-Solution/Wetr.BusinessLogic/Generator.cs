@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Wetr.ApiManager;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
 using Wetr.Domain;
+using Wetr.BusinessLogic;
 
-namespace Wetr.BusinessLogic
+namespace Wetr.Generator
 {
     /// <summary>
     ///
@@ -12,6 +14,7 @@ namespace Wetr.BusinessLogic
     public class Generator
     {
         private IMeasurementDao measurementDao;
+        private WetrApiManager wetrApiManager = new WetrApiManager();
 
         public Generator(IMeasurementDao measurementDao)
         {
@@ -68,7 +71,7 @@ namespace Wetr.BusinessLogic
             return Map(hour, 12, 23, (float)p.MaxValue, (float)p.MinValue);
         }
 
-        public  void Generate(IEnumerable<Preset> presets, Frequency frequency)
+        public void Generate(IEnumerable<Preset> presets, Frequency frequency)
         {
             foreach (Preset p in presets)
             {
@@ -117,7 +120,11 @@ namespace Wetr.BusinessLogic
                             p.GeneratedData.Add(s, new List<Measurement>());
 
                         p.GeneratedData[s].Add(m);
-                        bool? res = measurementDao?.InsertAsync(m).Result;
+
+                        // old version with dao
+                        // bool? res = measurementDao?.InsertAsync(m).Result;
+                        wetrApiManager.PostMeasurement(m);
+
                         Console.WriteLine(m);
                     }
 

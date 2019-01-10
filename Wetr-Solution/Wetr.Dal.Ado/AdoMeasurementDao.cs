@@ -62,7 +62,19 @@ namespace Wetr.Dal.Ado
 
         public async Task<bool> InsertAsync(Measurement measurement)
         {
-            return await this.template.ExecuteAsync(
+            if (measurement.MeasurementId == 0)
+            {
+                return await this.template.ExecuteAsync(
+                @"insert into measurement (stationId, measurementTypeId, unitId, value, timestamp) VALUES(@stationId, @measurementTypeId, @unitId, @value, @timestamp)",
+                new Parameter("@stationId", measurement.StationId),
+                new Parameter("@measurementTypeId", measurement.MeasurementTypeId),
+                new Parameter("@unitId", measurement.UnitId),
+                new Parameter("@value", measurement.Value),
+                new Parameter("@timestamp", measurement.TimesStamp)) == 1;
+            }
+            else
+            {
+                return await this.template.ExecuteAsync(
                 @"insert into measurement (measurementId, stationId, measurementTypeId, unitId, value, timestamp) VALUES(@measurementId, @stationId, @measurementTypeId, @unitId, @value, @timestamp)",
                 new Parameter("@measurementId", measurement.MeasurementId),
                 new Parameter("@stationId", measurement.StationId),
@@ -70,6 +82,7 @@ namespace Wetr.Dal.Ado
                 new Parameter("@unitId", measurement.UnitId),
                 new Parameter("@value", measurement.Value),
                 new Parameter("@timestamp", measurement.TimesStamp)) == 1;
+            }
         }
 
         public async Task<bool> UpdateAsync(Measurement measurement)

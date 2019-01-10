@@ -11,7 +11,6 @@ using Wetr.BusinessLogic;
 using Wetr.Dal.Factory;
 using Wetr.Domain;
 using Wetr.Simulator.Wpf.Interface;
-using Wetr.Simulator.Wpf.Model;
 
 namespace Wetr.Simulator.Wpf.ViewModel
 {
@@ -27,7 +26,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         private int MaxChartValues = 60;
         private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
-        private readonly Wetr.BusinessLogic.Generator generator;
+        private readonly Wetr.Generator.Generator generator;
 
         public SeriesCollection SeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
@@ -142,8 +141,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public SimulationViewModel()
         {
-
-            this.generator = new BusinessLogic.Generator(AdoFactory.Instance.GetMeasurementDao("wetr"));
+            this.generator = new Wetr.Generator.Generator(AdoFactory.Instance.GetMeasurementDao("wetr"));
 
             SeriesCollection = new SeriesCollection();
             Labels = new ObservableCollection<string>();
@@ -262,9 +260,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StartSimulation.RaiseCanExecuteChanged();
         }
 
-
-
-
         /// <summary>
         /// Stops the simulation
         /// </summary>
@@ -282,7 +277,6 @@ namespace Wetr.Simulator.Wpf.ViewModel
             this.StopSimulation.RaiseCanExecuteChanged();
             this.StartSimulation.RaiseCanExecuteChanged();
         }
-
 
         /// <summary>
         /// Called when second Timer.Elapsed

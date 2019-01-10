@@ -60,8 +60,12 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -173,6 +177,10 @@
     <ProjectReference Include="..\Common.Dal.Ado\Common.Dal.Ado.csproj">
       <Project>{7832f4ba-d688-4d52-a3f3-9cece5e0f2da}</Project>
       <Name>Common.Dal.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wetr.ApiManager\Wetr.ApiManager.csproj">
+      <Project>{771c75e0-ce85-4394-88f1-a0905680d184}</Project>
+      <Name>Wetr.ApiManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wetr.BusinessLogic\Wetr.BusinessLogic.csproj">
       <Project>{29EDB67E-049C-4AD1-BB23-22604836536E}</Project>

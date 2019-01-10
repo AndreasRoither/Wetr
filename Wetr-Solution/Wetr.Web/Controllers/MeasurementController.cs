@@ -8,14 +8,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.ModelBinding;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
-using Wetr.Domain;
 using Wetr.Web.BL;
 using Wetr.Web.DTOs;
-using Wetr.Web.Requests;
-using Wetr.Web.Responses;
 
 namespace Wetr.Web.Controllers
 {
@@ -34,7 +30,6 @@ namespace Wetr.Web.Controllers
 
         public async Task<IHttpActionResult> PostMeasurement(MeasurementDTO measurement)
         {
-
             /* Check if model is valid */
             if (!ModelState.IsValid)
             {
@@ -50,7 +45,5 @@ namespace Wetr.Web.Controllers
 
             return Content(HttpStatusCode.OK, new object());
         }
-
-
     }
 }

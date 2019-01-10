@@ -69,6 +69,10 @@
       <Project>{7832F4BA-D688-4D52-A3F3-9CECE5E0F2DA}</Project>
       <Name>Common.Dal.Ado</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wetr.ApiManager\Wetr.ApiManager.csproj">
+      <Project>{771C75E0-CE85-4394-88F1-A0905680D184}</Project>
+      <Name>Wetr.ApiManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wetr.BusnessLogic.Interface\Wetr.BusinessLogic.Interface.csproj">
       <Project>{cf86eba2-6745-4dfd-81e9-70983dae30b1}</Project>
       <Name>Wetr.BusinessLogic.Interface</Name>
@@ -85,11 +89,16 @@
       <Project>{4EBE8EC8-9C9B-4709-A595-115298EA87F7}</Project>
       <Name>Wetr.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wetr.Web\Wetr.Web.csproj">
+      <Project>{148810AC-4816-400B-8683-0CF633A7A790}</Project>
+      <Name>Wetr.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

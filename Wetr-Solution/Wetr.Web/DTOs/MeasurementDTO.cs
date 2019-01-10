@@ -18,9 +18,8 @@ namespace Wetr.Web.DTOs
         [Range(1, int.MaxValue)]
         public int MeasurementTypeId { get; set; }
 
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int MeasurementId { get; set; }
-
 
         [Range(1, int.MaxValue)]
         public int UnitId { get; set; }
@@ -41,5 +40,14 @@ namespace Wetr.Web.DTOs
             };
         }
 
+        public void SetMeasurementDTO(Measurement m)
+        {
+            this.MeasurementId = m.MeasurementId;
+            this.MeasurementTypeId = m.MeasurementTypeId;
+            this.StationId = m.StationId;
+            this.TimesStamp = m.TimesStamp;
+            this.UnitId = m.UnitId;
+            this.Value = m.Value;
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace Wetr.Domain
 {
     public class Measurement
     {
+
         public int MeasurementId { get; set; }
         public int StationId { get; set; }
         public int MeasurementTypeId { get; set; }

@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Web", "Wetr.Web\Wetr.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.Test.Web", "Wetr.Test.Web\Wetr.Test.Web.csproj", "{5A359D58-077A-472D-B815-8934A4C9919A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wetr.ApiManager", "Wetr.ApiManager\Wetr.ApiManager.csproj", "{771C75E0-CE85-4394-88F1-A0905680D184}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -325,6 +327,26 @@ Global
 		{5A359D58-077A-472D-B815-8934A4C9919A}.Release|x64.Build.0 = Release|Any CPU
 		{5A359D58-077A-472D-B815-8934A4C9919A}.Release|x86.ActiveCfg = Release|Any CPU
 		{5A359D58-077A-472D-B815-8934A4C9919A}.Release|x86.Build.0 = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|ARM.Build.0 = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|x64.Build.0 = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Debug|x86.Build.0 = Debug|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|ARM.ActiveCfg = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|ARM.Build.0 = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|ARM64.Build.0 = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|x64.ActiveCfg = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|x64.Build.0 = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|x86.ActiveCfg = Release|Any CPU
+		{771C75E0-CE85-4394-88F1-A0905680D184}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
