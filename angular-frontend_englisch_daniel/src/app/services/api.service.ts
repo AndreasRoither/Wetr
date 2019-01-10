@@ -39,16 +39,16 @@ export class ApiService {
       console.log("No token found! Requesting login.")
       this.router.navigate(['/login'])
       return;
+    }else{
+      this.loadStaticData().then(() => this.staticDataLoaded = true)
     }
 
   }
 
-  public async loadStaticData(){
+  private async loadStaticData(){
 
     if(this.staticDataLoaded){
-      console.log("Already fetched static data.")
       return;
-
     }
 
     this.staticDataLoaded = true
@@ -60,31 +60,38 @@ export class ApiService {
       this.districts = <Array<District>> await this.JwtGet(apiString + "/data/districts")
       this.communities = <Array<Community>> await this.JwtGet(apiString + "/data/communities")
 
+      console.log("Fetched static data!")
+
+
   }
 
-  public revolveStationType(id : number) {
-    this.loadStaticData()
+  public  revolveStationType(id : number) {
     return  this.stationTypes.find(t => t.StationTypeId == id).Name
   }
 
-  public resolveCountry(id : number) {
-    this.loadStaticData()
+  public  resolveCountry(id : number) {
     return  this.countries.find(t => t.CountryId == id).Name
   }
 
-  public resolveProvince(id : number) {
-    this.loadStaticData()
+  public  resolveProvince(id : number) {
     return  this.provinces.find(t => t.ProvinceId == id).Name
   }
 
-  public resolveDistrict(id : number) {
-    this.loadStaticData()
+  public  resolveDistrict(id : number) {
     return  this.districts.find(t => t.DistrictId == id).Name
   }
 
   public resolveCommunity(id : number) {
-    this.loadStaticData()
-    return  this.communities.find(t => t.CommunityId == id).Name
+
+    return this.communities.find(t => t.CommunityId == id).Name
+  }
+
+  public  getCommunities() {
+    return this.communities
+  }
+
+  public  getStationTypes() {
+    return this.stationTypes
   }
 
 
@@ -105,6 +112,29 @@ export class ApiService {
 
     return true
     
+  }
+
+  /***
+   * Auto Authorizing DELETE request
+   */
+  private async JwtPut(url:string, body : any){
+
+    /* If there is no token, login */
+    if(this.token == null){
+      this.router.navigate(['/login'])
+      throw new Error();
+    }
+
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", this.token);
+    let response = await this.http.put(url,  body, {headers: headers, observe: 'response'}).toPromise();
+
+    if(response.status == 401){
+      this.router.navigate(['/login'])
+    }
+
+    return response
+
   }
 
   /***
@@ -154,6 +184,22 @@ export class ApiService {
 
   }
 
+  public async editStatoin(station : Station){
+    let response
+    try {
+      response = await this.JwtPut(apiString + "/stations", station)
+
+    } catch (error) {
+      return error.error
+
+    }
+
+      return true
+
+
+
+  }
+
   public async deleteStation(id :number){
 
     let status 
@@ -166,6 +212,17 @@ export class ApiService {
     return status == 200
 
 
+  }
+
+  public async getStation(id : number){
+    let response;
+    try {
+      response = <Station>await this.JwtGet(apiString + "/stations/" + id)
+    } catch (error) {
+      this.router.navigate(['/login'])
+      return null
+    }
+    return  <Station>response
   }
 
   public async getStations(){

@@ -21,14 +21,13 @@ export class HomeComponent implements OnInit {
   async deleteStation(id : number){
     
     if(await this.api.deleteStation(id) == true){
-      console.log("Deletion of station " + id + " successfull!")
       this.flash.show("Deletion successful.",  { cssClass: 'alert-success', timeout: 2000 })
 
       /* Reload stations */
       this.stations = await this.api.getStations()
 
     }else{
-      this.flash.show("Deletion failed!",  { cssClass: 'alert-danger', timeout: 2000 })
+      this.flash.show("Only stations without associated measurements can be deleted!",  { cssClass: 'alert-danger', timeout: 2000 })
     }
   }
 

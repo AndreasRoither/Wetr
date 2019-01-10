@@ -1,10 +1,21 @@
-<div class="jumbotron text-center">
+<div class="jumbotron text-center mb-0">
   <h1>Wetr</h1>
-  <p>A platform for managing weather stations and their data.</p>
+  <p>A platform for managing weather stations and querying their data.</p>
 </div>
 
+<nav class="navbar navbar-dark bg-dark">
+    <form class="form-inline">
+        <a class="btn btn-sm btn-outline-secondary mr-3" [routerLink]="['/']">My Stations</a>
+        <a class="btn btn-sm btn-outline-secondary mr-3"  [routerLink]="['/']">Query</a>
+        <a class="btn btn-sm btn-outline-secondary"  [routerLink]="['/']" >Dashboard</a>
+
+      </form>
+  </nav>
+
+  <flash-messages style="text-align: center;"></flash-messages>
+
+
 <div class="container">
-    <flash-messages></flash-messages>
   <router-outlet>
 
   </router-outlet>

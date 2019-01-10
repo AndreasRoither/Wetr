@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { EditStationComponent } from './components/edit-station/edit-station.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     AppComponent,
     LoginComponent,
     HomeComponent,
+    EditStationComponent,
 
   ],
   imports: [

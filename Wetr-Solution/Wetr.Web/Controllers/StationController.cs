@@ -207,6 +207,51 @@ namespace Wetr.Web.Controllers
             return Content(HttpStatusCode.OK, convertedStations);
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        [JWT]
+
+        /* Responses */
+        [SwaggerResponse(HttpStatusCode.OK, "Get a single station.", typeof(StationDTO))]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
+        [SwaggerResponse(HttpStatusCode.Forbidden, "Only own stations can be fetched.", null)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid station id.", null)]
+
+        public async Task<IHttpActionResult> GetStation(int id)
+        {
+            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            int userId = JwtHelper.Instance.GetUserId(token);
+
+            IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
+            IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
+            ICommunityDao communitDao = AdoFactory.Instance.GetCommunityDao("wetr");
+            IDistrictDao districtDao = AdoFactory.Instance.GetDistrictDao("wetr");
+            IProvinceDao provinceDao = AdoFactory.Instance.GetProvinceDao("wetr");
+            ICountryDao countryDao = AdoFactory.Instance.GetCountryDao("wetr");
+
+            Station myStations = await stationDao.FindByIdAsync(id);
+            if(myStations == null)
+            {
+                return Content(HttpStatusCode.BadRequest, new object());
+            }
+
+            if (myStations.UserId != userId)
+                return Content(HttpStatusCode.Forbidden, new object());
+
+            StationDTO station = new StationDTO(myStations);
+
+            station.CommunityId = (await addressDao.FindByIdAsync(station.AddressId)).CommunityId;
+            station.DistrictId = (await communitDao.FindByIdAsync(station.CommunityId)).DistrictId;
+            station.ProvinceId = (await districtDao.FindByIdAsync(station.DistrictId)).ProvinceId;
+            station.CountryId = (await provinceDao.FindByIdAsync(station.ProvinceId)).CountryId;
+            station.Location = (await addressDao.FindByIdAsync(station.AddressId)).Location;
+
+
+
+
+            return Content(HttpStatusCode.OK, station);
+        }
+
 
     }
 }
