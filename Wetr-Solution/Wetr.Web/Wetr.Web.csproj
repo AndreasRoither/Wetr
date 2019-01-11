@@ -133,6 +133,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Requests\QueryRequest.cs" />
     <Compile Include="Requests\LoginRequestExample.cs" />
     <Compile Include="Requests\LoginRequest.cs" />
     <Compile Include="Responses\TokenResponse.cs" />
