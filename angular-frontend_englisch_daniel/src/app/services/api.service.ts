@@ -273,7 +273,7 @@ export class ApiService {
 
     let response;
     try {
-      response = <Array<Station>>await this.JwtGet(apiString + "/stations")
+      response = <Array<Station>>await this.JwtGet(apiString + "/stations/my")
     } catch (error) {
       this.router.navigate(['/login'])
       return []
