@@ -23,7 +23,6 @@ namespace Wetr.Web.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StationController : ApiController
     {
-
         [Route("")]
         [HttpPost]
         [JWT]
@@ -32,7 +31,6 @@ namespace Wetr.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Created, "Station was created successfully.")]
         public async Task<IHttpActionResult> CreateStation(StationDTO station)
         {
-
 
             /* Check if model is valid */
             if (!ModelState.IsValid)
@@ -124,7 +122,6 @@ namespace Wetr.Web.Controllers
             return Content(HttpStatusCode.OK, new object());
         }
 
-
         [Route("{stationId}")]
         [HttpDelete]
         [JWT]
@@ -161,7 +158,7 @@ namespace Wetr.Web.Controllers
             return Content(HttpStatusCode.OK, new object());
         }
 
-        [Route("")]
+        [Route("community/{communityId}")]
         [HttpGet]
         [JWT]
 
@@ -169,7 +166,7 @@ namespace Wetr.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "List of all stations matching a query", typeof(List<StationDTO>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
 
-        public async Task<IHttpActionResult> GetStations(int community)
+        public async Task<IHttpActionResult> GetStations(int communityId)
         {
             string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
             int userId = JwtHelper.Instance.GetUserId(token);
@@ -184,8 +181,6 @@ namespace Wetr.Web.Controllers
             IEnumerable<Station> stations = null;
 
             stations = await stationDao.FindAllAsync();
-
-            
 
             List<StationDTO> convertedStations = new List<StationDTO>();
 
@@ -203,9 +198,9 @@ namespace Wetr.Web.Controllers
                 convertedStations.Add(station);
             }
 
-            if(community != 0)
+            if(communityId != 0)
             {
-                convertedStations.RemoveAll(s => s.CommunityId != community);
+                convertedStations.RemoveAll(s => s.CommunityId != communityId);
             }
 
             return Content(HttpStatusCode.OK, convertedStations);
@@ -293,12 +288,7 @@ namespace Wetr.Web.Controllers
             station.CountryId = (await provinceDao.FindByIdAsync(station.ProvinceId)).CountryId;
             station.Location = (await addressDao.FindByIdAsync(station.AddressId)).Location;
 
-
-
-
             return Content(HttpStatusCode.OK, station);
         }
-
-
     }
 }

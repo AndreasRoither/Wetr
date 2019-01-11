@@ -34,8 +34,8 @@ namespace Wetr.ApiManager
         public async Task<IEnumerable<Station>> GetStations()
         {
             IEnumerable<Station> stations = null;
-            HttpResponseMessage response = await client.GetAsync("stations");
-
+            HttpResponseMessage response = await client.GetAsync("stations/community/0");
+             
             if (response.IsSuccessStatusCode)
             {
                 // .ReadAsAsync is an Extension method found in the WebApi.Client nugget package
