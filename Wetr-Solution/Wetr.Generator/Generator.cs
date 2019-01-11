@@ -126,11 +126,11 @@ namespace Wetr.Generator
             /* Generate Downfall Data */
             using (StreamWriter file = new StreamWriter("measurementsDownfall.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
-                for (int stationId = 0; stationId <= 70; stationId++)
+                for (int stationId = 1; stationId <= 70; stationId++)
                 {
                     /* For every hour in one year */
                     for (DateTime t = beginning; t <= ending; t = t.AddDays(1d))
@@ -147,8 +147,8 @@ namespace Wetr.Generator
             /* Generate Preassure Data */
             using (StreamWriter file = new StreamWriter("measurementsPreassure.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
                 for (int stationId = 20; stationId <= 50; stationId++)
@@ -169,8 +169,8 @@ namespace Wetr.Generator
             /* Generate Wind Data */
             using (StreamWriter file = new StreamWriter("measurementsWind.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
                 for (int stationId = 10; stationId <= 30; stationId++)
@@ -191,8 +191,8 @@ namespace Wetr.Generator
             /* Generate Wind Direction Data */
             using (StreamWriter file = new StreamWriter("measurementsWindDirection.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
                 for (int stationId = 10; stationId <= 30; stationId++)
@@ -213,8 +213,8 @@ namespace Wetr.Generator
             /* Generate Humidity Data */
             using (StreamWriter file = new StreamWriter("measurementsHumidity.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
                 for (int stationId = 40; stationId <= 70; stationId++)
@@ -235,8 +235,8 @@ namespace Wetr.Generator
             /* Generate Temperature Data */
             using (StreamWriter file = new StreamWriter("measurementsTemperature.bulk"))
             {
-                DateTime beginning = new DateTime(2015, 1, 1, 0, 0, 0);
-                DateTime ending = new DateTime(2015, 12, 31, 23, 59, 59);
+                DateTime beginning = new DateTime(2018, 1, 1, 0, 0, 0);
+                DateTime ending = new DateTime(2019, 12, 31, 23, 59, 59);
 
                 /* For every station*/
                 for (int stationId = 1; stationId <= 30; stationId++)
