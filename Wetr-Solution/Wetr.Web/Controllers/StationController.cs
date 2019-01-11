@@ -30,7 +30,6 @@ namespace Wetr.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", null)]
         [SwaggerResponse(HttpStatusCode.Created, "Station was created successfully.")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, "You do not have permission to add this station.", null)]
         public async Task<IHttpActionResult> CreateStation(StationDTO station)
         {
 
@@ -51,10 +50,7 @@ namespace Wetr.Web.Controllers
             IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
             IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
 
-            if (userId != station.UserId)
-            {
-                return Content(HttpStatusCode.Forbidden, new object());
-            }
+           
 
             await addressDao.InsertAsync(new Address()
             {
