@@ -143,7 +143,7 @@ namespace Wetr.Web.Controllers
             if (stations.Where(s => s.StationId == stationId).Count() == 0)
             {
                 /* No station found so it might have been already deleted. */
-                return Content(HttpStatusCode.OK, new object());
+                return Content(HttpStatusCode.Forbidden, new object());
             }
 
             IMeasurementDao measurementDao = AdoFactory.Instance.GetMeasurementDao("wetr");
