@@ -256,7 +256,6 @@ namespace Wetr.Web.Controllers
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "Get a single station.", typeof(StationDTO))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
-        [SwaggerResponse(HttpStatusCode.Forbidden, "Only own stations can be fetched.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid station id.", null)]
 
         public async Task<IHttpActionResult> GetStation(int id)
@@ -276,9 +275,6 @@ namespace Wetr.Web.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, new object());
             }
-
-            if (myStations.UserId != userId)
-                return Content(HttpStatusCode.Forbidden, new object());
 
             StationDTO station = new StationDTO(myStations);
 
