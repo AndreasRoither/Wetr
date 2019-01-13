@@ -25,8 +25,6 @@ namespace Wetr.Web.Controllers
 
         [Route("countries")]
         [HttpGet]
-        [JWT]
-
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of countries.", typeof(List<Country>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
@@ -39,8 +37,6 @@ namespace Wetr.Web.Controllers
 
         [Route("provinces")]
         [HttpGet]
-        [JWT]
-
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of provinces.", typeof(List<Province>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
@@ -53,8 +49,6 @@ namespace Wetr.Web.Controllers
 
         [Route("districts")]
         [HttpGet]
-        [JWT]
-
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of districts.", typeof(List<District>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
@@ -67,8 +61,6 @@ namespace Wetr.Web.Controllers
 
         [Route("communities")]
         [HttpGet]
-        [JWT]
-
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of communities.", typeof(List<Community>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
@@ -79,11 +71,8 @@ namespace Wetr.Web.Controllers
             return Ok(await dao.FindAllAsync());
         }
 
-        
-
         [Route("stationtypes")]
         [HttpGet]
-        [JWT]
 
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of stationtypes.", typeof(List<StationType>))]
@@ -97,7 +86,6 @@ namespace Wetr.Web.Controllers
 
         [Route("measurementtypes")]
         [HttpGet]
-        [JWT]
 
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of measurementtypes.", typeof(List<MeasurementType>))]

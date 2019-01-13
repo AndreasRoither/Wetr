@@ -160,7 +160,7 @@ namespace Wetr.Web.Controllers
 
         [Route("community/{communityId}")]
         [HttpGet]
-        [JWT]
+        //[JWT]
 
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "List of all stations matching a query", typeof(List<StationDTO>))]
@@ -168,9 +168,7 @@ namespace Wetr.Web.Controllers
 
         public async Task<IHttpActionResult> GetStations(int communityId)
         {
-            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
-            int userId = JwtHelper.Instance.GetUserId(token);
-
+          
             IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
             IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
             ICommunityDao communitDao = AdoFactory.Instance.GetCommunityDao("wetr");
@@ -251,7 +249,7 @@ namespace Wetr.Web.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        [JWT]
+        //[JWT]
 
         /* Responses */
         [SwaggerResponse(HttpStatusCode.OK, "Get a single station.", typeof(StationDTO))]
@@ -260,9 +258,7 @@ namespace Wetr.Web.Controllers
 
         public async Task<IHttpActionResult> GetStation(int id)
         {
-            string token = Request.Headers.GetValues("Authorization").FirstOrDefault();
-            int userId = JwtHelper.Instance.GetUserId(token);
-
+           
             IStationDao stationDao = AdoFactory.Instance.GetStationDao("wetr");
             IAddressDao addressDao = AdoFactory.Instance.GetAddressDao("wetr");
             ICommunityDao communitDao = AdoFactory.Instance.GetCommunityDao("wetr");

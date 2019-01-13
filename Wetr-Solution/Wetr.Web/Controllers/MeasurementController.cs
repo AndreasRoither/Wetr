@@ -50,7 +50,7 @@ namespace Wetr.Web.Controllers
 
         [Route("query")]
         [HttpPost]
-        [JWT]
+        //[JWT]
 
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid Authorization header.", null)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Invalid json format or invalid request body.", typeof(Dictionary<string, string[]>))]
