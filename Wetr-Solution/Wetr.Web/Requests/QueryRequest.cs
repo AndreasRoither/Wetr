@@ -8,7 +8,7 @@ namespace Wetr.Web.Requests
 {
     public class QueryRequest
     {
-        [Range(0,5)]
+        [Range(1,6)]
         public int MeasurementTypeId { get; set; }
 
         [Range(0, 4)]
