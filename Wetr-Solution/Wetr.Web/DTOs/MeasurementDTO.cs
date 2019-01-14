@@ -25,7 +25,7 @@ namespace Wetr.Web.DTOs
         public int UnitId { get; set; }
 
         [Required]
-        public DateTime TimesStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
 
         public Measurement ToMeasurement()
         {
@@ -34,7 +34,7 @@ namespace Wetr.Web.DTOs
                 MeasurementId = 0,
                 MeasurementTypeId = this.MeasurementTypeId,
                 StationId = this.StationId,
-                TimesStamp = this.TimesStamp,
+                TimesStamp = this.TimeStamp,
                 UnitId = this.UnitId,
                 Value = this.Value
             };
@@ -45,7 +45,7 @@ namespace Wetr.Web.DTOs
             this.MeasurementId = m.MeasurementId;
             this.MeasurementTypeId = m.MeasurementTypeId;
             this.StationId = m.StationId;
-            this.TimesStamp = m.TimesStamp;
+            this.TimeStamp = m.TimesStamp;
             this.UnitId = m.UnitId;
             this.Value = m.Value;
         }
