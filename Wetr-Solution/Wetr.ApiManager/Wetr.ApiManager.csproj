@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWetrApiManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WetrApiManager.cs" />
   </ItemGroup>

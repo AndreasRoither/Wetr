@@ -6,19 +6,18 @@ using Wetr.Dal.Interface;
 using Wetr.Domain;
 using Wetr.BusinessLogic;
 
-namespace Wetr.Generator
+namespace Wetr.BusinessLogic
 {
     /// <summary>
     ///
     /// </summary>
     public class Generator
     {
-        private IMeasurementDao measurementDao;
-        private WetrApiManager wetrApiManager = new WetrApiManager();
+        private IWetrApiManager wetrApiManager;
 
-        public Generator(IMeasurementDao measurementDao)
+        public Generator(IWetrApiManager wetrApiManager)
         {
-            this.measurementDao = measurementDao;
+            this.wetrApiManager = wetrApiManager;
         }
 
         private static Dictionary<int, int> unitmapping = new Dictionary<int, int>()

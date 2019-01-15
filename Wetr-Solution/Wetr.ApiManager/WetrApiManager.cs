@@ -13,7 +13,7 @@ namespace Wetr.ApiManager
     /// Wetr Api Manager for Wetr.Simulator.Wpf
     /// </summary>
     /// <see cref="Wetr.Simulator.Wpf"/>
-    public class WetrApiManager : IDisposable
+    public class WetrApiManager : IDisposable, IWetrApiManager
     {
         static HttpClient client = new HttpClient();
 

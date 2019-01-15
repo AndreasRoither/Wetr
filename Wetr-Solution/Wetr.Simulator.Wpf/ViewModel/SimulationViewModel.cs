@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Timers;
+using Wetr.ApiManager;
 using Wetr.BusinessLogic;
 using Wetr.Dal.Factory;
 using Wetr.Domain;
@@ -26,7 +27,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
         private int MaxChartValues = 60;
         private Timer secondTimer, minuteTimer, hourTimer, dayTimer, weekTimer;
         private PresetCreationViewModel presetCreationViewModel = ServiceLocator.Current.GetInstance<PresetCreationViewModel>();
-        private readonly Wetr.Generator.Generator generator;
+        private readonly Wetr.BusinessLogic.Generator generator;
 
         public SeriesCollection SeriesCollection { get; set; }
         public ObservableCollection<string> Labels { get; set; }
@@ -141,7 +142,7 @@ namespace Wetr.Simulator.Wpf.ViewModel
 
         public SimulationViewModel()
         {
-            this.generator = new Wetr.Generator.Generator(AdoFactory.Instance.GetMeasurementDao("wetr"));
+            this.generator = new Wetr.BusinessLogic.Generator(new WetrApiManager());
 
             SeriesCollection = new SeriesCollection();
             Labels = new ObservableCollection<string>();

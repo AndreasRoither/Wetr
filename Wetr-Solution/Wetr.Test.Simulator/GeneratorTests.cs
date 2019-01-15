@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Wetr.ApiManager;
 using Wetr.BusinessLogic;
 using Wetr.Dal.Factory;
 using Wetr.Dal.Interface;
@@ -43,14 +45,15 @@ namespace Wetr.Test.Simulator
 
             List<Preset> presets = new List<Preset>();
             p.Stations.Add(s);
+
             presets.Add(p);
 
-            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
-            Task<bool> t = new Task<bool>(() => true);
+            Mock<IWetrApiManager> api = new Mock<IWetrApiManager>(MockBehavior.Strict);
+            Task<HttpStatusCode> t = new Task<HttpStatusCode>(() => HttpStatusCode.OK);
             t.RunSynchronously();
-            dao.Setup(d => d.InsertAsync(It.IsAny<Measurement>())).Returns(t);
+            api.Setup(d => d.PostMeasurement(It.IsAny<Measurement>())).Returns(t);
 
-            Generator gen = new Generator(dao.Object);
+            Generator gen = new Generator(api.Object);
         
             while (p.CurrentDate <= p.EndDate)
             {
@@ -77,7 +80,7 @@ namespace Wetr.Test.Simulator
                 CollectionAssert.Contains(values, (double)i);
             }
 
-            dao.Verify(d => d.InsertAsync(It.IsAny<Measurement>()), Times.Exactly(11));
+            api.Verify(d => d.PostMeasurement(It.IsAny<Measurement>()), Times.Exactly(11));
         }
 
         [TestMethod]
@@ -112,10 +115,10 @@ namespace Wetr.Test.Simulator
             p.Stations.Add(s);
             presets.Add(p);
 
-            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
-            Task<bool> t = new Task<bool>(() => true);
+            Mock<IWetrApiManager> dao = new Mock<IWetrApiManager>(MockBehavior.Strict);
+            Task<HttpStatusCode> t = new Task<HttpStatusCode>(() => HttpStatusCode.OK);
             t.RunSynchronously();
-            dao.Setup(d => d.InsertAsync(It.IsAny<Measurement>())).Returns(t);
+            dao.Setup(d => d.PostMeasurement(It.IsAny<Measurement>())).Returns(t);
             Generator gen = new Generator(dao.Object);
 
             while (p.CurrentDate <= p.EndDate)
@@ -143,7 +146,7 @@ namespace Wetr.Test.Simulator
                 CollectionAssert.Contains(values, (double)i);
             }
 
-            dao.Verify(d => d.InsertAsync(It.IsAny<Measurement>()), Times.Exactly(11));
+            dao.Verify(d => d.PostMeasurement(It.IsAny<Measurement>()), Times.Exactly(11));
 
 
         }
@@ -176,10 +179,10 @@ namespace Wetr.Test.Simulator
                 Name = "MyPreset"
             };
 
-            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
-            Task<bool> t = new Task<bool>(() => true);
+            Mock<IWetrApiManager> dao = new Mock<IWetrApiManager>(MockBehavior.Strict);
+            Task<HttpStatusCode> t = new Task<HttpStatusCode>(() => HttpStatusCode.OK);
             t.RunSynchronously();
-            dao.Setup(d => d.InsertAsync(It.IsAny<Measurement>())).Returns(t);
+            dao.Setup(d => d.PostMeasurement(It.IsAny<Measurement>())).Returns(t);
 
             List<Preset> presets = new List<Preset>();
             p.Stations.Add(s);
@@ -197,7 +200,7 @@ namespace Wetr.Test.Simulator
                 Assert.IsTrue(m.Value >= -10 && m.Value < 10);
                 Console.WriteLine(m.Value);
             }
-            dao.Verify(d => d.InsertAsync(It.IsAny<Measurement>()), Times.Exactly(11));
+            dao.Verify(d => d.PostMeasurement(It.IsAny<Measurement>()), Times.Exactly(11));
 
 
         }
@@ -234,10 +237,10 @@ namespace Wetr.Test.Simulator
             p.Stations.Add(s);
             presets.Add(p);
 
-            Mock<IMeasurementDao> dao = new Mock<IMeasurementDao>(MockBehavior.Strict);
-            Task<bool> t = new Task<bool>(() => true);
+            Mock<IWetrApiManager> dao = new Mock<IWetrApiManager>(MockBehavior.Strict);
+            Task<HttpStatusCode> t = new Task<HttpStatusCode>(() => HttpStatusCode.OK);
             t.RunSynchronously();
-            dao.Setup(d => d.InsertAsync(It.IsAny<Measurement>())).Returns(t);
+            dao.Setup(d => d.PostMeasurement(It.IsAny<Measurement>())).Returns(t);
 
             Generator gen = new Generator(dao.Object);
 
@@ -290,7 +293,7 @@ namespace Wetr.Test.Simulator
             }
 
 
-            dao.Verify(d => d.InsertAsync(It.IsAny<Measurement>()), Times.Exactly(24));
+            dao.Verify(d => d.PostMeasurement(It.IsAny<Measurement>()), Times.Exactly(24));
 
 
         }
