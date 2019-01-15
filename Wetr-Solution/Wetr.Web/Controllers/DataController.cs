@@ -88,12 +88,25 @@ namespace Wetr.Web.Controllers
         [HttpGet]
 
         /* Responses */
-        [SwaggerResponse(HttpStatusCode.OK, "List of measurementtypes.", typeof(List<MeasurementType>))]
+        [SwaggerResponse(HttpStatusCode.OK, "List of measurement-types.", typeof(List<MeasurementType>))]
         [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
 
         public async Task<IHttpActionResult> GetMeasuremenetTypes()
         {
             IMeasurementTypeDao dao = AdoFactory.Instance.GetMeasurementTypeDao("wetr");
+            return Ok(await dao.FindAllAsync());
+        }
+
+        [Route("unittypes")]
+        [HttpGet]
+
+        /* Responses */
+        [SwaggerResponse(HttpStatusCode.OK, "List of unit-types.", typeof(List<Unit>))]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid credentials.", null)]
+
+        public async Task<IHttpActionResult> GetUnitTypes()
+        {
+            IUnitDao dao = AdoFactory.Instance.GetUnitDao("wetr");
             return Ok(await dao.FindAllAsync());
         }
     }
