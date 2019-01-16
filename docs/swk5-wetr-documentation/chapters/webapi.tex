@@ -1,0 +1,26 @@
+\section{REST-API}
+\label{rest}
+
+\subsection{Übersicht}
+
+Nur die für WEA5 notwendigen API-Endpunkte wurden implementiert. Diese Funktionalität beinhaltet:
+\begin{itemize}
+    \item Abfragen statischer Daten (Communitiers, StationTypes, etc.)
+    \item Abfragen, Hinzufügen und Ändern von Stationsdaten
+    \item Abfragen und Hinzufügen von Messdaten
+    \item Authentifizierung mit Benutzerdaten
+\end{itemize}
+
+\subsection{Security}
+
+Für die Absicherung von Backend-Routen wurde die JWT-Technologie verwendet.
+Beim erfolgreichen Einloggen wird ein Token generiert, der neben dem Ablaufdatum die BenutzerId beinhaltet. Jedes mal, wenn auf eine abgesicherte Route zugegriffen wird, wird der Token entschlüsselt und das Ablaufdatum überprüft. Ist der Token ungültig, wird der Statuscode 401 zurückgesendet.\\
+
+Die im Token enkodierte BenutzerId wird verwendet, um zu überprüfen, ob der Benutzer, der die Anfrage sendet, die benötigten Rechte für die angeforderte Operation hat-
+
+\subsection{Model Validation}
+Die Empfangenen Daten werden anhand einfache Regeln wie \textit{required} oder \textit{Range(x,y)} überprüft. Wenn sich Fehler ergeben werden diese als Dictionary, wobei der Schlüssel der Name des fehlerhaften Feldes ist und die Daten ein Array an Fehlermeldung ist.
+
+\subsection{Dokumentation}
+Beim Starten vom Projekt \textit{Wetr.Web} wird die REST-Api am lokalen IIS Express ausgeführt. Wenn man zu \textit{http://localhost/5000/swagger} navigiert, wird die Swagger-API-Dokumentation angezeigt.
+

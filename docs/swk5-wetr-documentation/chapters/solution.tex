@@ -288,3 +288,23 @@ Falls die Geschwindigkeit einer Simulation zu langsam ist kann diese mit dem Sch
 \label{fig:Wetr.Simulator.Wpf.Simulation}
 \end{figure}
 \raggedright
+
+\newpage
+
+\subsection{Wetr.Web}
+Siehe Abschnitt \ref{rest}.
+
+\subsection{Wetr.Test.Web}
+Für dieses Projekt wurden Test für die JavaWebToken-Authentifizierung geschrieben.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{pictures/webtest.PNG}
+\caption{Durchlaufende UnitTests}
+\end{figure}
+\raggedright
+\subsection{Wetr.ApiManager}
+Der \textit{Wetr.ApiManager} wird vom \textit{Wetr.Simulator} verwendet um Stationen zu laden und Measurement Daten in der Datenbank mithilfe der Rest Schnittstelle zu speichern. Der \textit{Wetr.ApiManager} stellt zwei Funktionen, \textit{GetStations} und \textit{PostMeasurement} zur Verfügung die mithilfe eines \textit{HttpClient} einen \textit{Get} bzw. \textit{Post request} senden.
+
+\newpage
