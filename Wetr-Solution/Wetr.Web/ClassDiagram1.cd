@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Wetr.Web.SwaggerConfig">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\SwaggerConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.WebApiConfig">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.WebApiApplication">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.BL.AuthHeaderFilter" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\AuthHeaderFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Wetr.Web.BL.JWTAttribute">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BL\JWTAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.BL.JwtHelper">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Wetr.Web.BL.JwtHelper.ExpiredTokenException" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BL\JwtHelper.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAKAAQAAAgAAAAAAADAAAAAQAAAAEACAAA=</HashCode>
+      <FileName>BL\JwtHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Controllers.AuthController">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\AuthController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Controllers.DataController">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAEABGCAAA=</HashCode>
+      <FileName>Controllers\DataController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Controllers.MeasurementController">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Controllers\MeasurementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Controllers.StationController">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQAAAAAAAAAAAAEAAAkAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\StationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.DTOs.MeasurementDTO">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAEAAAAAAAAIABAAAAAAAAAkAQAAAAA=</HashCode>
+      <FileName>DTOs\MeasurementDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.DTOs.StationDTO">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAgAAAAEAACAAIAAIIAAwAAAAQAAAAEAAAAAEEAAA=</HashCode>
+      <FileName>DTOs\StationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Requests.LoginRequest">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Requests\LoginRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Requests.LoginRequestExample" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Requests\LoginRequestExample.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Wetr.Web.Requests.QueryRequest">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIhAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Requests\QueryRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Responses.TokenResponse">
+    <Position X="4" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Responses\TokenResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wetr.Web.Responses.TokenResponseExample" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Responses\TokenResponseExample.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

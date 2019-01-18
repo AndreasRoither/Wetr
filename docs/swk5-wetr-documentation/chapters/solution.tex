@@ -14,6 +14,8 @@ Das gesamte Projekt befindet sich in einer Visual Studio Projektmappe, welche in
     \item \textbf{Wetr.Simulator.Wpf}:\newline Simulator Programm, verwendet ebenfalls WPF, MVVM Light Framework, MahAppsMetro und LiveCharts. Hier können Messwerte für Stationen generiert werden.
     \item \textbf{Wetr.Test.Dal}:\newline Dieses Projekt beinhaltet Unit-Tests für die Datenzugriffsschicht.
     \item \textbf{Wetr.Test.BusinessLogic}:\newline Dieses Projekt beinhaltet Unit-Tests für die BusinessLogic.
+    \item \textbf{Wetr.Test.Web}\newline Projekt zum testen für die in \textbf{Wetr.Web} enthaltenen Funktionalitäten.
+    \item \textbf{Wetr.Web} \newline Enthält alle notwendigen Funktionalitäten für einen REST-basierten Web-Service.
 \end{itemize}
 
 \newpage
@@ -166,7 +168,7 @@ Die Generierung der Windstärke ist in der aktuellen Ausbaustufe sehr primitiv g
 
 \newpage
 \subsection{Wetr.Cockpit.Wpf}
-Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip\footnote{https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm} erstellt.\textit{Views} und \textit{ViewModels} werden verwendet und mithilfe von \textit{DataBinding} wird vom \textit{ViewModel} Daten bei der \textit{View} angezeigt. Nach dem erfolgreichen Login bietet das Cockpit Usern die Möglichkeit Messtationen zu editieren bzw hinzuzufügen. Im weiteren ist es dem User auch möglich die Messwerte seiner Stationen zu aggregieren.
+Das \textit{Wetr.Cockpit.Wpf} Projekt wird nach dem MVVM Prinzip\footnote{https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm} erstellt. Als UI Framework wird \textit{mahapps.metro}\footnote{https://mahapps.com/} verwendet.\textit{Views} und \textit{ViewModels} werden verwendet und mithilfe von \textit{DataBinding} wird vom \textit{ViewModel} Daten bei der \textit{View} angezeigt. Nach dem erfolgreichen Login bietet das Cockpit Usern die Möglichkeit Messtationen zu editieren bzw hinzuzufügen. Im weiteren ist es dem User auch möglich die Messwerte seiner Stationen zu aggregieren.
 \newline
 \newline
 Das Hauptprogramm (nach dem Login) ist in drei verschiedenen Tabs eingeteilt: \newline\textit{Home}, \textit{Analysis} und \textit{Stations}.
@@ -238,8 +240,8 @@ Im Tab Stations wird dem User die Möglichkeit geboten seine Stationen zu änder
 
 \newpage
 \subsection{Wetr.Simulator.Wpf}
-Auch dieses Projekt wurde nach dem MVVM Prinzip erstellt.
-Der Simulator ist in 4 verschieden Bereiche unterteilt: \textit{Station selection}, \textit{Preset creation}, \textit{Preset assignment} und \textit{Simulation}.
+Auch dieses Projekt wurde nach dem MVVM Prinzip erstellt. Als UI Framework wird \textit{mahapps.metro}\footnote{https://mahapps.com/} verwendet.
+Der Simulator ist in 4 verschieden Bereiche unterteilt: \textit{Station selection}, \textit{Preset creation}, \textit{Preset assignment} und \textit{Simulation}. 
 \newline
 \newline
 \textbf{Station selection}\newline
@@ -293,6 +295,14 @@ Falls die Geschwindigkeit einer Simulation zu langsam ist kann diese mit dem Sch
 
 \subsection{Wetr.Web}
 Siehe Abschnitt \ref{rest}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/Wetr_Web.png}
+\caption{Wetr.Web UML}
+\label{fig:Wetr.Web.UML}
+\end{figure}
+\raggedright
 
 \subsection{Wetr.Test.Web}
 Für dieses Projekt wurden Test für die JavaWebToken-Authentifizierung geschrieben.

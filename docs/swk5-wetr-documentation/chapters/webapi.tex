@@ -11,6 +11,13 @@ Nur die für WEA5 notwendigen API-Endpunkte wurden implementiert. Diese Funktion
     \item Authentifizierung mit Benutzerdaten
 \end{itemize}
 
+Es wurden einige NuGet-Pakete verwendet:
+\begin{itemize}
+    \item Newtonsoft.Json\footnote{https://www.newtonsoft.com/json}: Zum senden und Empfangen von Json-Objekten,
+    \item Swashbuckle\footnote{https://github.com/domaindrivendev/Swashbuckle}: Swagger documentation,
+    \item System.IdentityModel.Tokens.Jwt\footnote{https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet}: Zur Generierung des Java Web Tokens.
+\end{itemize}
+
 \subsection{Security}
 
 Für die Absicherung von Backend-Routen wurde die JWT-Technologie verwendet.
