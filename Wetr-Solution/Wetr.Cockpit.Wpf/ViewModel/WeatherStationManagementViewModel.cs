@@ -471,7 +471,8 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
             try
             {
-                this.Stations = (await stationManager.GetStationsForUser(loginViewModel.loggedInUser.UserId)).ToList();
+                var tempStations = await stationManager.GetStationsForUser(loginViewModel.loggedInUser.UserId);
+                this.Stations = tempStations.ToList();
             }
             catch (BusinessSqlException ex)
             {
@@ -483,11 +484,17 @@ namespace Wetr.Cockpit.Wpf.ViewModel
         {
             try
             {
-                this.Countries = (await addressManager.GetAllCountries()).ToList();
-                this.Provinces = (await addressManager.GetAllProvinces()).ToList();
-                this.Districts = (await addressManager.GetAllDistricts()).ToList();
-                this.Communities = (await addressManager.GetAllCommunities()).ToList();
-                this.StationTypes = (await stationManager.GetStationTypes()).ToList();
+                var tempcountries = await addressManager.GetAllCountries();
+                var tempProvinces = await addressManager.GetAllProvinces();
+                var tempDistricts = await addressManager.GetAllDistricts();
+                var tempCommunites = await addressManager.GetAllCommunities();
+                var tempStationTypes = await stationManager.GetStationTypes();
+
+                this.Countries = tempcountries.ToList();
+                this.Provinces = tempProvinces.ToList();
+                this.Districts = tempDistricts.ToList();
+                this.Communities = tempCommunites.ToList();
+                this.StationTypes = tempStationTypes.ToList();
             }
             catch (BusinessSqlException ex)
             {

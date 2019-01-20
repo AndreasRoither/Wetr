@@ -20,8 +20,6 @@ namespace Wetr.Cockpit.Wpf
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
             contentControl = this.ContentControl;
-            // deactivated for testing purposes
-            //contentControl.Content = new LoginView();
             contentControl.Content = new LoginView();
         }
 
