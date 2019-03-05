@@ -7,6 +7,30 @@ Ein System zum Visualisieren von lokalen Wetterdaten
 
 Die Dokumentation dieses Projekts befindet sich im `docs/` Verzeichnis.
 
+# Showcase
+## Cockpit
+Login          |  Dashboard
+:-------------------------:|:-------------------------:
+<img src="docs/swk5-wetr-documentation/pictures/Cockpit/Cockpit_1.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Cockpit/Cockpit_2.png" width="400"/>
+
+Analysis          |  Stations
+:-------------------------:|:-------------------------:
+<img src="docs/swk5-wetr-documentation/pictures/Cockpit/Cockpit_3.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Cockpit/Cockpit_4.png" width="400"/>
+
+<p align="left">
+  <img src="docs/swk5-wetr-documentation/pictures/Cockpit/Cockpit_5.png" width="400"/>
+</p>
+
+## Simulator
+Station Selection          |  Preset Creation
+:-------------------------:|:-------------------------:
+<img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_1_StationSelection.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_2_PresetCreation.png" width="400"/>
+
+Preset Assignment          |  Simulation
+:-------------------------:|:-------------------------:
+<img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_3_PresetAssignment.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_4_Simulation.png" width="400"/>
+
+
 ## Angabe
 Es existieren zahlreiche Web-Seiten und mobile Anwendungen, die uns Wettervorhersagen bis weit in die
 Zukunft anbieten. Nicht immer sind diese Prognosen seriös, da sie auf relativ wenigen Wetterstationen
