@@ -21,7 +21,7 @@ A system for visualizing local weather data using a WPF application.
 * English Daniel
 * Roither Andreas
 
-The documentation of this project can be found in the `docs/` directory.
+The documentation of this project can be found in the `docs/` directory (german only).
 
 # Showcase
 
@@ -49,7 +49,18 @@ Preset Assignment          |  Simulation
 :-------------------------:|:-------------------------:
 <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_3_PresetAssignment.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_4_Simulation.png" width="400"/>
 
-### Specification
+## Technology used
+
+IDE:  
+[Visual Studio](https://www.visualstudio.com/)  
+
+Other tools/libraries:  
+[Python](https://www.python.org/)  
+[Docker](https://www.docker.com/)  
+[MahApps.Metro](https://github.com/MahApps/MahApps.Metro)  
+[WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/overview/)
+
+## Specification
 
 There are numerous websites and mobile applications that offer weather forecasts far into the future.
 far into the future. These forecasts are not always reliable, as they are based on a relatively small number of weather stations.

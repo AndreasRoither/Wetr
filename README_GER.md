@@ -49,6 +49,17 @@ Preset Assignment          |  Simulation
 :-------------------------:|:-------------------------:
 <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_3_PresetAssignment.png" width="400"/>  |  <img src="docs/swk5-wetr-documentation/pictures/Simulator/Simulator_4_Simulation.png" width="400"/>
 
+## Technologie
+
+IDE:  
+[Visual Studio](https://www.visualstudio.com/)  
+
+Andere tools/libraries:  
+[Python](https://www.python.org/)  
+[Docker](https://www.docker.com/)  
+[MahApps.Metro](https://github.com/MahApps/MahApps.Metro)  
+[WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/overview/)
+
 ### Angabe
 
 Es existieren zahlreiche Web-Seiten und mobile Anwendungen, die uns Wettervorhersagen bis weit in die
